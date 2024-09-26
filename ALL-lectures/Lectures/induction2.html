@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Induction 2 </h2>
+</div>
+
+
+<hr>
+
+<h2></h2>
+
+  <p>
+    When learning induction, you have two tasks.  You need to learn to
+    use the method on practical examples.  And you need to understand
+    why the method works.  You can tackle these separately, e.g. learn
+    to use the method while you're still figuring out whether you
+    believe it's legitimate.
+
+  <p>
+    Here are three different ways to think about why the method is valid.
+
+<h2>Dominoes</h2>
+
+  <p>
+    First, you can imagine the claim at each value of n as being a domino.   There's a first domino, followed
+    by a line of following dominoes.   It snakes around the engineering quad, then over to Chicago, then
+    heads up into space and out past Jupiter and so on forever.   If you push down the first domino, the
+    next one will fall, and then the next one, and so forth.    After a delay, the ones in Chicago start
+    falling.   After a bigger delay, the ones near Jupiter.   They don't all fall at once.   But if you
+    fix your attention on any one domino, eventually it falls.
+
+    
+  <p>
+    <img width=300 src="induction-figs/dominoes.png">
+
+
+<h2>Math axioms</h2>
+
+  <p>
+    Another perspective comes from mathematical foundations.    The basic set of axioms that define the
+    integers are designed so that induction works on the integers.    The set and the technique are
+    built together.   So of course induction works.   But only on the integers.    It's possible to build
+    a set that's very much like the integers but has extra numbers out at infinity, so induction can't
+    reach everything.
+
+  <p>
+    More specifically, there's two common ways to set up the basic axioms.    One has an axiom that
+    basically says "induction works on the integers."   The other method has an axiom called "well-ordering"
+    which is equivalent to induction working.   And the required proof is very short.
+  
+
+
+<h2>Recursion Fairy</h2>
+
+  <p>
+    And finally there is the recursion fairy!
+
+  <p>
+    <img width = 400 src="induction-figs/recursion-fairy-small.jpg">
+
+  <p>
+    She comes in March bringing gifts for good childrent ... oops, wrong character.
+The recursion fairy is magical, so she can write long proofs extremely quickly.
+
+<p>    An induction proof is basically
+  a proof skeleton.   If I give you any integer (e.g. 357), you can assemble a direct proof like this:
+
+  <blockquote>
+  P(0) <br>
+  if P(0), then P(1)<br>
+  if P(1), then P(2)<br>
+  ...<br>
+ if P(356), then P(357)<br>
+  </blockquote>
+
+<p>
+  The only problem is that these direct proofs could get very very long and perhaps you need this verification
+  for many specific integers.
+  Whenever you need the direct proof for (say) 2859, you summon the recursion fairy.
+  She writes it out on a very long piece of paper using her magical ultra-fine pen and handles you the
+  direct proof.
+
+<p>
+  This is actually what a compiler will do if you run a recursive function.
+  It looks magical to you.    But secretly the assembly code is building
+  a series of stack frames, one for each recursive call.   And it builds these
+  stack frames exactly up to the depth of recursion you happen to need
+  for your current problem.
+
+</body>
+</html>

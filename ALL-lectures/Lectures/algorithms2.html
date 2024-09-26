@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Algorithms 2 </h2>
+</div>
+
+
+<hr>
+
+<h2>Proving a primitive function relationship</h2>
+
+
+  <p>
+    Let's see how to prove one of the relationships in our ordering of primitive
+    functions:  \(n^2 << 2^n\).
+
+<p>
+We need to show that 
+\(\lim_{n \rightarrow \infty} \frac{n^2}{2^n}  = 0\).
+
+
+<p>
+Recall from calculus that \(a^n\) limits to zero as n gets big, if \(a < 1\).
+So, in particular, \(\lim_{n \rightarrow \infty} (3/4)^n = 0\).
+
+<p>
+We're going to show that
+\(\frac{n^2}{2^n}\) limits to zero by showing that
+the terms of this sequence are smaller than the terms of 
+\((3/4)^n\), with a bit of an offset in the indexing.   
+Since the larger sequence limits to zero, the smaller one must also do so.
+
+<p>
+To show this, we need the following lemma:
+
+<blockquote>
+   Lemma: If n is big enough (n >= 5), then 
+        \((n+1)^2   < \frac{3}{2} n^2\).
+</blockquote>
+
+<p>
+This requires a short direct proof.
+
+<p>
+To understand how the two sequences are related, 
+let's compare
+\(\frac{n^2}{2^n}\) to 
+\(\frac{ (n+1)^2}{2^{n+1}}\).
+The lemma says that the top of the fraction
+increases by less than \(\frac{3}{2}\).
+The bottom increases by a factor of 2.
+So the whole fraction increases by less than
+\(\frac{3}{4}\).
+As we move forward in the sequence, we accumulate
+factors of \(\frac{3}{4}\).
+
+<p>
+  So, if we can find a starting relationship between
+  terms of the two sequences, we can pin down the
+  details of a relationship between the sequences.
+  With a bit of fiddling around plugging in small constants for n,
+  we find a good starting point:
+
+  <blockquote>
+    At n=5<br>
+    \(\frac{n^2}{2^n} = \frac{25}{32}\) <br>
+    \((3/4)^{n-5} = (3/4)^0 = 1\) <br>
+    So \(\frac{n^2}{2^n} < (3/4)^{n-5}\) at n=5.
+  </blockquote>
+
+<p>
+  So here's the claim we'll prove by induction:
+
+<blockquote>
+Claim: \(\frac{n^2}{2^n} < (3/4)^{n-5}\) for all \(n \ge 5\).
+</blockquote>
+
+<h2>The induction proof</h2>
+
+<p>
+  Proof by induction on n.
+
+<p>
+  Base case: At n=5,
+    \(\frac{n^2}{2^n} = \frac{25}{32}\).   Also,
+    \((3/4)^{n-5} = (3/4)^0 = 1\).  So \(\frac{n^2}{2^n} < (3/4)^{n-5}\).
+
+<p>
+  Inductive hypothesis:   suppose that
+  \(\frac{n^2}{2^n} < (3/4)^{n-5}\) for n = 5, 6, ..., k.
+
+<p>
+Rest of inductive step:  
+  By the lemma
+
+\(\frac{(k+1)^2}{2^{k+1}} < (\frac{3}{2})  \frac{k^2}{2^{k+1}} =
+			    (\frac{3}{2}) \frac{k^2}{2\cdot 2^k} = 
+			    (\frac{3}{4}) \frac{k^2}{2^k}
+			    \)
+
+<p>
+By the inductive hypothesis, 
+\(\frac{k^2}{2^k} < (3/4)^{k-5}\).
+Substituting into the previous equation gives us:
+			
+\[\frac{(k+1)^2}{2^{k+1}} < (\frac{3}{4}) \frac{k^2}{2^k}
+        < (\frac{3}{4}) (3/4)^{k-5} = (3/4)^{k-4}  
+			    \]
+
+
+<p>
+So  \(\frac{(k+1)^2}{2^{k+1}} < (3/4)^{k-4}\), which is what we needed to prove.
+
+
+<h2>Inequality induction</h2>
+
+<p>
+  Our final proof was fairly simple.   However, we needed to fiddle around with
+  the pieces of the problem to figure out exactly what constants we needed
+  and how to compare bits of algebra.    Inequality induction problems often
+  require more scratchwork than problems involving equality.
+
+<p>
+  Suppose you need to prove that \(a < b\), where a and b are two bits of algebra.
+  There's a gap in size between a and b.   Frequently you have to hypothesize som
+  intermediate term c, for which \(a < c < b\) in order to make your algebra work.
+  Sometimes you have to fiddle around with scratchwork to find the right c
+  that makes it easy to prove that  \(a < c\) and \(c < b\).
+
+</body>
+</html>

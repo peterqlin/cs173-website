@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>State Diagrams 1 </h2>
+</div>
+
+
+<hr>
+
+<h2>The Jug Puzzle</h2>
+
+
+<p>
+In the movie "Die Hard 3," the bad guy forces our heroes to solve this puzzle:
+
+<blockquote>
+There are two jugs:  5 gallon and 3 gallon.<br>
+You must measure out exactly 4 gallons.
+</blockquote>
+    
+<p>
+The jugs are unmarked.   So your solution needs to use three types of actions:
+
+<ul>
+<li> fill a jug to the top,
+<li> empty a jug, and 
+<li> pour water from one jug to the other, stopping when the source is empty or the
+destination is full.
+</ul>
+
+<p>
+Naturally, the heroes of Die Hard have
+to produce a solution way too little time, with the threat of something bad happening
+if they fail.   So the dramatic tension
+builds and builds and ...
+We can figure it out in a more peaceful setting.
+
+<p>
+This is actually one of a family of similar puzzles that have floated
+around mathematical circles for a long time.   You can change the jug sizes and/or
+the number of jugs, and see how that affects what quantities you can measure out.
+
+<h2>Model as a state diagram</h2>
+
+<p>
+Let's model this problem as a state diagram.
+
+<p>
+First we need to decide how to represent the state of the world.   It's enough to know how
+much water is in each of the jugs.   So each state can be x/y, where x is the amount of
+water in the small jug and y is the amount in the big jug.
+The process of moving water will produce only integer quantities, so x and y are integers.
+
+<p>
+How many different states?   x can be 0, 1, 2, or 3.    y can be 0, 1, 2, 3, 4, or 5. 
+So there are \(4 \times 6 = 24\) different states.
+
+<p>
+What specific actions will get us from one state to another?
+
+<ul>
+<li> fill 3 gallon jug  (F3)
+<li> fill 5 gallon jug  (F5)
+<li> empty 3 gallon jug  (E3)
+<li> empty 5 gallon jug  (E5)
+<li> pour water from 3 to 5 (P3->5)
+<li> pour water from 5 to 3 (P5->3)
+</ul>
+
+<p>
+Our start state is 0/0.   
+
+<p>
+Our end states are states where one jug contains exactly 4 gallons.    Obviously this must be the
+big jug.   So the end states are 0/4, 1/4, 2/4, and 3/4.   State diagrams can only have one start
+state but they can have multiple end states.
+
+<p>
+Here's part of the state diagram.    
+
+<p>
+<img width=300 src="automata-figs/jugs1.png">
+
+<p>
+Notice that the start state is marked with an arrow.
+Also notice that there's a lot of edges even among these four states and there's a lot of ways
+to go around in circles.    So I'm not going to draw all 24 states and all the possible connections.
+This would be an excellent places to use a short python script.
+
+<p>
+Here's a bit more of the state diagram, showing a pour action.    The pour action is reversible.   However,
+suppose you're in state 3/2 and empty the 5-gallon jug.   There's no action that will directly put 2 gallons
+back into the big jug.  So some pairs of states have only a one-way connection.
+
+<p>
+<img width=300 src="automata-figs/jugs2.png">
+
+<p>
+Here's the rest of the states and actions involved in one solution to the problem.   Notice that the
+final state 3/4 is shown with a double circle.
+
+<p>
+<img width=300 src="automata-figs/jugs3.png">
+
+<p>
+Here's a different section of the diagram, showing a second solution to the puzzle:
+
+<p>
+<img width=300 src="automata-figs/jugs4.png">
+
+<p>
+However, there doesn't seem to be any way to get from the start state to either of
+the other two end states (1/4 and 2/4).
+Our python script might be designed to map out the entire diagram.   Or we might design
+it to trace outwards from the start state and show only states that can be reached from
+the start state.
+
+
+</body>
+</html>

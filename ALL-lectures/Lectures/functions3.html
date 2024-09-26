@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1"><meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+	<title>CS173 Lectures</title>
+	<link href="../menu.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!--- load Mathjax ---><script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!--- Cute course logo --->
+<div style="float:left"><img alt="UI logo" src="graphics/plain-logo.png" style="height:40px; width:28px" /></div>
+
+<div style="float:left">CS 173<br />
+Spring 2021</div>
+
+<div class="center">
+<h2>Functions 3</h2>
+</div>
+
+<hr />
+<h2>Definition of one-to-one</h2>
+
+<p>Now, let&#39;s look at the formal definition of one-to-one. Recall that a function is one-to-one if it doesn&#39;t do this:</p>
+
+<p><img src="functions-figs/not-one-to-one-simple.png" style="width:300px" /></p>
+
+<p>Suppose we have a function \(f: A \rightarrow B\). People often describe one-to-one informally as &quot;every element of A has a distinct image.&quot; That&#39;s true, but a bit vague. What is its image supposed to be distinct from? It&#39;s best not to use this as a formal definition.</p>
+
+<p>Here&#39;s a precise statement of what we intended to say:</p>
+
+<blockquote>For any x,y in A, if \(x \not= y\), then \(f(x) \not= f(y)\).</blockquote>
+
+<p>This is good for understanding. But it&#39;s hard to write proofs following this structure. The information given in the hypothesis is negative. If x and y have internal structure (e.g. a pair rather than just a number), there could be multiple ways for them not to be equal. That&#39;s not a good starting point for a proof.</p>
+
+<p>For writing proofs, it&#39;s better to use the contrapositive:</p>
+
+<blockquote>For any x,y in A, if \(f(x) = f(y)\), then \(x = y\).</blockquote>
+
+<p>The contrapositive version gives you a strong piece of positive information as your starting point.</p>
+
+<h2>One-to-one proof</h2>
+
+<p>Consider this problem:</p>
+
+<blockquote>Suppose that \(g:\mathbb{Z} \rightarrow \mathbb{Z}\) is one-to-one.<br />
+Also suppose that \(f:\mathbb{Z} \rightarrow \mathbb{Z}^2\) is defined by \(f(x) = (g(x)|x|, |x|)\).<br />
+Prove that f is one-to-one.</blockquote>
+
+<p>We&#39;ll pattern our proof on the contrapostive version of the definition. Notice that our claim is about f, and the inputs to f come from \(\mathbb{Z}\).</p>
+
+<blockquote>Proof: Let x and y be integers. Suppose that f(x) = f(y).<br />
+....<br />
+So x = y, which is what we needed to prove.</blockquote>
+
+<p>Now let&#39;s apply the definition of f:</p>
+
+<blockquote>Proof: Let x and y be integers. Suppose that f(x) = f(y).<br />
+By the definition of f, this means that \((g(x)|x|,|x|) = (g(y)|y|,|y|)\).<br />
+So \(g(x)|x| = g(y)|y|\) and \(|x| = |y|\).<br />
+....<br />
+So x = y, which is what we needed to prove.</blockquote>
+
+<p>Notice that we haven&#39;t used one piece of our given information: g is one-to-one. What that means is that if we know that g(x) = g(y), then we&#39;ll have x=y. So it would be good to derive the equation g(x) = g(y).</p>
+
+<blockquote>Proof: Let x and y be integers. Suppose that f(x) = f(y).<br />
+By the definition of f, this means that \((g(x)|x|,|x|) = (g(y)|y|,|y|)\).<br />
+So \(g(x)|x| = g(y)|y|\) and \(|x| = |y|\).<br />
+Dividing the first equation by the second, we get \(g(x) = g(y)\).<br />
+Since g is one-to-one, this implies that x = y, which is what we needed to prove.</blockquote>
+
+<p>Well, almost. What did your teachers warn you about checking when you divide by a mystery quantity? Oh, yeah, what if \(x = y = 0\)?</p>
+
+<p>But this still wasn&#39;t such a bad draft proof. It&#39;s handling all but one value and perhaps we can just add a special-case patch....</p>
+
+<blockquote>Proof: Let x and y be integers. Suppose that f(x) = f(y).<br />
+By the definition of f, this means that \((g(x)|x|,|x|) = (g(y)|y|,|y|)\).<br />
+So \(g(x)|x| = g(y)|y|\) and \(|x| = |y|\).
+<p>There are two cases:</p>
+
+<p>Case 1: If \(|x| = |y| = 0\), then x=y.</p>
+
+<p>Case 2: \(|x| = |y| \not = 0\). Dividing \(g(x)|x| = g(y)|y|\) by \(|x| = |y|\) gives us \(g(x) = g(y)\).<br />
+Since g is onto, this implies that x = y.</p>
+
+<p>In both cases, x=y, which is what we needed to prove.</p>
+</blockquote>
+
+<h2>Obstruse abstract proof with both onto and one-to-one</h2>
+
+<p>Consider this claim:</p>
+
+<blockquote>Claim: For any sets A, B, and C, and any functions \(g: A\rightarrow B\) and \(f: B\rightarrow C\), If \(f \circ g\) is one-to-one and g is onto, then f is one-to-one</blockquote>
+
+<p>What does this even mean and why do I think it&#39;s true? It&#39;s probably a good idea to pin that down before launching into writing a formal proof.</p>
+
+<p>First, recall the definition of \(f \circ g\).</p>
+
+<blockquote>\((f \circ g)(x) = f(g(x)) \)</blockquote>
+
+<p>This is a place where you need to be careful and check what convention the class is using. There are mathematicians who define \(\circ\) so that the functions end up in the opposite order. It doesn&#39;t really matter as long as everyone in the class is using the same convention.</p>
+
+<p>Now, let&#39;s use a bubble diagram to keep track of where the various functions go. Otherwise it&#39;s easy to get confused about where inputs and outputs live.</p>
+
+<p><img src="functions-figs/composed-function.png" style="width:350px" /></p>
+
+<p>It probably kind-of makes sense that the one-to-one-ness of f and \(f \circ g\) should be related somehow. But why is onto involved? Let&#39;s look at a concrete example.</p>
+
+<p>At once point, a lot of the CS theory faculty at U. Illinois played World of Warcraft. In this game, people really got into designing their avatars. So perhaps Jeff Erickson may have played as an elf with a purple braid. We can model this up as a mapping from each person to their avatar, and then a mapping from each World of Warcraft avatar to its hairstyle. \(f \circ g\) then maps each faculty member to their avatar&#39;s hairstyle.</p>
+
+<blockquote>g:{CS theory faculty} \(\rightarrow\) {World of Warcraft avatars}<br />
+f: {World of Warcraft avatars} \(\rightarrow\) {hairstyles}</blockquote>
+
+<p>There were only 10 CS theory faculty and the game supports about 3000 different hairstyles (including color). So it&#39;s plausible that every faculty member had an avatar with a different hairstyle. In other words, \(f \circ g\) is one-to-one.</p>
+
+<p>However there were about 10 million World of Warcraft subscribers at the time, each with their own avatar. So it&#39;s impossible for all the avatars to have distinct hairstyles, because there are only 3000 of them. So f can&#39;t be one-to-one.</p>
+
+<p>The reason for this problem is that someone else (e.g. Michelle Obama) might be playing as an elf (\(e_M\)) with the same purple braid as Jeff&#39;s avatar (\(e_J\)). The function g can&#39;t be onto because the set of WOW avatars (10 million avatars) is much bigger than the set of CS theory faculty (10 people).</p>
+
+<p><img src="functions-figs/wow-avatars.png" style="width:400px" /></p>
+
+<p>So our claim about one-to-one is only going to work for the case when g&#39;s output covers the entire middle set B.</p>
+
+<h2>Proof of the claim</h2>
+
+<p>Now, let&#39;s try to prove our original claim. First, sketch out a standard direct proof outline:</p>
+
+<blockquote>Proof: Let A, B, and C be sets and suppose that \(g: A\rightarrow B\) and \(f: B\rightarrow C\) are functions. Also suppose that \(f \circ g\) is one-to-one and g is onto.
+<p>...</p>
+
+<p>Then f is one-to-one. \(\Box\)</p>
+</blockquote>
+
+<p>Our goal is to prove that f is one-to-one. So let&#39;s expand that outline. Notice that the inputs to f come from set B, so that&#39;s where we need to pick our two values from.</p>
+
+<blockquote>Proof: Let A, B, and C be sets and suppose that \(g: A\rightarrow B\) and \(f: B\rightarrow C\) are functions. Also suppose that \(f \circ g\) is one-to-one and g is onto.
+<p>Let x and y be elements of B. Suppose that \(f(x) = f(y)\).</p>
+
+<p>...</p>
+
+<p>Then x=y.</p>
+
+<p>Since \(f(x) = f(y)\) implies that x=y, f is one-to-one. \(\Box\)</p>
+</blockquote>
+
+<p>Now what? Let&#39;s put x and y onto our bubble diagram</p>
+
+<p><img src="functions-figs/hard-proof-1.png" style="width:500px" /></p>
+
+<p>The most relevant piece of given information is that \(f \circ g\) is one-to-one. But the inputs to \(f \circ g\) live in A. So, in order to use this fact, we have to create some values that live in A. This is where we need the fact that g is onto. Because g is onto, x and y have pre-images in A. Let&#39;s call them p and q and add them to our picture.</p>
+
+<p><img src="functions-figs/hard-proof-2.png" style="width:500px" /></p>
+
+<p>Now let&#39;s write that step into our proof.</p>
+
+<blockquote>Proof: Let A, B, and C be sets and suppose that \(g: A\rightarrow B\) and \(f: B\rightarrow C\) are functions. Also suppose that \(f \circ g\) is one-to-one and g is onto.
+<p>Let x and y be elements of B. Suppose that \(f(x) = f(y)\).</p>
+
+<p>Since g is onto, there are p and q in A such that \(g(p) = x\) and \(g(q) = y\).</p>
+
+<p>...</p>
+
+<p>Then x=y.</p>
+
+<p>Since \(f(x) = f(y)\) implies that x=y, f is one-to-one. \(\Box\)</p>
+</blockquote>
+
+<p>Now, if you trace the arrows on the diagram, you can see that</p>
+
+<blockquote>\((f \circ g)(p) = f(g(p)) = f(x)\)<br />
+\((f \circ g)(q) = f(g(q)) = f(y)\)<br />
+f(x)= f(y)<br />
+So \((f \circ g)(p) = (f \circ g)(q)\).</blockquote>
+
+<p><img src="functions-figs/hard-proof-3.png" style="width:500px" /></p>
+
+<p>Now we can use the fact that \(f \circ g\) is one-to-one! Let&#39;s put this all into our proof.</p>
+
+<blockquote>Proof: Let A, B, and C be sets and suppose that \(g: A\rightarrow B\) and \(f: B\rightarrow C\) are functions. Also suppose that \(f \circ g\) is one-to-one and g is onto.
+<p>Let x and y be elements of B. Suppose that \(f(x) = f(y)\).</p>
+
+<p>Since g is onto, there are p and q in A such that \(g(p) = x\) and \(g(q) = y\).</p>
+
+<p>\((f \circ g)(p) = f(g(p)) = f(x) = f(y) = f(g(q)) = (f \circ g)(q)\)</p>
+
+<p>Since \(f \circ g\) is one-to-one and \((f \circ g)(p) = (f \circ g)(q)\), p=q.</p>
+
+<p>We&#39;ve shown that \(f(x) = f(y)\) implies that x=y. So f is one-to-one. \(\Box\)</p>
+</blockquote>
+
+<p>Uh, almost. The end of that second to last line isn&#39;t quite the same as what we need at the end (x=y). But we&#39;re actually almost done. If p=q, then g(p)=g(q). But g(p) = x and g(q) = y. Let&#39;s patch this into the proof.</p>
+
+<blockquote>Proof: Let A, B, and C be sets and suppose that \(g: A\rightarrow B\) and \(f: B\rightarrow C\) are functions. Also suppose that \(f \circ g\) is one-to-one and g is onto.
+<p>Let x and y be elements of B. Suppose that \(f(x) = f(y)\).</p>
+
+<p>Since g is onto, there are p and q in A such that \(g(p) = x\) and \(g(q) = y\).</p>
+
+<p>\((f \circ g)(p) = f(g(p)) = f(x) = f(x) = f(g(q)) = (f \circ g)(q)\)</p>
+
+<p>Since \(f \circ g\) is one-to-one and \((f \circ g)(p) = (f \circ g)(q)\), p=q.</p>
+
+<p>Since p=q, g(p) = g(q). So x = g(p) = g(q) = y.</p>
+
+<p>We&#39;ve shown that \(f(x) = f(y)\) implies that x=y. So f is one-to-one. \(\Box\)</p>
+</blockquote>
+
+<p>The final proof isn&#39;t particularly long. However, it&#39;s not easy to figure out how it has to go. And you can see that it would be easy to make mistakes without the bubble diagram.</p>
+</body>
+</html>

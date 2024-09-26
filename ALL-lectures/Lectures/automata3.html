@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>State Diagrams 3 </h2>
+</div>
+
+
+<hr>
+
+<h2>Conway's Game of Life</h2>
+
+<p>
+  So far, we've seen state diagrams with a finite number of states.   But some of the
+  most interesting applications involve infinite state spaces.    A good example is
+ <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"> 
+ John Conway's Game of Life</a>.  It's actually a little simulator, very loosely motivated by
+  the behavior of populations.   The player gets to input the 
+  starting state and then the rules take over.
+
+<p>
+  The playing space is an infinite checkerboard.   You start by marking soem cells as
+  "live".   When moving from step to step, you consider the eight neighbors of each cell
+  (i.e. diagonal neighbors count).
+
+  <ul>
+  <li>  A cell with 0-1 live neighbors, or 4-8 live neighbors, stays/becomes dead.
+  <li>  A cell with 2 live neighbors keeps its current status.
+  <li>  A cell with 3 live neighbors stays/becomes live.
+  </ul>
+
+<p>
+  Here's a simulator that we can play with:
+
+  <ul>
+<li> <a href="https://playgameoflife.com/"> simulator</a>
+by Edwin Martin (edwin@bitstorm.org)
+  </ul>
+
+<p>
+This starting configuration dies away:
+
+  <pre>
+  XXX
+  X X
+  </pre>
+
+<p>
+This one doesn't change:
+
+  <pre>
+    XX
+   X  X
+    XX   
+  </pre>
+
+<p>
+This one turns into an oscillator:
+
+  <pre>
+    X
+   XXX
+    X   
+  </pre>
+
+
+The 
+ <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"> 
+   wikipedia page</a> has a collection of fun patterns that you can  put into the
+ simulator..
+
+<h2>Gliders</h2>
+
+<p>
+When the game was published in Scientific American in 1970, there was a big
+interest in working out patterns that would do fun things.    For example,
+the "glider" (below) moves across the board.  
+A lot of this had to be worked out on graph paper, because there were very few
+computers and they were very primitive.
+
+<p>
+glider
+
+  <pre>
+    X X
+     XX
+     X   
+  </pre>
+
+
+<p>
+  You can argue about whether a glider needs an infinite state space.   Perhaps
+  we can simply re-normalize the playing field so that it follows the glider.
+  However, if your starting configuration contains a non-moving object as well
+  as the glider, then the state space is clearly infinite because the distance
+  between the two objects increases without bound.
+
+<p>
+  Even more interesting is a glider gun, first produced by Bill Gosper.   This
+  generates an increasing sequence of gliders, so that the number of live cells
+  in the system increases.
+
+<p>
+  <img src="automata-figs/Gospers_glider_gun.gif">
+<br>
+  glider gun from wikipedia
+
+<h2>Wrap up</h2>
+
+<p>
+  Notice that a Game of Life configuration does one of three things:
+
+  <ul>
+<li> "Halts": It stops changing after a while.
+<li> "Repeats": It gets into a repeating loop after a while.
+<li> "Aperiodic": The configuration keeps changing but it's not returning to the same
+  configuration.
+  </ul>
+
+<p>
+  If we just had the first two types of behavior, we could watch the system for a while
+  and it would eventually halt or repeat a state.   However, it's not clear how to tell
+  whether the system is aperiodic or we just haven't waited long enough to see a halt
+  or repeated state.
+
+<p>
+  Closely related to the aperiodic behavior is the fact that you can
+  simulate a Turing Machine, i.e.  a very simple stripped-down
+  computer, using the Game of Life.
+
+</body>
+</html>

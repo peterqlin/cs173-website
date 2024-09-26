@@ -1,0 +1,257 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Proofs 2 </h2>
+</div>
+
+
+<hr>
+
+  <p>
+    In this video, we'll see two simple extensions of direct proof:
+    proof by contradiction and proof by cases.
+
+<h2>Proof by contrapositive </h2>
+
+  <p>
+    Recall that an if/then statement \(\forall x, p(x) \rightarrow q(x) \)
+  is equivalent to its contrapositive
+\(\forall x, \neg q(x) \rightarrow \neg p(x)\).  
+    If we prove either one, we have proved the other.
+    Sometimes the contrapositive of a claim is easier to prove
+    than the original.
+
+  <p>
+    With some practice, you'll develop intuitions about when the contrapositive
+    might be easier to prove.   I usually compare p(x) to \(\neg q(x)\) and see
+    which looks like a better starting point.   For example, \(\neg q(x)\) might
+    have an AND of two facts rather than an OR, or it might have separate facts
+    about each variable where p(x) has a fact in which two variables are combined.
+
+  <p>
+    Consider this claim:
+
+    <blockquote>
+  Claim:  For any real number x, if \(x^2 - 2x - 15 \ge 0\),
+  then \(x \ge 2\) or \(x \le -1\).
+
+    </blockquote>
+
+  <p>
+    
+  <p>
+    To write a proof by contradition, we tell the reader what
+    we are doing, write out the contrapositive, and outline
+    a direct proof of the contrapositive.   So, for our claim, we have:
+
+<blockquote>
+  Proof:   Let's prove the contrapositive of the claim.   That is, we'll
+  prove that
+for any real number x, if 
+   \(x < 2\) and \(x > -1\), then \(x^2 - 2x - 15 < 0\),
+
+   <p>
+   So let x be a real number and suppose that
+   \(x < 2\) and \(x > -1\)<br>
+    .... <br>
+
+    So then \(x^2 - 2x - 15 < 0\), which is what we needed to show.  
+</blockquote>
+
+<p>
+Always tell the reader when you're using an outline other than
+direct proof.   In this class, write out the contrapositive explicitly
+because it forces you to take a moment to make sure you have
+constructed it correctly.  
+
+<p>
+  Since it's not obvious how to move forwards from the given information,
+let's work backwards on scratch paper:
+
+<blockquote>
+Scratch paper: Try factoring \(x^2 - 2x - 15\).  
+It's equal to \((x-5)(x+3)\). 
+So we need to show that \((x-5)(x+3) < 0\).
+That means that one of the two factors must be negative and the
+other positive.   The bigger one (x+3) must be positive.
+So we need to show that 
+\(x-5 < 0 \) and \(x+3 > 0\).
+</blockquote>
+
+<p>
+Let's rewrite this into forwards order and put it into our draft
+proof:
+
+
+
+<blockquote>
+  Proof:   Let's prove the contrapositive of the claim.   That is, we'll
+  prove that
+for any real number x, if 
+   \(x < 2\) and \(x > -1\), then \(x^2 - 2x - 15 < 0\),
+
+   <p>
+   So let x be a real number and suppose that
+   \(x < 2\) and \(x > -1\)<br>
+    .... <br>
+    So \(x-5 < 0 \) and \(x+3 > 0\). <br>
+    So \((x+3)(x-5) < 0\). <br>
+    Multiplying out the lefthand side, gives us
+    \(x^2 - 2x - 15 < 0\), which is what we needed to show.  
+</blockquote>
+
+<p>
+Now we have a small algebra gap to fill in, and our final proof
+looks like this:
+
+<blockquote>
+  Proof:   Let's prove the contrapositive of the claim.   That is, we'll
+  prove that
+for any real number x, if 
+   \(x < 2\) and \(x > -1\), then \(x^2 - 2x - 15 < 0\),
+
+   <p>
+   So let x be a real number and suppose that
+   \(x < 2\) and \(x > -1\)<br>
+   Since \(x < 2\),&nbsp; &nbsp;\( x-5 < 2-5 = -3 < 0\). <br>
+   Since \(x > -1\),&nbsp; &nbsp; \(x+3 > -1 + 3 = 2 > 0\).<br>
+    So \(x-5 < 0 \) and \(x+3 > 0\). <br>
+    So \((x+3)(x-5) < 0\). <br>
+    Multiplying out the lefthand side, gives us
+    \(x^2 - 2x - 15 < 0\), which is what we needed to show.  
+</blockquote>
+
+<p>
+Notice that filling this final gap required losing information.
+We know that \(x-5\) is less than -3 but our
+conclusion only requires that it's less than 0.
+And similarly for the other factor.
+Weakening information like this is a valid mathematical step, but
+it's one that we would never consider if we hadn't worked backwards
+from the desired conclusion.
+
+
+<h2>Proof by Cases</h2>
+
+<p>
+  Proof by cases allows you to make forward progress when your
+  known information is an OR of two (or more) possibiilties.  Here's 
+  the outline when there two possibilities.
+  
+<blockquote>
+<p>
+There are 2 cases:
+
+<p>
+Case 1:  [when is case 1 true?]  ....  Fact X.
+
+<p>
+Case 2:  [when is case 2 true?]  ....  Fact X.
+
+<p>
+In both cases, Fact X is true. ...
+
+</blockquote>
+
+<p>
+The two cases must cover all the possibilites, but they can overlap (i.e.
+cover some possibilities twice).  All the cases end at the same conclusion.
+The proof then picks up again from that common conclusion.
+
+<p>
+Consider the following claim.
+
+<blockquote>
+Claim:   For any real number x, if \(|x-3| > 10\), then \(x^2 > 40\).
+</blockquote>
+
+<p>
+We first set up our standard direct proof outline:
+
+<blockquote>
+Proof:  Let x be a real number and suppose that \(|x-3| > 10\).<br>
+...<br>
+So \(x^2 > 40\).
+</blockquote>
+
+<p>
+The absolute value is hiding two possibilities, depending on the sign
+of x-3.   So let's make this explicit using cases:
+
+<blockquote>
+Proof:  Let x be a real number and suppose that \(|x-3| > 10\).<br>
+
+<p>
+  There are two cases depending on the sign of x-3:
+
+<p>
+  Case 1:  \(x-3 \ge 0\). ....
+      
+<p>
+  Case 2:  \(x-3 \le 0\). ....
+
+
+<p>
+...<br>
+So \(x^2 > 40\).
+</blockquote>
+
+  <p>
+    Now we fill in the argument for each case:
+
+<blockquote>
+Proof:  Let x be a real number and suppose that \(|x-3| > 10\).<br>
+
+<p>
+  There are two cases depending on the sign of x-3:
+
+<p>
+  Case 1:  \(x-3 \ge 0\).  Then \(x-3 = |x-3| > 10\).  So
+      \(x > 13\).   So \(x^2 > 169 > 40\).
+      
+<p>
+   Case 2:   \(x-3 \le 0\).  Then \(-(x-3) = |x-3| > 10\).  So
+   \(-x + 3 > 10\).  So \(-x > 7\).   So \(x^2 = (-x)^2 > 49 > 40\).
+
+<p>
+In both cases \(x^2 > 40\), which is what we needed to show.
+</blockquote>
+
+
+<p>
+In this case, the cases covered pretty much the whole proof.   However,
+the cases can cover only a small section in the middle of a longer proof.
+
+
+</body>
+</html>

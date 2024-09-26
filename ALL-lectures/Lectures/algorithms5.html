@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1"><meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+	<title>CS173 Lectures</title>
+	<link href="../menu.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!--- load Mathjax ---><script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!--- Cute course logo --->
+<div style="float:left"><img alt="UI logo" src="graphics/plain-logo.png" style="height:40px; width:28px" /></div>
+
+<div style="float:left">CS 173<br />
+Fall 2021</div>
+
+<div class="center">
+<h2>Algorithms 5</h2>
+</div>
+
+<hr />
+<h2>Overview</h2>
+
+<p>Many useful problems take polynomial time to solve. &quot;Polynomial time&quot; includes running times whose dominant term is a polynomial of any order, even nasty ones like \(O(n^{47})\), and any functions that are smaller than a polynomial, e.g. \(O(n\log n)\). So P, all polynomial algorithms, includes most of the algorithms you&#39;ve seen and will see in coding classes.</p>
+
+<p>Another easily-described class of problems can be solved in exponential time. This group EXP includes everything in P, and then some other problems.</p>
+
+<p><img src="algorithms-figs/np-venn1.png" style="width:300px" /></p>
+
+<p>In between these is a third class of problems NP, which can be done in exponential time but we&#39;re not sure whether they really require exponential time or can actually be done in polynomial time.</p>
+
+<p><img src="algorithms-figs/np-venn2.png" style="width:300px" /></p>
+
+<p>There are a few types of algorithms that take more than exponential time, but we&#39;re not going to talk about those.</p>
+
+<h2>Requires exponential time</h2>
+
+<p>Some problems are known to require exponential time. For example, the structure of the Towers of Hanoi problem forces any solution to this form:</p>
+
+<p><img src="algorithms-figs/hanoi.png" style="width:300px" /></p>
+
+<p>The big disk can only be moved when it&#39;s the only thing on its peg, and it must move to an empty peg. So the only way to move the stack is to get everything off the big disk, then move the big disk, then move the rest of the stack. That&#39;s what our pseudocode does. And we end up with this recursive running time function, whose closed form is \(O(2^n)\).</p>
+
+<blockquote>T(1) = c<br />
+T(n) = 2T(n-1) + d</blockquote>
+
+<p>Some algorithms take exponential time because their output is exponential in size. For example, consider the problem of producing all parse trees for a sentence. Consider a sentences like this one:</p>
+
+<blockquote>I saw a unicorn in the shed by the apple tree with a red hat.</blockquote>
+
+<p>This contains three prepositional phrases:</p>
+
+<blockquote>I saw a unicorn [in the shed] [by the apple tree] [with a red hat].</blockquote>
+
+<p>Each prepositional phrase could, in principle, modify any of the previous nouns. So if we consider &quot;with a red hat,&quot; the hat might be on the unicorn, or the shed, or the apple tree. This sort of sentence is rare in conversational speech, but happens rather often in written news stories. If a sentence like this has n prepositional phrases, and each one has at least two nouns it could modify, then the number of parse trees is at least \(O(2^n)\).</p>
+
+<p>People and computer understanding systems actually use more efficient methods. So we use commonsense knowledge to narrow down the possibilities as we build up a parse tree. For example, sheds don&#39;t normally wear red hats. So an actual exponential running time would be for a theoretician&#39;s algorithm that was specifically required to produce all the possibilities.</p>
+
+<h2>What exactly is NP?</h2>
+
+<p>Let&#39;s look briefly at the theoretical definition of NP.</p>
+
+<p>First, these complexity classes (P, NP, EXP) technically contain only &quot;decision problems.&quot; A decision problem is a problem where you are given some input and asked to produce a yes/no answer. Informally, people extend this idea to other sorts of problems, because an algorithm that delivers more interesting answer (e.g. the chromatic number of a graph) can typically be built on top of an algorithm for the corresponding decision problem.</p>
+
+<p>Second, a decision problem is in NP if we can provide a succinct (polynomial-time) justification of a &quot;yes&quot; answer.</p>
+
+<h2>Graph coloring</h2>
+
+<p>Graph coloring is a typical example of a problem in NP. First, let&#39;s make it into a decision problem:</p>
+
+<blockquote>Can graph G be k-colored?</blockquote>
+
+<p>n is the number of nodes in the graph.</p>
+
+<p>We can determine the chromatic number of a graph by asking this question repeatedly for different values of k. (Notice that the chromatic number is between 1 and the number of nodes.)</p>
+
+<p>A &quot;yes&quot; answer to this question is easy to justify: we show a picture of the graph colored with k colors. The reader can easily verify that adjacent nodes always have different colors.</p>
+
+<p>A &quot;no&quot; answer is much harder to justify. Sometimes we can find a special graph or a simple approach to systematically searching. But the backup plan is to generate all \(k^n\) assignments of colors to nodes and check each one to see if it contains a pair of adjacent nodes with the same color.</p>
+
+<p>This doesn&#39;t imply that a &quot;yes&quot; answer is easy to find. We might have to do a systematic search to find the coloring, when one exists. A &quot;yes&quot; answer is just easy to justify once we&#39;ve found it.</p>
+
+<p>For many reasonable graphs, you can quickly find the chromatic number. This is typical of problems in NP. There are often useful practical algorithms that work in many situations, or for certain applications. The difficulty lies in building a fully-general algorithm that can handle any input graph quickly.</p>
+
+<h2>Satisfiability and Circuit safety</h2>
+
+<p>Two other standard examples of NP problems are Logic Satisifiability (SAT) and the very closely problem of Circuit Safety. A satisfiability algorithm is given a logical expression and must decide whether there is an assignment of true and false to the input variables that will make the whole expression true. For example, perhaps we set up a number of rules for characters in our video game such as</p>
+
+<blockquote>If Fred is an orc, then he is green.<br />
+If Fred is tall and not hairy, then he is an elf.</blockquote>
+
+<p>We might want to know whether this set of rules is consistent, in the sense that we can give Fred a set of attributes that satisfies all the rules.</p>
+
+<p>If we have a set of true/false values that makes the expression true, then we can easily convince you that it works. So a &quot;yes&quot; answer is easy to justify, but a &quot;no&quot; answer seems to require showing that we searched all exponentially many assignments.</p>
+
+<p>The circuit safety problem is given an electronic circuit and asked to verify that a certain set of output values is impossible. For example, suppose that we are designing the controller for the traffic lights at an intersection. We need to ensure that there is no set of sensor values that could cause it to give east-west traffic a green light at the same time as the north-south traffic.</p>
+
+<p>For circuit safety, the easy answer is &quot;no.&quot; If the circuit is unsafe, we can demonstrate this by showing a set of inputs that produce the unwanted configuration of output values. So the roles of &quot;yes&quot; and &quot;no&quot; are flipped. Problems like this are in co-NP. So our Venn diagram actually looks like this:</p>
+
+<p><img src="algorithms-figs/np-venn3.png" style="width:300px" /></p>
+
+<h2>NP Complete</h2>
+
+<p>Graph coloring and&nbsp;Satisfiability are examples of &quot;NP Complete&quot; problems. If a problem is NP-complete, then a polynomial-time solution for that problem would imply a polynomial-time solution for everything in NP. That is, NP and P would be equal.</p>
+
+<p>The key theoretical result is the Cook-Levin theorem (from 1971). It showed that we could use logical expressions to simulate any problem in NP. After that, researchers have shown how to simulate logical expression satisfiability using the machinery from other problems, e.g. graphs and how to color them. This has created a large set of problems known to be NP complete.</p>
+
+<p>Other NP complete problems include:</p>
+
+<ul>
+	<li>Bin packing: can we fit a set of objects of specific dimensions into a set of bins of specific sizes?</li>
+	<li>Travelling salesman problem: in a graph (e.g. of cities and highways), what is the shortest circuit that visits all the nodes?</li>
+</ul>
+
+<p>Marker making, which we saw earlier in the term, is a version of bin packing.</p>
+
+<p>An interesting property of NP complete problems is that they remain NP complete even when drastically simplified. So even the 1D version of bin-packing is NP complete. Graph coloring is NP complete as long as the number of colors is at least 3. Logic satisfiability is NP complete even when we restrict the formulas that are in 3CNF form:</p>
+
+<ul>
+	<li>The formula is the AND of a set of conjuncts.</li>
+	<li>Each conjunct is the OR of 1-3 individual variables or negated variables.</li>
+</ul>
+
+<h2>Warp up</h2>
+
+<p>It is widely suspected that NP complete problems require exponential time. However, this has not been proved and it&#39;s still possible that there is some clever way to solve them in polynomial time.</p>
+
+<p>The future seems to lie in approximation algorithms and algorithms that leverage the constraints of a specific application rather than solving the general problem. For example, register allocation in a compiler is a type of graph coloring problem. Practical algorithms for allocating registers exploit the ways in which code typically uses variables, as well as the fact that we now have a supply of registers that&#39;s generous compared to what the code actually needs.</p>
+
+<div style="display: block; opacity: 1; color-scheme: auto;">&nbsp;</div>
+</body>
+</html>

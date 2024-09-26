@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Algorithms 1 </h2>
+</div>
+
+
+<hr>
+
+<h2>Comparing the growth of two functions</h2>
+
+<p>
+  When designing computer algorithms, we need to figure out how long they will take
+  to run.  The actual wallclock time isn't very helpful.
+  It changes with the size of the input.
+  It depends on how expensive a machine you're running it on.   And it gets smaller over time,
+  as hardware gets faster.   We'd like
+  to provide an analysis that stays useful in a wide range of circumstances.
+
+<p>
+  Our main focus will be on how the algorithm's running time changes
+  as the problem size grows.  Computer Science is full of stories of
+  programs that seemed to work ok on small test examples, but failed
+  to handle larger ones.  That's supposedly one reason our own
+  registration system had so many problems when it was first
+  introduced to U. Illinois: its previous tests had been at much
+  smaller sites.
+
+<p>
+  So we'll be looking at differences in the shape of the running time
+  function, its "asymptotic complexity,"
+ignoring several factors:
+
+<ul>
+  <li> behavior on small input values
+  <li>  multiplicative constants
+  <li>  wiggling 
+</ul>
+
+<p>
+  Running time on small inputs is often dominated by constant set-up costs,
+  so doesn't accurately show how running time will scale up.   
+
+<p>
+  Ignoring multiplicative constants keeps the analysis stable across
+  changes in hardware.  This is a useful working approximation most of
+  the time.   However, be aware that there are times when you need to
+  step away from it.   For example, the standard quicksort library function
+  uses a method that doesn't have the best asymptotic complexity but has
+  extremely good constants.
+
+<p>
+  Finally, the actual running-time function may wiggle.   There may be good
+  and bad input values.   Discretization effects may mean that it has sudden
+  jumps at certain input sizes.   We will handle this by comparing our real
+  wiggly function to a set of simple benchmark functions.
+  
+
+<h2>Asymptotically smaller and similar</h2>
+
+<p>
+  A function f is "asymptotically smaller" than a function g 
+(shorthand \(f(n) \ll g(n) \))
+if and only if
+
+  \[\lim_{n\rightarrow \infty} \frac{f(n)}{g(n)} = 0\]
+
+<p>
+    This means that f(n) grows more slowly than g(n), as n gets large.
+    This relationship is important for determining which benchmark functions
+    grow faster than others, and for deciding which parts of a complex
+    running-time expression will dominate for larger inputs.  (See below.)
+
+<p>
+  Notice that I'm using "f(n)" and "g(n)" to name the functions.
+  We have previously been using just f and g.   However, when talking
+  about running times, it's convenient to include the variable because we'll
+  be comparing named functions like f(n) to nameless functions like \(n^2\).
+
+
+<p>
+  We can define a corresponding equality relationship "asymptotically similar"
+(shorthand \(f(n) \approx g(n) \)) by
+  
+  \[\lim_{n\rightarrow \infty} \frac{f(n)}{g(n)} = c\]
+  
+<p>
+  This forces the two functions to have similar shape as they approach infinity.
+  Notice that the limit is required to be a constant c
+  rather than 1.  This  makes the relationship
+  ignore constant multipliers.   So this satisfies two of our three goals.
+  However, it doesn't handle functions that wiggle, because the wrong type of
+  wiggling may cause the limit not to be defined.
+
+<h2>Big-O</h2>
+
+<p>
+  Because of the problem with wiggling, comparisons involving actual running times
+  of algorithms typically use "big O".   
+
+<blockquote>
+  f(n) is O(g(n)) if and only if there are positive reals c and k such that
+  \(0 \le f(n) \le cg(n)\) for every \(n \ge k\).
+</blockquote>
+
+<p>
+  Looking at the key parts of this definition:
+
+  <ul>
+    <li> The central constraint
+      \(f(n) \le cg(n)\) is basically like \(f(n) \le g(n)\) except that we're allowing
+      for a possible constant multiplier.
+      
+    <li> The modifier "for every \(n \ge k\)" means that we're not enforcing this constraint
+      for small input values.   The functions can do whatever they like on small inputs.
+
+    <li> \(0 \le f(n)\), together with c and k being positive, forces the values of both
+      f(n) and g(n) to be positive (except perhaps for small inputs).   Running-time functions
+      are always positive and negative numbers are a nuisance.
+  </ul>
+
+<p>
+  Big-O is a \(\le\) type relationship.   So   f(n) is O(g(n)) might mean that f(n) grows
+  more slowly than g(n) or it might mean that they grow at the same rate (for large inputs).
+  If we want to say that f(n) definitely grows more slowly, like <, we would use \(f(n) \ll g(n)\).
+  If we want to say that f(n) and g(n) grow at the same rate, i.e. big-O holds in both
+  directions, we say that f(n) is \(\Theta(g(n))\).
+
+<hr>
+<table rules = all frame=box cellpadding =5>
+
+  <tr>
+<td> < </td>
+<td> \( f \ll g\)</td>
+  </tr>
+
+
+  <tr>
+<td>\(\le\)</td>
+<td>f is O(g)</td>
+  </tr>
+
+  <tr>
+<td>\(= \)</td>
+<td>f is \(\Theta (g)\)</td>
+  </tr>
+
+</table>
+
+
+<p>
+To apply the definition of big-O, you need to select suitable values for c and k.
+You can often choose k=1.   To find c in simple cases involving positive coefficients,
+we can figure out c by adding up the coefficients on the terms of f(n).
+
+<blockquote>
+  \(f(n) = 2n^2 + 3n + 7\) <br>
+  \(g(n) = 2n^2 + n\)
+</blockquote>
+
+<p>
+The coefficients for f(n) sum to 12 and the coefficient on the leading term of g(n) is 2.
+So set c=6.
+Since we're considering only \(n \ge k\), we know that \(n^2 \ge n \ge 1\).   
+Then:
+
+<blockquote>
+  \(f(n) = 2n^2 + 3n + 7 \le  2n^2 + 3n^2 + 7n^2  = 12n^2\) <br>
+  &nbsp;&nbsp;&nbsp;
+\(= 6(2n^2) = c(2n^2) \le c(2n^2 + n) = cg(n)\)
+</blockquote>
+
+<p>
+There are exceptions where k=1 does not work.   
+For example, consider comparing \(\log n + 10\) to \(n\log n\).
+\(n\log n\) grows faster than  \(\log n + 10\).
+However, when n=1, \(\log n = 0\).   So \(n\log n = 0\)  but
+\(\log n + 10 = 10\).
+So you'd need to set k larger in this case.
+
+<h2>The dominant term method</h2>
+
+<p>
+In practice, most manipulation of big-O relationships uses the "dominant term" method.
+We strip any constant multipliers,
+then identify the fastest growing term for each of the two functions, 
+and compare these two dominant terms.
+
+<p>
+  To apply this method, we first need to understand the ordering of common
+  primitive functions.   For powers of n, we have this sequence:   
+
+  <blockquote>
+\(1 \ll n \ll n^2 \ll n^3 \ll n^4 \ll \ldots \)
+  </blockquote>
+
+<p>
+1 represents all constant functions.
+
+<p>
+  Two common fast running times are \(\log n\) and \(n \log n\).   We can insert these
+  into the sequence:
+
+  <blockquote>
+\(1 \ll \log n \ll n \ll n\log n \ll n^2  \ll \ldots \)
+  </blockquote>
+
+<p>
+  Notice that the base of the log does not matter.   The change of base formula means that
+  \(\log_a n\)  and \(\log_b n\) differ by a factor that depends on a and b, but not n.
+
+<p>
+  On the upper end of the sequence, we can add exponential running times and n!:
+
+  <blockquote>
+\(\ldots n^3 \ll n^4 \ll \ldots 2^n \ll 3^n \ll 4^n \ll \ldots \ll n!\)
+  </blockquote>
+
+<p>
+  Now, suppose that we are comparing these two functions:
+
+  <blockquote>
+    \(f(n) = n^4 + 3n! + 17\)  <br>
+   \(g(n) = 27 n^5 + n\log n + 4000\)
+  </blockquote>
+
+<p>
+  First, we remove the constant multipliers:
+
+  <blockquote>
+    f(n):  \( n^4 + n! + 1\)  <br>
+   g(n):  \(  n^5 + n\log n + 1\)
+  </blockquote>
+
+<p>
+The dominant terms are
+  
+  <blockquote>
+    f(n):  \( n!\)  <br>
+   g(n):  \(  n^5 \)
+  </blockquote>
+
+<p>
+  So f(n) grows faster than g(n).   So g(n) is O(f(n)) but not vice versa.
+
+</body>
+</html>

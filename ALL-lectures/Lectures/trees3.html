@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1"><meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+	<title>CS173 Lectures</title>
+	<link href="../menu.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!--- load Mathjax ---><script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!--- Cute course logo --->
+<div style="float:left"><img alt="UI logo" src="graphics/plain-logo.png" style="height:40px; width:28px" /></div>
+
+<div style="float:left">CS 173<br />
+Spring 2021</div>
+
+<div class="center">
+<h2>Trees 3</h2>
+</div>
+
+<hr />
+<h2>Grammar trees</h2>
+
+<p>Here&#39;s a sample context-free grammar:</p>
+
+<blockquote>Grammar G
+<blockquote>start symbols: S<br />
+<br />
+terminals: a, b, c<br />
+<br />
+\(S \rightarrow S S \mid S a c\)<br />
+\(S \rightarrow c a \mid b a\)</blockquote>
+</blockquote>
+
+<p>The two lines of rules are shorthand for four rules:</p>
+
+<blockquote>\(S \rightarrow S S\)<br />
+\(S \rightarrow S a c\)<br />
+\(S \rightarrow c a \)<br />
+\(S \rightarrow b a\)</blockquote>
+
+<p>Here are some trees from this grammar. Notice that each one has S as its root label and the leaves have labels a, b, or c. And the children of each node match the local pattern of one of the grammar rules.</p>
+
+<p><img src="trees-figs/in-grammar-1.png" style="width:300px" /> <img src="trees-figs/in-grammar-2.png" style="width:300px" /> <img src="trees-figs/in-grammar-3.png" style="width:200px" /> <img src="trees-figs/in-grammar-4.png" style="width:300px" /></p>
+
+<p>The strings corresponding to these trees are &quot;baacba&quot;, &quot;cacacaac&quot;, &quot;ca&quot;, and &quot;babaac&quot;. (I.e. read off the leaves from left to right.)</p>
+
+<p>The trees below don&#39;t match this grammar. The root label on the lefthand one isn&#39;t a start symbol. One of the leaf labels in the middle one isn&#39;t a terminal symbol. And the righthand one has a node whose children don&#39;t match any of the rule patterns. The left-to-right order matters. So children labelled a,c,S doesn&#39;t match a rule pattern S,a,c.</p>
+
+<p><img src="trees-figs/not-in-grammar-1.png" style="width:250px" /> <img src="trees-figs/not-in-grammar-2.png" style="width:300px" /> <img src="trees-figs/not-in-grammar-3.png" style="width:300px" /></p>
+
+<h2>Grammar tree proof</h2>
+
+<p>As with the llama trees in the previous video, the local constraints from grammar rules can impose global constraints on the tree shape.</p>
+
+<p>Let&#39;s define the notation b(T) = number of b&#39;s in tree T, and similarly for a and c. I claim that:</p>
+
+<blockquote>Claim: \(a(T) = b(T) + c(T)\) for any tree matching grammar G</blockquote>
+
+<p>Informally, this is true because terminals are always introduced in an ac or ab pair. Let&#39;s prove this formally using induction.</p>
+
+<p>Because the root symbol isn&#39;t a terminal, the shortest trees matching grammar G have height 1. And the only possibilities are these two trees:</p>
+
+<p><img src="trees-figs/base-case-trees.png" style="width:250px" /></p>
+
+<p>So the start of our proof looks like this:</p>
+
+<blockquote>Proof: by induction on h, which is the height of the tree.
+<p>Base case: h=1. There are two trees of height 1. One has a root S with children labelled c and a. The other has a root S with children labelled b and a. For both of these trees, the number of a&#39;s is equal to the number of b&#39;s plus the number of c&#39;s.</p>
+
+<p>Inductive hypothesis: \(a(T) = b(T) + c(T)\) for any tree T matching grammar G that has height h=1,...,k-1.</p>
+</blockquote>
+
+<p>To start our inductive step, we introduce a tree T of height k. Our goal is to show that the equation holds for T.</p>
+
+<blockquote>Rest of inductive step: Let T be a tree of height k matching grammar G.
+<p>....</p>
+
+<p>So \(a(T) = b(T) + c(T)\), which is what we needed to prove.</p>
+</blockquote>
+
+<p>When we are using the inductive step, we know that k must be at least 2. We&#39;ve already handled the case where h=1, because that was the base case. Let&#39;s make that explicit:</p>
+
+<blockquote>Rest of inductive step: Let T be a tree of height k matching grammar G, where \(k \ge 2\).
+<p>....</p>
+
+<p>So \(a(T) = b(T) + c(T)\), which is what we needed to prove.</p>
+</blockquote>
+
+<p>Now, let&#39;s divide up our tree T at the root. There&#39;s two possibilities for what the top of T looks like. We&#39;ll need to use a proof by cases.</p>
+
+<p><img src="trees-figs/grammar-proof-1.png" style="width:250px" /> <img src="trees-figs/grammar-proof-2.png" style="width:250px" /></p>
+
+<blockquote>Rest of inductive step: Let T be a tree of height k matching grammar G, where \(k \ge 2\).
+<p>There are two cases:</p>
+
+<p>Case 1: T consists of a root labelled S and two subtrees (\(T_1\) and \(T_2\)) with roots labelled S.</p>
+
+<p>....</p>
+
+<p>Case 2: T consists of a root labelled S. It has a child subtree (\(T_1\)) with root label S, plus two children that are terminals a and c.</p>
+
+<p>....</p>
+
+<p>In both cases, \(a(T) = b(T) + c(T)\), which is what we needed to prove.</p>
+</blockquote>
+
+<p>Pictures can often make it easier to describe the two cases. My draft proof hasn&#39;t been very precise about the left-to-right order of the root&#39;s children because it turns out that this doesn&#39;t matter for this claim.</p>
+
+<p>For the first case, we need to use the inductive hypothesis on \(T_1\) and \(T_2\) and then use the result to derive an equation for T. We&#39;ll need to use the fact that the nodes in T are just the nodes in its subtrees plus any extra nodes at the top (e.g. the root node and the two terminals in case 2).</p>
+
+<blockquote>
+<p>Case 1: T consists of a root labelled S and two subtrees (\(T_1\) and \(T_2\)) with roots labelled S.</p>
+
+<p>By the inductive hypothesis, \(a(T_1) = b(T_1) + c(T_1)\) and \(a(T_2) = b(T_2) + c(T_2)\). We also know that \(a(T) = a(T_1) + a(T_2)\), \(b(T) = b(T_1) + b(T_2)\), \(c(T) = c(T_1) + c(T_2)\). Combining these equations, we get:</p>
+
+<p>\( \begin{eqnarray} a(T) = a(T_1) + a(T_2) &amp;=&amp; (b(T_1) + c(T_1))\ +\ (b(T_2) + c(T_2)) \\ &amp;=&amp; (b(T_1) + b(T_2)) \ + \ (c(T_1) + c(T_2)) \\ &amp;=&amp; b(T) + c(T) \end{eqnarray} \).</p>
+</blockquote>
+
+<p>Now, let&#39;s build something similar for Case 2. This time, we have only one subtree but two extra terminals.</p>
+
+<blockquote>
+<p>Case 2: T consists of a root labelled S. It has a child subtree (\(T_1\)) with root label S, plus two children that are terminals a and c.</p>
+
+<p>By the inductive hypothesis, \(a(T_1) = b(T_1) + c(T_1)\). We also know that \(a(T) = a(T_1) + 1\), \(b(T) = b(T_1)\), \(c(T) = c(T_1) + 1\). Combining these equations, we get:</p>
+
+<p>\( \begin{eqnarray} a(T) = a(T_1) + 1 &amp;=&amp; (b(T_1) + c(T_1))\ +\ 1 \\ &amp;=&amp; b(T_1) \ + \ (c(T_1) + 1) \\ &amp;=&amp; b(T) + c(T) \end{eqnarray} \).</p>
+</blockquote>
+</body>
+</html>

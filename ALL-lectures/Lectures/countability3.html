@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Countability 3 </h2>
+</div>
+
+
+<hr>
+<h2>Diagonalization</h2>
+<hr>
+
+<p>
+Now let's prove that there are uncountable sets.    
+    
+<blockquote>
+Claim:   the set of all infinite binary sequences is uncountable.
+</blockquote>
+
+<p>
+These are sequences of 0's and 1's that keep going forever on the righthand end.   
+
+<p>
+We're going to use proof by contradiction.   So suppose that the set of infinite binary
+sequences is countable.    That means that we can put all infinite binary
+sequences into a list indexed by the
+natural numbers: \(S_0, S_1, S_2, \ldots\).
+
+<p>
+The trick we'll use to show a contradiction is called "diagonalization" and is due to Cantor.
+
+<p>  We'll write out our list of infinite
+sequences.  I'm picking some random values for the sequences to illustrate what's happening, but
+the actual proof doesn't depend on the specific values.
+
+<p>
+<img width=400 src="countability-figs/diagonalization1.png">
+
+<p>
+Now, let's make a new infinite bit vector X from the values on the diagonal of this chart.    That is
+\(X(k) = S_k(k)\).
+
+<p>
+<img width=400 src="countability-figs/diagonalization2.png">
+
+<p>
+Now let's define a vector Y that has exactly the opposite bit values as X.
+Depending on whether you lean towards math or low-level programming, you might write this as
+\(Y(k) = 1- S_k(k)\) or as 
+\(Y(k) =  not(S_k(k))\).
+
+<p>
+<img width=400 src="countability-figs/diagonalization3.png">
+
+
+<p>
+Y can't be any of the vectors in our list \(S_0, S_1, S_2, \ldots\).   Suppose we pick some vector
+\(S_k\) on the list.    Then Y and \(S_k\) have different values at position k.   So they aren't equal.   
+
+<p>
+  So we have a contradiction:   we assumed
+  that our list contained all infinite binary sequences, but
+Y isn't on the list.   Therefore, we must have been wrong in our assumption the set was countable.
+
+
+<p>
+Yes, this is an extremely odd claim and an unusual sort of proof.   So you may need some time to get used to
+it.   If you don't feel like you completely understand it by the end of this term, you'll get a second chance
+when you take CS 374.
+
+
+
+<hr>
+<h2>Uncountable sets closely related to bit vectors</h2>
+<hr>
+
+<p>
+There's a couple immediate consequences of this theorem, largely because we can choose to see
+a bit vector in several different ways.
+
+<p>
+First, we can think of an infinite bit vector as a function from \(\mathbb{N}\) to {0,1}.  
+Each position in the vector becomes an input to the function.   So the set of all functions
+from \(\mathbb{N}\) to {0,1} is uncountable.  
+
+<p>
+An infinite bit vector can also be used to represent a set S of natural numbers.
+Each position in the bit vector tells us whether the corresponding natural number is in
+S.   In the example below, S contains 0, 1, 5, 6, and 9, but not 2,3,4, 7, 8, 10, 11.
+For a finite subset, the vector would become all zeroes after a certain point.   
+
+<table rules = all frame=box cellpadding =5>
+  <tr>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+<td>11</td>
+<td>...</td>
+  </tr>
+
+  <tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+  </tr>
+
+</table>
+
+<p>
+Each subset of \(\mathbb{N}\) corresponds to exactly one infinite bit vector, and vice versa.
+So, since the set of all infinite bit vectors is uncountable, 
+\(\mathbb{P}(\mathbb{N})\) is also uncountable.
+
+
+<hr>
+<h2> \(\mathbb{R}\)  is uncountable </h2>
+<hr>
+
+<p>
+  Now, let's show that the interval (0,1) frome the reals is not countable, which will
+  imply that the full set of reals is uncountable.   You might think that we could simply
+  interpret a bit vector as the fractional part of a number.   However, remember that
+  each number ending in all zeroes is equivalent to a closely-related number ending in all
+  1's.   To avoid complex discussion about whether this is or isn't a problem, let's do a
+  second diagonalization proof, tweaking a few details.
+
+<p>
+  For this proof, we'll represent each number in base-10.    So suppose that (0,1) is 
+   countable.   Then we can make a list
+  of all numbers in (0,1) indexed by the integers:   \(R_0, R_1, R_2, \ldots \).   
+  Here's a picture:
+  
+<p>
+<img width=400 src="countability-figs/diagonalization6.png">
+
+<p>
+Here's our diagonal number X:
+
+<p>
+<img width=400 src="countability-figs/diagonalization7.png">
+
+<p>
+  To avoid issues with trailing 0's and 9's, let's make our new number Y by
+  mapping each digit 3 to a 4, and then every other digit to 3.   For this
+  example, we'd have \(Y = 0.43343...\).    Y can't be equal to any number \(R_k\)
+  in the list, because it differs from \(R_k\) at the kth position after the
+  decimal point.   And the difference doesn't involve swapping 0 and 9, so it's
+  not a case where the two decimal representations might be equivalent.
+
+<p>
+We have a contradiction:
+we assumed we had a list of all numbers in (0,1)
+but we've constructed a number Y that isn't in the list.   So (0,1) isn't
+  countable.
+
+
+<hr>
+<h2>Why can't you do this with the rational numbers?</h2>
+<hr>
+
+<p>
+Suppose we considered a smaller set T that contains
+bit vectors that become all zeroes after a certain point.  
+Let's look at where a diagonalization proof would fail.
+We can put the elements of T into a list and construct our vector Y.   However,
+Y is not guaranteed to be in the set T, because it might not end with zeroes.
+For example, suppose we order T by the length of the section up through the last one.
+
+
+<p>
+<img width=400 src="countability-figs/diagonalization4.png">
+
+<p>
+With this ordering, Y will end up entirely filled with 1's.   So it's not in the set T.
+
+<p>
+<img width=400 src="countability-figs/diagonalization5.png">
+
+<p>
+Even if we extend T to include sequences that end in repeating patterns (e.g. like certain
+rational numbers), we'll have the same problem making the proof go through.    The proof works
+for the full set of infinite, or for the reals, because they are big enough and unconstrained
+enough that our constructed vector Y must still live in the set.
+
+
+<hr>
+<h2>More uncountable sets </h2>
+<hr>
+
+<p>
+If we enlarge an uncountable set, the result will be uncountable.   
+So, for example, the set of all functions from \(\mathbb{N}\) to {0,1}
+is uncountable, so the larger
+set of all functions from \(\mathbb{N}\) to {0,1,2,3}
+is uncountable.
+Since the names of the output values don't matter, 
+the set of all functions from \(\mathbb{N}\) to any set A is uncountable,
+as long as A has at least two elements.
+
+<p>
+If a set X incorporates all of an uncountable set, then S will be uncountable.
+For example, the complex numbers are uncountable because they contain the reals
+as a subset.  The set of trees with real number labels on the nodes
+is uncountable.  Even though the reals aren't a subset of this set of trees,
+we can pick out (at least) one tree that corresponds to each real number.
+
+<p>
+  You do need to make sure your construction is using the whole uncountable
+  set (e.g. the reals) or a large enough section of it (e.g. the positive
+  reals, the interval (0,1)).   Consider the set
+  P= {\(\pi\), e, \(\sqrt{\pi}\), 4,7}.   Although there are three irrational
+  numbers in the set P, P still has only five members.  So P is countable.
+
+<p>
+Our diagonalization proof used the natural numbers to index the list of bit vectors
+or the list of real numbers.  The method will also work for other choices of index
+set.   So we can use the method to show that
+\(\mathbb{P}(A)\) is larger than A, for any set A (finite or infinite).
+And \(\mathbb{P}(\mathbb{P}(A))\) is  larger than \(\mathbb{P}(A)\).
+So there are an infinite number of infinite cardinalities.  (Mindblowing!)
+
+
+
+
+</body>
+</html>

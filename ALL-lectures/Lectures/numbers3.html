@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Number Theory 3 </h2>
+</div>
+
+
+<hr>
+
+  <p>
+A fun thing to do with congruence mod k is to create a new "modular" number
+system.   You can do this with any value of k, but we'll assume that k=7
+for this vidoe.
+
+
+
+<h2>Basic notation     </h2>    
+
+<p>
+  We'll use \([n]_k\) to represent the set of all numbers congruent to n
+  mod k.   Since our base will always be 7, we'll simplify this to [n].
+  For example, [2] contains all the numbers congruent to 2.
+
+  <blockquote>
+  [2] = {2, 9, -5, 16, -12, ...} <br>
+  [4] = {4, 11, -3, 18, -10, ...} <br>
+  [9] = {2, 9, -5, 16, -12, ...}
+  </blockquote>
+
+<p>
+Notice that [2] = [9] = [-12], because these sets contain the same elements.
+So we have three names for the same set.
+So these sets are like teams or dorm rooms.   E.g.
+"Brandon's room" and "Marcus's room" might be two names for the same room,
+because we can name the room after anyone in it.
+Brandon is one "representative" that we can use to name the room.
+
+<p>
+  To make a modular number system, we're going to treat each of these
+  sets ("congruence classes") as a single object.   So our number system
+  (called \(\mathbb{Z}_7\)) contains seven numbers
+
+<blockquote>
+  \(\mathbb{Z}_7 = \{[0],[1],[2],[3],[4],[5],[6]\}\) 
+</blockquote>
+
+<p>
+  If you need to do a lot of computation with modular numbers, e.g. in a later
+  class, most people drop the square brackets.    We'll keep the square brackets
+  in this class, to emphasize that these are modular numbers rather than normal
+  integers.
+
+
+<h2>Arithmetic    </h2>    
+
+<p>
+  To add or multiply modular numbers, you add or multiply the numbers inside the
+  square brackets.   There are theorems (e.g. the one proved in the previous
+  lecture) showing that this works as you'd expect.
+
+<blockquote> 
+ [4] + [5] = [9] <br>
+ [4] x [3] = [12] <br>
+ \([6]^2 = [36]\)
+</blockquote>
+    
+<p>
+  However, notice that [9] wasn't in our list of elements in
+  \(\mathbb{Z}_7\).  This is because [9] = [2].  It's usually
+  convenient to normalize arithmetic so that we always use a small
+  value to name each modular number, e.g. stick to values between 0
+  and 6 when k=7.  So we'd actually write:
+
+<blockquote> 
+ [4] + [5] = [9] = [2] <br>
+ [4] x [3] = [12] = [5] <br>
+ \([6]^2 = [36] = [1]\)
+</blockquote>
+    
+<p>
+So modular numbers wrap around, like hours on a clock.  If you haven't
+used unsigned numbers in C or C++, you will soon.  Arithmetic on these
+numbers also wraps around.  For example, unsigned char values (often used in representing
+pictures) go from zero up to 255.  Adding three to 255 gives you the result 2.
+     
+
+<p>
+  In just a sec, we'll see that normalizing intermediate numbers allows
+  us to do computations with large numbers efficiently.   Normalizing 
+  can also allow a computer implementation of modular numbers to
+  quickly decide whether two numbers are equal, because the normalized
+  representations will be exactly the same.
+
+<p>
+  Having said that, when you're working by hand, it's sometimes
+  convenient to use small negative values.   For example
+
+<blockquote>
+\( [6]^2 = [-1]^2 = [1]\)
+</blockquote>
+
+
+
+
+<h2>Big numbers    </h2>    
+
+<p>
+In cryptographic applications, we often need to raise numbers to
+massively large powers, mod some base k.  To do this, we
+need to be smart about
+keeping intermediate results small during the calculation, so we won't blow out the precision
+of our calculator/programming language.  The big idea is to divide the
+calculation into small steps and remove copies of k at each
+intermediate step.
+
+<p>
+  One specific way to organize the computation of \([p^q]_k\) 
+is to first compute a table of p raised to each power of two.
+  That is, we're computing \([p^{(2^m)}]_k\) for each positive
+  integer m.
+
+<p>
+For example, with k=7, let's first compute \([5]^2\).
+
+<blockquote>
+   \([5]^2 = [25] = [4] \)
+</blockquote>
+
+<p>
+  Now notice that \([5]^4 = ([5]^2)^2\).   So we can compute the
+  second line of our table using the result of the first line:
+
+<blockquote>
+   \([5]^2 = [25] = [4] \) <br>
+   \([5]^4 = ([5]^2)^2 = [4]^2 = [16] = [2]\)  <br>
+</blockquote>
+
+<p>
+  We can keep doing this "repeated squaring" to work out the values for bigger powers:
+
+<blockquote>
+   \([5]^2 = [25] = [4] \) <br>
+   \([5]^4 = [4]^2 = [16] = [2]\)  <br>
+   \([5]^8 = [2]^2 = [4]\) <br>
+   \([5]^{16} = [4]^2 = [16] = [2]\) <br>
+   \([5]^{32} = [2]^2 = [4]\) <br>
+</blockquote>
+
+<p>
+  Notice  the repeating pattern of [2] and [4].  Remember that these modular
+  number systems contain only a finite number of values, e.g. there
+  are only 7 distinct numbers in \(\mathbb{Z}_7\).   So the table formed by
+  repeated squaring   must end up repeating.
+
+<p>
+To compute \([5]^q\) where q is not a power of 2, break up q into
+powers of 2.  For exmaple, \( 55 = 32 + 16 + 4 + 2 + 1\).
+Now, remember that addition in the exponent can be converted
+multiplication like this:
+
+<blockquote>
+   \(a^{b+c} = a^b \times a^c\)
+</blockquote>
+
+<p>
+So
+
+<blockquote>
+   \([5]^{55} = [5]^{32} \times [5]^{16} \times [5]^4 \times [5]^2 \times [5] \)
+</blockquote>
+
+<p>
+Looking up each power in our table gives us
+
+<blockquote>
+   \([5]^{55} = [5]^{32} \times [5]^{16} \times [5]^4 \times [5]^2 \times [5]
+   = [4]  \times [2] \times [2] \times [4] \times [5]\)
+</blockquote>
+
+<p>
+  We can now work out the product.   Since we're doing this by hand, let's group the
+  factors intelligently.    The big trick is to keep normalizing our intermediate
+  numbers, so their magnitude stays small.
+
+<blockquote>
+   \([5]^{55}  
+   = ([4]  \times [2]) \times ([2] \times [4]) \times [5] = [8] \times [8] \times [5]
+   = [1] \times [1] \times [5] = [5] \)
+</blockquote>
+
+</body>
+</html>

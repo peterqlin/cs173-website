@@ -1,0 +1,257 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Relations 2 </h2>
+</div>
+
+
+<hr>
+
+  <p>
+    In this video, we'll see sample proofs of two relation
+    properties.   (The other three properties have proof outlines
+    that are more straightforward.)
+
+<h2>Our sample relation</h2>
+
+
+<p>
+Let's remember our sample relation with triples from the previous
+video.   We defined \( V = \{0, 1, \ldots, 10\}\), i.e. integers
+between 0 and 10.  The base set for our relation was the
+set of triples from V, i.e. \(T = V^3\).
+
+<p>
+We defined an define an order \(\preceq \) on \(T\) that tells us when 
+set of triples is better than another:
+
+<blockquote>
+\((a,b,c) \preceq (x,y,z)\) iff  \(a\le x\), \(b \le y\), and \(c\le z\)
+
+</blockquote>
+
+
+<h2>Transitive</h2>
+
+<blockquote>
+Defn: A relation R on a base set A is transitive iff  for every \(x,y,z\in A\), if
+  \(xRy\) and \(y R z\), then \(x R z\).
+</blockquote>
+
+<p>
+Notice that our definition of transitive is an if/then statement. 
+The base set in our relation is T (not A).   So 
+the three elements x, y, and z mentioned in the definition will be triples of
+integers. To make this clear, let's call them \(x = (a,b,c)\),
+\(y = (i,j,k)\), and \(z = (p,q,r)\).
+
+<p>
+ To prove that \(\preceq\) is transitive, we use the standard direct
+ proof outline.  That is, declare our variables, assume everything in
+ the hypothesis of the if/then statements, and put the conclusion
+ down at the end of our draft proof.
+
+<blockquote>
+Proof:  let \((a,b,c)\),
+\((i,j,k)\), and \((p,q,r)\) be elements of T.
+Suppose that 
+  \((a,b,c) \preceq (i,j,k)\)  and
+  \((i,j,k) \preceq (p,q,r)\). <br>
+<p>
+... <br>
+
+<p>
+  \((a,b,c) \preceq (p,q,r)\), which is what we needed to prove.
+</blockquote>
+
+<p>
+  Now substitute in the definition of the relation \(\preceq\).
+  Remember to do that at the bottom of the proof as well as the top,
+  so we've converted our statements about \(\preceq\) into bits of algebra.
+
+<blockquote>
+Proof:  let \((a,b,c)\),
+\((i,j,k)\), and \((p,q,r)\) be elements of T.
+Suppose that 
+  \((a,b,c) \preceq (i,j,k)\)  and
+  \((i,j,k) \preceq (p,q,r)\). <br>
+
+<p>
+  By the definition of \(\preceq\),
+  \((a,b,c) \preceq (i,j,k)\) means that
+  \(a \le i\), \(b \le j\), and \(c \le k\).
+  Similarly 
+  \((i,j,k) \preceq (p,q,r)\) means that
+  \(i \le p\), \(j \le q\), and \(k \le r\).
+<p>
+... <br>
+
+<p>
+So  \(a \le p\), \(b \le q\), and \(c \le r\).
+By the definition of \(\preceq\), this means that
+  \((a,b,c) \preceq (p,q,r)\), which is what we needed to prove.
+</blockquote>
+
+
+<p>
+Fortunately, the algebra is easy to connect:
+
+<blockquote>
+Proof:  let \((a,b,c)\),
+\((i,j,k)\), and \((p,q,r)\) be elements of T.
+Suppose that 
+  \((a,b,c) \preceq (i,j,k)\)  and
+  \((i,j,k) \preceq (p,q,r)\). <br>
+
+<p>
+  By the definition of \(\preceq\),
+  \((a,b,c) \preceq (i,j,k)\) means that
+  \(a \le i\), \(b \le j\), and \(c \le k\).
+  Similarly 
+  \((i,j,k) \preceq (p,q,r)\) means that
+  \(i \le p\), \(j \le q\), and \(k \le r\).
+
+<p>
+Since 
+\(a \le i\) and \(i \le p\), \(a \le p\).
+Since  \(b \le j\) and \(j \le q\), \(b \le q\).
+Since \(c \le k\) and \(k \le r\), \(c \le r\).
+   
+
+<p>
+So  \(a \le p\), \(b \le q\), and \(c \le r\).
+By the definition of \(\preceq\), this means that
+  \((a,b,c) \preceq (p,q,r)\), which is what we needed to prove.
+</blockquote>
+
+
+<h2>Antisymmetric</h2>
+
+<p>
+  Now let's prove that this relation is antisymmetric.   Remember that we
+  have two equivalent definitions of antisymmetric.   The first one is easier
+  to understand, but the second "alternate" definition 
+  works much better for writing proofs.
+
+<blockquote>
+  Original Defn:  A relation R on a base set A is antisymmetric iff  for every \(x,y\in A\), if
+  \(xRy\) and \(x \not = y\), then \(y \not Rx\).
+</blockquote>
+
+
+<blockquote>
+  Alternate Defn:  A relation R on a base set A is antisymmetric iff
+  for every \(x,y\in A\), if \(xRy\) and \(y  Rx\), 
+  then \(x  = y\).
+</blockquote>
+
+<p>
+So let's use the second definition and sketch our standard direct proof outline.  
+Remember that we're using \(x = (a,b,c)\) and \(y = (i,j,k)\) to show the
+triplet structure.
+
+<blockquote>
+Proof:  Let \((a,b,c)\) and \((i,j,k)\) be elements of T.
+Suppose that 
+\((a,b,c) \preceq (i,j,k)\) and 
+\((i,j,k) \preceq (a,b,c)\).
+
+<p>
+  .... <br>
+
+<p>
+Then \((a,b,c) = (i,j,k)\), which is what we needed to prove.
+</blockquote>
+
+<p>
+  Now substiute in the definition of \(\preceq\):
+
+<blockquote>
+Proof:  Let \((a,b,c)\) and \((i,j,k)\) be elements of T.
+Suppose that 
+\((a,b,c) \preceq (i,j,k)\) and 
+\((i,j,k) \preceq (a,b,c)\).
+
+<p>
+  By the definition of \(\preceq\),
+  \((a,b,c) \preceq (i,j,k)\) means that
+   \(a \le i\), \(b \le j\), and \(c \le k\).
+ Similarly
+  \((i,j,k) \preceq (a,b,c)\) means that
+  \(i \le a\), \(j \le b\), and \(k \le c\).
+
+
+<p>
+  .... <br>
+
+<p>
+Then \((a,b,c) = (i,j,k)\), which is what we needed to prove.
+</blockquote>
+
+<p>
+  Now look at the algebra needed to connect the top and bottom.
+  As with the transitive proof,
+  there's not much missing.
+
+<blockquote>
+Proof:  Let \((a,b,c)\) and \((i,j,k)\) be elements of T.
+Suppose that 
+\((a,b,c) \preceq (i,j,k)\) and 
+\((i,j,k) \preceq (a,b,c)\).
+
+<p>
+  By the definition of \(\preceq\),
+  \((a,b,c) \preceq (i,j,k)\) means that
+   \(a \le i\), \(b \le j\), and \(c \le k\).
+ Similarly
+  \((i,j,k) \preceq (a,b,c)\) means that
+  \(i \le a\), \(j \le b\), and \(k \le c\).
+
+<p>
+  Since \(a \le i\) and \(i \le a\), \(a = i\).
+  Since \(b \le j\) and \(j \le b\),  \(b = j\).
+Since \(c \le k\) and \(k \le c\), \(c = k\).
+
+<p>
+  Since \(a = i\), \(b = j\), and \(c = k\), 
+\((a,b,c) = (i,j,k)\), which is what we needed to prove.
+</blockquote>
+
+
+<p>
+  Always use this alternate outline.   Although the original intuitive
+  definition can theoretically be used in proofs, it typically leads
+  to problems filling in the middle section with correct math.
+
+</body>
+</html>

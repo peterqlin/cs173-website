@@ -1,0 +1,257 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Trees 1</h2>
+</div>
+
+
+<hr>
+
+<h2>Recursion trees</h2>
+
+<hr>
+
+  <p>
+    Recursion trees are a method for working out the closed form of a recursive
+    definition.   They are particularly useful for the kinds of recursive definitions
+    common in analyzing algorithm running times.   Like unrolling, they are slightly
+    fiddly.   However, in the context of algorithm analysis, many small errors will
+    turn out not to change the part that matters the most, i.e. the shape of
+    the fastest-growing term.   So this turns out to be a good scratchwork
+    technique.
+    
+  <p>
+    Here's a sample definition:
+
+<blockquote>
+      A(4) = c <br>
+      A(n) = 4A(n/2) + dn
+</blockquote>
+
+<p>
+  Let's label the parts of the recursive definition, based on how they
+  determine the structure of the recursion tree:
+
+  <p>
+<img width=300 src="trees-figs/recdef2.png">    
+
+
+  <p>
+    So, in this case, we'll be building a tree with 4-way branching at
+    each node.  At each level, the problem size decreases by a factor
+    of 2.   And the leaf level will be when we hit problem size 4.
+    
+<p>
+  Other parts of the recursive definition tell us what to put in the
+  nodes of the recursion tree.   The "extra work" term covers all
+  the material that is not in the recursive calls.   In analyzing an
+  algorithm, this includes work to set up the recursive calls (e.g. divide
+  an array in half) and combine the results returned by the recursive calls.
+  To find our closed form, we add up all this extra work, plus all the
+  work done at the leaf nodes.
+
+  <p>
+<img width=300 src="trees-figs/recdef3.png">    
+
+
+<p>
+  So we're going to build a tree with 4-way branching.    The top node contains
+  dn, i.e. the extra work at level 0.   (Notice that tree levels are numbered
+  starting with 0 at the root.)   It is helpful to keep track of the level and
+  the problem size as you draw the tree.
+
+
+  <p>
+<img width=300 src="trees-figs/rectree1.png">    
+
+  <p>
+    The next level shows the first layer of recursive calls.  The
+    problem size is now n/2.  Because this extra work term depends on
+    n, it shrinks proportionately to dn/2.  (When the extra work term
+    is a constant, it doesn't shrink.)
+
+  <p>
+<img width=300 src="trees-figs/rectree2.png">    
+
+  <p>
+    Build the tree out for another level or two, until you can see the pattern
+    for what it will look like at level k.
+
+  <p>
+<img width=300 src="trees-figs/rectree3.png">    
+
+<p>
+Now add the number of nodes at each level:
+
+  <p>
+<img width=350 src="trees-figs/rectree4.png">    
+
+  <p>
+    Now find the sum of all the nodes at each level.   In this example,
+    the kth level has \(4^k\) nodes and each contains the value
+    \(\frac{dn}{2^k}\).   So the sum at level k is
+    \(4^k\frac{dn}{2^k} = 2^kdn\).   
+
+  <p>
+<img width=400 src="trees-figs/rectree5.png">    
+
+
+  <p>
+    We're going to add up the work at all the levels.    But, to do that,
+    we firsr need to figure out what level the leaves are on.
+
+<p>
+<img width=400 src="trees-figs/rectree6.png">    
+
+<p>
+  This part works just like it did in unrolling.    We take the formula for the
+  problem size at level k (\(\frac{n}{2^k}\)), set it equal to the
+  problem size at the base case (4), and solve for k.
+  So we have \(\frac{n}{2^k} = 4\).
+  So \(n = 2^{k+2}\).   So \(k+2 = \log n\).   So \(k = \log n - 2\).
+
+<p>
+  It's easiest to solve for the leaf level.    We also need the level right
+  above the leaves, i.e. the last level that contains these \(dn/{2^k}\)
+  extra work terms.  This is one less than the leaf level, i.e.
+  level \(k = \log n - 3\).
+  
+
+<p>
+<img width=400 src="trees-figs/rectree7.png">    
+
+
+<p>
+  We now need to sum the extra work over all the non-leaf levels.   To do this,
+  we add up the level sums, starting at level 0 (the root) and ending right
+  above the leaf level (level \(\log n - 3\)).
+
+<blockquote>
+\(\displaystyle \sum_{k=0}^{\log n - 3} 2^kdn\)
+</blockquote>
+
+<p>
+  To simplify this, first move dn out of the summation:
+
+<blockquote>
+\(\displaystyle dn\sum_{k=0}^{\log n - 3} 2^k\)
+</blockquote>
+
+<p>
+  Now use the formula for the sum of powers of two:
+\(\displaystyle \sum_{k=0}^{p} 2^k = 2^{p+1} - 1\).
+  In theory, you all have this memorized.   I realize that this memory is still a
+  bit fragile.   But you'll end up using this formula a lot in this and later
+  classes.
+
+
+<blockquote>
+\(\displaystyle dn\sum_{k=0}^{\log n - 3} 2^k = dn(2^{\log n -2} - 1)\)
+</blockquote>
+
+<p>
+  Simplifying....
+
+<blockquote>
+  \(\displaystyle dn\sum_{k=0}^{\log n - 3} 2^k = dn(2^{\log n -2} - 1)
+  = dn (\frac{1}{4} 2^{\log n} - 1) = dn (\frac{n}{4}  - 1) = \frac{d}{4}n^2 -dn
+  \)
+</blockquote>
+
+<p>
+  So the sum of everything in the non-leaf nodes is
+<font color=red>
+  \(\frac{d}{4}n^2 -dn\).
+</font>
+
+<p>
+  We need to add the work at the leaf nodes.  The work at each leaf node is c.
+  How many leaves are there?
+  The number of nodes at level k is \(4^k\) because our branching factor is 4.
+  The leaves are at level \(\log n - 2\)).   So the number of leaves is:
+
+<blockquote>
+\(4^{\log n - 2}\)
+</blockquote>
+
+<p>
+  To simplify this, we move the -2 out of the exponent:
+
+<blockquote>
+\(4^{\log n - 2} = \frac{1}{16} 4^{\log n }\)
+</blockquote>
+
+<p>
+  And then we need to use the change of base formula:
+  \(\log_a n = \log_b n \log_a b\).
+Actually, because 4 and
+  2 are closely related, there's another way you can simplify this.   I'll
+use the change of base formula because it works on a wider range of examples:
+
+<blockquote>
+  \(4^{\log n - 2} = \frac{1}{16} 4^{\log n }
+= \frac{1}{16} 4^{\log_4 n \log_2 4 }
+= \frac{1}{16} (4^{\log_4 n})^{\log_2 4} 
+= \frac{1}{16} n^{\log_2 4} 
+= \frac{1}{16} n^2
+  \)
+</blockquote>
+
+<p>
+  So \(\frac{1}{16} n^2\) leaves, with c work at each leaf, means that
+  the total work at the leaves is
+<font color=red>
+\(\frac{c}{16} n^2\).
+</font>
+
+<p>
+Looking back up above, the work at the non-leaf levels was
+  \(\frac{d}{4}n^2 -dn\).
+So the total work in our recursion tree is
+\(\frac{d}{4}n^2 -dn + \frac{c}{16} n^2\).
+Collecting terms, we get our final closed form:
+
+<blockquote>
+  \((\frac{d}{4} + \frac{c}{16}) n^2 -dn \)
+  
+</blockquote>
+
+<p>
+  This is an exact closed form.   When we do algorithm analysis,
+  we won't care about the constants or the low-order term.
+  Our bottom line will be that the dominant term is in
+  \(n^2\).   
+
+
+</body>
+</html>

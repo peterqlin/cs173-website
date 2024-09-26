@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Sets 2</h2>
+</div>
+
+
+<hr>
+
+  <p>
+Let's do two proofs of subset inclusion.
+    
+
+<h2>Proof of subset inclusion </h2>
+
+
+  <p>
+    First, let's remember the claim from the previous video.    We had two sets
+
+<p>
+  \(A = \{\lambda(2,3) + (1 - \lambda)(7,4) \ \mid\
+  \lambda \in [0,1]
+\}\)
+
+<p>
+\(B = \{(x,y) \ \mid \ x,y \in \mathbb{R}, x \ge 0, \text{ and }, y \ge 0
+\}\)
+  
+<p>
+  Claim:  \(A \subseteq B \)
+
+<p>
+  The standard outline for a subset inclusion proof is to pick a representative element
+  from the smaller set and show that it's also in the larger set.   So, in this
+  case:
+  
+<blockquote>
+  Proof:  Let p be an element of A. <br>
+  .... <br>
+  So p is an element of B.<br>
+  Since every element of A is also an element of B, \(A \subseteq B\).
+</blockquote>
+
+<p>
+  We now use the definitions of the two sets to convert our claim about set
+  membership to an algebra problem.   Remember from the previous video that
+  A contains pairs of real numbers.  So p is going to look like (x,y).
+
+<blockquote>
+  Proof:  Let p be an element of A. <br>
+  Then \(p = \lambda(2,3) + (1 - \lambda)(7,4)\) where \(\lambda \in [0,1]\). <br>
+  .... <br>
+  So \(x \ge 0\) and \(y \ge 0\).   Since x and y are clearly real numbers,
+   \(p= (x,y)\) is an element of B.<br>
+  Since every element of A is also an element of B, \(A \subseteq B\).
+</blockquote>
+
+<p>
+  The word "clearly" (or "obviously") is infamously used when a mathematician doesn't feel like explaining
+  something.   In this case, it probably is obvious to all of us that everything in the problem
+  is a real number.   And we wouldn't be picky about this point when grading your proofs.
+ But sometimes you'll see these words used when the fact isn't as obvious as
+  they are pretending.
+
+<p>
+  Notice that we're starting with a single vector equation for p and have to end up with
+  separate equations for the coordinates x and y.   So let's work out what p is equal to,
+  with a view to splitting up the vector equation.
+
+<blockquote>
+  Proof:  Let p be an element of A. <br>
+  Then \(p = \lambda(2,3) + (1 - \lambda)(7,4)\) where \(\lambda \in [0,1]\). <br>
+  <p>
+  So \(p = (2\lambda,3\lambda) + (7 - 7\lambda, 4 - 4\lambda)
+         = (7 - 5 \lambda, 4 - \lambda)\). <br>
+  Let \(p = (x,y)\).   Then \(x = 7 - 5 \lambda \) and \( y = 4 - \lambda\).   <br>
+  .... <br>
+  <p>
+  So \(x \ge 0\) and \(y \ge 0\).   Since x and y are clearly real numbers,
+   \(p= (x,y)\) is an element of B.<br>
+  Since every element of A is also an element of B, \(A \subseteq B\).
+</blockquote>
+
+<p>
+  Ok, now what?   A good strategy when stuck is to look back at the early part of the proof
+  to see if there is part of the given information that you haven't used yet.   In our case,
+  we haven't used the fact that \(\lambda\) comes from [0,1].  It turns out that we need
+  only part of this information, that is that \(\lambda \le 1\).
+
+<blockquote>
+  Proof:  Let p be an element of A. <br>
+  Then \(p = \lambda(2,3) + (1 - \lambda)(7,4)\) where \(\lambda \in [0,1]\). <br>
+  <p>
+  So \(p = (2\lambda,3\lambda) + (7 - 7\lambda, 4 - 4\lambda)
+         = (7 - 5 \lambda, 4 - \lambda)\). <br>
+  Let \(p = (x,y)\).   Then \(x = 7 - 5 \lambda \) and \( y = 4 - \lambda\).   <br>
+  Since \(\lambda \in [0,1]\), \(\lambda \le 1\).  So \(5\lambda \le 5 \le 7\)
+    and \(\lambda \le 4\). <br>
+  And therefore \(x = 7 - 5 \lambda  \ge 0\) and \( y = 4 - \lambda \ge 0\).   <br>
+  <p>
+  So \(x \ge 0\) and \(y \ge 0\).   Since x and y are clearly real numbers,
+   \(p= (x,y)\) is an element of B.<br>
+  Since every element of A is also an element of B, \(A \subseteq B\).
+</blockquote>
+
+
+
+<h2> Abstract subset proof </h2>
+
+<p>
+  Now, let's look at a more abstract claim about sets:
+
+<blockquote>
+Claim: For any sets A, B, and C,
+if \(A \times B \subseteq A\times C\) and \(A \not = \emptyset\), then \( B \subseteq C\)
+</blockquote>
+
+<p>
+  In this case, the top-level structure of our claim is an if/then
+  statement.   So our main outline is a standard direct proof outline:
+
+  <blockquote>
+  Proof:   Let A, B, and C be sets.  
+  Suppose that  \(A \times B \subseteq A\times C\) and \(A \not = \emptyset\). <br>
+  ...<br>
+  So \( B \subseteq C\).  That is what we needed to prove.
+  </blockquote>
+
+<p>
+  In order to show that \( B \subseteq C\), use the standard subset inclusion outline:
+  we pick a representative element from B and show
+  that it's in C.   So let's splice that bit of outline into our proof:
+
+
+  <blockquote>
+  Proof:   Let A, B, and C be sets.  
+  Suppose that  \(A \times B \subseteq A\times C\) and \(A \not = \emptyset\). <br>
+  Let \(x \in B\). <br>
+  ...<br>
+  \(x \in C\) <br>
+<p>	
+  Since every element in B is also in C,  \( B \subseteq C\).   That is what we needed to prove.
+  </blockquote>
+
+<p>
+  If we're trying to get from B to C, the most relevant piece of given information is
+  \(A \times B \subseteq A\times C\).   But that fact is about pairs of values.   To use
+  it, we'll need to make ourselves a pair.   Notice that it's important that A isn't the
+  empty set, otherwise there might not be an element in A to use in making our pair.
+
+  <blockquote>
+  Proof:   Let A, B, and C be sets.  
+  Suppose that  \(A \times B \subseteq A\times C\) and \(A \not = \emptyset\). <br>
+  Let \(x \in B\).
+  <p>
+  Since \(A \not = \emptyset\), we can choose an element t from A. 
+  Then (t,x) is an element of \(A \times B\).   Since \(A \times B \subseteq A\times C\), this means
+  that (t,x) is also in \(A \times C\).   So \(x \in C\).<br>
+<p>	
+  Since every element in B is also in C,  \( B \subseteq C\).  That is what we needed to prove.
+  </blockquote>
+
+<p>
+  These abstract proofs are a bit harder to work out, but they use the same basic outlines.
+
+<p>
+Notice that the claim isn't true if A is the empty set.   Then \(A \times B\)
+and \(A \times C\) are also the empty set.   So our starting information doesn't
+tell us enough to show that \( B \subseteq C\).  
+
+</body>
+</html>

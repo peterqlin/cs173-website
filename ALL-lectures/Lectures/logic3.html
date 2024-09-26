@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Logic 3 </h2>
+</div>
+
+
+<hr>
+
+<h2>Negating the individual logical operators</h2>
+
+  <p>
+    When trying to understand a piece of formal mathematics (e.g. a definition), it's
+    often useful to figure out exactly what its negation is.   That is, figure out what
+    conditions make it <b> not</b> true.   Wrapping the whole expression in a "not" is
+    technically the negation.   But it's usually easier to understand if we  move the nots onto
+    individual predicates.
+
+<p>
+    We've already seen how to 
+    do this for the four propositional operators:
+
+<blockquote>
+\(\neg \neg p \equiv p\) <br>
+\(  \neg (p \rightarrow q) \equiv  p \wedge (\neg q)\) <br>
+\(\neg(p \wedge q) \equiv (\neg p) \vee (\neg q)\) <br> 
+\(\neg(p \vee q) \equiv (\neg p) \wedge (\neg q)\) 
+</blockquote>
+
+<p>
+We also need similar rules for negating the two quantifiers:
+
+<blockquote>
+\(\neg \forall x, P(x) \equiv \exists x, \neg P(x) \) <br>
+\(\neg \exists x, P(x) \equiv \forall x, \neg P(x) \) <br>
+</blockquote>
+
+<h2>Mechanical negation</h2>
+
+<p>
+  Using these 6 rules, we can move a negation from the outside of a statement
+  onto the individual predicates.  For example
+
+<blockquote>
+For any cookie c, if c is not small and c is tasty, then c is not healthy.
+</blockquote>
+  
+<p>
+  First, let's make shorthand for the individual predicates:  S(x) is "x is small",
+  T(x) is "x is tasty", H(x) is "x is healthy".   Then translate the statement
+  into shorthand so that it's easier to manipulate:
+  
+<blockquote>
+\(\forall c \in \text{cookies}, (\neg S(c) \wedge T(c)) \rightarrow \neg H(c) \)
+</blockquote>
+
+<p>
+Then wrap a negation around the statement:
+   
+<blockquote>
+\(\neg \forall c \in \text{cookies}, (\neg S(c) \wedge T(c)) \rightarrow \neg H(c) \)
+</blockquote>
+
+<p>
+The outermost operator is the \(\forall\).   So move the negation across it:
+
+<blockquote>
+\(\exists c \in \text{cookies}, \neg ((\neg S(c) \wedge T(c)) \rightarrow \neg H(c)) \)
+</blockquote>
+
+<p>
+  Now use the rule for negating an if/then statement:
+
+<blockquote>
+\(\exists c \in \text{cookies}, (\neg S(c) \wedge T(c)) \wedge H(c) \)
+</blockquote>
+
+<p>
+Since we have two "and" operators (not a combination of "and" and
+"or), we can drop the parentheses to make this more readable.
+  
+<blockquote>
+\(\exists c \in \text{cookies}, \neg S(c) \wedge T(c) \wedge H(c) \)
+</blockquote>
+
+<p>
+And then translate the sentence back into words:
+
+<blockquote>
+
+Negation:    There is a cookie c, such that  c is not small 
+       and c is tasty but c is healthy.
+</blockquote>
+
+<p>
+  This is a silly example.  However, mechanical negation is most
+  useful when you are trying to understand new concepts and when
+  working in situations where it's difficult to understand what's
+  going on.  So it's important to be able to do the transformations
+  mechanically, without using your intuitions about the situation.
+
+<h2>Contrapositive</h2>
+
+<p>
+  A useful fact in logic is that an implication \(p \rightarrow q\) is equivalent
+  to its contrapositive \(\neg q \rightarrow \neg p\).  (E.g. build the two truth tables.)   In practice, this is almost always seen with a universal quantifier:  \(\forall x, p(x) \rightarrow q(x) \)
+  is equivalent to 
+\(\forall x, \neg q(x) \rightarrow \neg p(x)\).  
+
+<p>  
+Let's start with our cookie claim again:
+
+<blockquote>
+For any cookie c, if c is not small and c is tasty, then c is not healthy. <br>
+\(\forall c \in \text{cookies}, (\neg S(c) \wedge T(c)) \rightarrow \neg H(c) \)
+</blockquote>
+
+<p>
+  The contrapositive is:
+
+<blockquote>
+  \(\forall c \in \text{cookies}, H(c) \rightarrow
+  \neg (\neg S(c) \wedge T(c)) \)
+</blockquote>
+
+<p>
+  Simplifying this using De Morgan's Law:
+
+<blockquote>
+  \(\forall c \in \text{cookies}, H(c) \rightarrow
+  S(c) \vee   \neg T(c) \)
+</blockquote>
+
+<p>
+  Translating back into words:
+
+<blockquote>
+ For any cookie c, if c is healthy, then c is small or c is not tasty.
+</blockquote>
+
+
+<h2>"Ripped from the midterms"</h2>
+
+<p>
+  Here's a claim that once appeared on a midterm.   Let's try to make its negation
+  and also figure out whether the claim is true.
+
+<blockquote>
+Claim:  \(\forall x,y \in \mathbb{R}\), if x is irrational and y is irrational,
+      then x+y is irrational.
+</blockquote>
+
+<p>
+The negation is
+
+<blockquote>
+\(\neg (\forall x,y \in \mathbb{R}\), if x is irrational and y is irrational,
+      then x+y is irrational).
+</blockquote>
+
+<p>
+Moving the negation gradually into the middle of the statement, we get
+
+<blockquote>
+\(\exists x,y \in \mathbb{R}, \neg \)(if x is irrational and y is irrational,
+      then x+y is irrational).
+</blockquote>
+
+<p>
+  And then, remembering that an if/then statement is false exactly when the
+  hypothesis is true but the conclusion is false ....
+
+<blockquote>
+\(\exists x,y \in \mathbb{R}, \) x is irrational and y is irrational and
+       x+y is rational.
+</blockquote>
+
+<p>
+  So now we know what would make the claim false:   a pair of irrational numbers
+  that add up to a rational number.
+
+<p>
+  What are youf favorite irrational numbers?   (Normally I'd ask this interactively,
+  so take a sec to think.)
+
+<ul>
+<li> \( \pi \)
+<li> e
+<li> \( 2\pi \), \( 3\pi \), \(1 + \pi \),  etc
+<li> \(\sqrt{2} \)
+<li> \(\sqrt{3} \)
+<li> \(\sqrt{4} \)?  oops!
+<li> \(2\sqrt{2} \), \(\frac{\sqrt{3}}{2} \), etc
+
+</ul>
+
+<p>
+Now how could two irrational numbers add up to something rational?
+How about setting \(x = \pi \) and \(y = 1- \pi \)?
+Then \(x + y = 1\), which is rational.
+							    
+
+</body>
+</html>

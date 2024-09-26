@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Functions 2</h2>
+</div>
+
+
+<hr>
+Let's look at the formal definition of "onto" and how to do proofs
+involving onto.
+
+<h2>Definition of onto
+</h2>
+
+  <p>
+    Suppose we have a function \(f: A \rightarrow B\).
+A is the "domain" and B is the "co-domain".
+
+<p>
+<img width=300 src="functions-figs/image-of-function.png">
+
+<p>
+The "image" of f is the set of all values that f actually produces,
+if we feed all the input values from A into f.   It's often
+written f(A).  The type signature for f requires that output values
+live in B.   So f(A) is always a subset of B.   f is "onto"
+if f(A) is equal to B.   That is, f actually produces all the values
+in B.
+
+<blockquote>
+<p>
+\(f: A \rightarrow B\) is onto if and only if
+
+  <ul>
+    <li> image = co-domain
+      </ul>
+</blockquote>
+
+<p>
+  We can expand this definition a bit by defining the term "pre-image."
+  A preimage of an element of the co-domain is a value from the domain
+  that maps onto it.   For example, in the picture below, 3 is a pre-image
+  of b.   Notice that a has two pre-images and c has no pre-images.
+
+<p>
+<img width=300 src="functions-figs/preimage.png">
+ 
+<blockquote>
+<p>
+\(f: A \rightarrow B\) is onto if and only if
+
+  <ul>
+<li> image = co-domain
+<li> for all y in B, y has a pre-image (i.e. at least one)
+</ul>
+</blockquote>
+
+<p>
+  And we can expand the definition into even more detail by substituting
+  the definition of pre-image:
+
+<blockquote>
+<p>
+\(f: A \rightarrow B\) is onto if and only if
+
+  <ul>
+<li> image = co-domain
+<li> for all y in B, y has a pre-image 
+<li> for all y in B, there is an x in A such that f(x) = y
+  </ul>
+</blockquote>
+
+<p>
+  The first version is most useful for undertanding the concept.   The
+  last version gives us an explicit pattern for writing a proof.
+
+<h2> Quantifier order matters
+</h2>
+
+<p>
+  Notice that the definition of "onto" starts with two quantifiers that
+  are different:  the first is universal and the second is existential.
+  With mismatched quantifiers like this, the order matters.  Consider this
+  example:
+  
+<blockquote>
+     (a) There is a dining hall where all the students eat. <br>
+     (b)  Every student has a dining hall where he eats.
+</blockquote>
+
+<p>
+  When interpreting sequences of quantifiers, we pick values reading left to right.
+  In sentence (a), we first pick a dining hall D and this choice of D has to work
+  for all students that we might select.   This might be true at a small college
+  that has only one dining hall.
+
+  <p>
+    In sentence (b), we pick the student first and then we pick the dining hall.
+    So our choice of dining hall can depend on the student.  So (b) will be true
+    for a lot more schools, because it's ok to have some students eating at one
+    dining hall and some eating  at a different one.
+
+<p>
+  You can think of these "nested" quantifiers as a type of game.   When you read
+  left to right, you get to pick values for existential quantifiers and your
+  adversary picks the ones for universal quantifiers.   So, in the dining hall
+  example, your job is much easier if you get to pick second, after you've seen
+  what your adversary is choosing.
+
+
+<h2> Onto proof </h2>
+
+<p>
+Now, consider this claim:
+
+<blockquote>
+   Let \(f: \mathbb{Z}^2 \rightarrow \mathbb{Z}\) such that \(f(x,y) = 2x + 3y\) <br>
+   Claim:  f is onto.
+</blockquote>
+
+<p>
+Proofs of "onto" are typically constructed backwards, and then rewritten into forwards order.
+We need to sort-of invert the function f.   By "sort of," I mean that we don't need a real inverse
+function but we just need a way to construct pre-images.
+
+<blockquote>
+  <b>Scratch paper</b> <br>
+  
+ <p>
+ How to get 7 as output?   input (2,1)
+
+ <p>
+   How to get 1 as output?   input (-1,1)  or (2, -1) or ...
+
+ <p>
+   How to get k as output?   input (-k, k) or (2k, -k)
+
+</blockquote>
+
+<p>
+For our proof, we only need a single way to pick a pre-image for each output value k.
+So let's use (-k, k)     
+
+<p>
+Our final proof outline mirrors the definition of "onto":
+"for all y in B, there is an x in A such that f(x) = y".   Oh, but the inputs to our
+function have the form (x,y).   So let's rewrite this with variable names that match
+up with our function definition:
+
+<blockquote>
+For all k in B, there is an (x,y) in A such that f(x,y) = k.  
+</blockquote>
+
+
+<p>
+  To write the proof in proper logical order,
+  we choose an arbitrary value for the output value (k).   We then pull the
+  corresponding input value out of thin air, and then explain to the reader why it's a
+  pre-image of k.   So it looks like this:
+
+
+<blockquote>
+Proof:  Let \(k \in \mathbb{Z}\).
+<p>
+        Consider \((-k,k) \in \mathbb{Z}^2\).
+
+<p>
+\(f(-k,k) = 2(-k) + 3k = k\).
+  So (-k,k) is a pre-image of k.
+<p>
+  Since k was arbitrarily chosen, this means that every value k has a pre-image.  So f is onto.
+</blockquote>
+
+<p>
+We're able to pull the pre-image out of thin air because of the
+preliminary work that we did on our scratch paper.
+Onto proofs are often relatively simple, but it's important to realize
+that they involve backwards scratch work that doesn't appear in the final
+formal proof.
+
+</body>
+</html>

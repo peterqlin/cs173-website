@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1"><meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+	<title>CS173 Lectures</title>
+	<link href="../menu.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!--- load Mathjax ---><script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!--- Cute course logo --->
+<div style="float:left"><img alt="UI logo" src="graphics/plain-logo.png" style="height:40px; width:28px" /></div>
+
+<div style="float:left">CS 173<br />
+Spring 2021</div>
+
+<div class="center">
+<h2>Collections of Sets 1</h2>
+</div>
+
+<p><img src="cos-figs/bakery.png" style="width:300px" /></p>
+
+<hr />
+<h2>Day at the Bakery</h2>
+
+<p>We&#39;re broadcasting live from the Emerald City Bakery.</p>
+
+<p>What muffins are for sale today?</p>
+
+<p>Depending on the day, the bakery offers muffins with a variety of add-ons. The set of all possible add-ons is A:</p>
+
+<blockquote>A = {add-ons} = {chocolate-chip, blueberry, orange, almond, lemon, cherry, walnut}</blockquote>
+
+<p>My favorite is their lemon-almond muffin. We can represent this type using the set {lemon, almond}. They also persist in offering cherry-walnut muffins, despite the fact that they seem to be unpopular. I always seem them for sale at deep discount the next day. We can represent this type as {cherry, walnut}.</p>
+
+<p><img src="cos-figs/lemon-almond.png" style="width:200px" /></p>
+
+<p>There could be muffins with one or three add-ons. (I don&#39;t think I&#39;ve ever seen more than three.) For example, {chocolate-chip} or {orange} or {orange, lemon, blueberry}. We represent the one-element muffins as sets for consistency: each type of muffin is represented by a set of add-ons, i.e. a subset of A.</p>
+
+<p>And naturally they offer plain muffins, which can be represented using the empty set \(\emptyset\).</p>
+
+<p>We can now set up a set M that represents all eight types of muffins for sale today.</p>
+
+<blockquote>M = {\(\emptyset\), {orange}, {lemon}, {chocolate-chip}, {lemon, almond}, {cherry, walnut}, {orange, chocolate-chip}, {orange, lemon, blueberry}}</blockquote>
+
+<p>It would be very bad to flatten out the structure to produce something like this:</p>
+
+<blockquote>(NO NO NO!)&nbsp;&nbsp;&nbsp; M = {orange, lemon, chocolate-chip, almond, cherry, walnut, blueberry}</blockquote>
+
+<p>We need the substructure because each element of M is representing a specific type of muffin.</p>
+
+<h2>The Power Set</h2>
+
+<p>If A is a set, then the power set of A, shorthand \(\mathbb{P}(A)\), contains all subsets of A. \(\mathbb{P}(A)\) is a bit large to write out completely. Here&#39;s is some of it, organized by the size of the subset:</p>
+
+<blockquote>\(\mathbb{P}(A)\) = {\(\emptyset\), {orange}, {lemon}, ...<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {orange, lemon}, {orange, blueberry}, ..., {lemon, blueberry}, ....<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {orange, lemon, blueberry}, {orange, lemon, walnut}, ...<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {orange, lemon, blueberry, walnut}, ...<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ....<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {chocolate-chip, blueberry, orange, almond, lemon, cherry, walnut}}</blockquote>
+
+<p>To create a subset of A, we have 7 independent two-way choices, one for each flavoring in A. Do we include the flavoring or leave it out? So the power set of A contains \(2^7\) different subsets.</p>
+
+<p>Let&#39;s compare \(\mathbb{P}(A)\) and M. \(\mathbb{P}(A)\) contains ALL subsets of A. M contains eight subsets of A. M is a subset of \(\mathbb{P}(A)\).</p>
+
+<h2>The power set in function type signatures</h2>
+
+<p>The power set frequently appears in function type signatures, indicating that the input and/or output of the function is a set whose members are chosen from some specific base set.</p>
+
+<p>For example, consider the function C that returns the number of calories in each type of muffin:</p>
+
+<blockquote>C(\(\emptyset\)) = 400<br />
+C({lemon,almond}) = 450<br />
+C({chocolate-chip}) = 800</blockquote>
+
+<p>Each output value is a natural number. So the co-domain is the set of all natural numbers \(\mathbb{N}\). Similarly, each input value is a subset of A. So the domain of the function is the set of all subsets of A. This is \(\mathbb{P}(A)\). So the type signature is</p>
+
+<blockquote>\(C: \mathbb{P}(A) \rightarrow \mathbb{N}\)</blockquote>
+
+<p>Now suppose that we are taking orders from everyone at a hackathon. Let&#39;s say that H contains the set of attendees. We&#39;d like to build a function g that maps each person to their favorite type of muffin.</p>
+
+<blockquote>g(Margaret) = {lemon, almond}<br />
+g(Flora)&nbsp;= {orange}<br />
+g(Ndumiso)&nbsp;= {}</blockquote>
+
+<p>Each type of muffin is a set of add-ons. So each value produced by g is a subset of A. So the co-domain of g is the set of all subsets of A. So g&#39;s type signature is</p>
+
+<blockquote>\(g: H \rightarrow \mathbb{P}(A)\)</blockquote>
+
+<p>So when the domain/co-domain of a function is the power set of A, then an individual input/output is a set of elements of A.</p>
+</body>
+<div style="display: block; opacity: 1; color-scheme: auto;">&nbsp;</div>
+</html>

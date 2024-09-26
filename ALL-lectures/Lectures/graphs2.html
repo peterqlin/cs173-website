@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1"><meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+	<title>CS173 Lectures</title>
+	<link href="../menu.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!--- load Mathjax ---><script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!--- Cute course logo --->
+<div style="float:left"><img alt="UI logo" src="graphics/plain-logo.png" style="height:40px; width:28px" /></div>
+
+<div style="float:left">CS 173<br />
+Spring 2021</div>
+
+<div class="center">
+<h2>Graphs 2</h2>
+</div>
+
+<hr />
+<h2>Counting isomorphisms</h2>
+
+<p>To get more insight into how isomorphisms work, let&#39;s try counting how many ways a graph can be matched to itself. Consider the following graph G.</p>
+
+<p><img src="graphs-figs/counting-1.png" style="width:200px" /></p>
+
+<p>We can reflect the graph about the middle, so that A swaps with E, and the edges will all match up correctly. We can also swap B and D. C looks different, but actually it can also be swapped with B or D. Remember that we care only about connectivity, not about geometry.</p>
+
+<p>Counting these possibilities, we have 3 options for where to move B: B, C, or D. After we&#39;ve done that, we have two places to move C. And then D has to go onto the remaining middle spot. And then we have two choices for how to place A and E. So a total of \((3\cdot 2) \cdot 2\) isomorphisms.</p>
+
+<p>Notice that one of the isomorphisms in this count is the one that leaves every node in the same place.</p>
+
+<p>The first part of that computation is actually the number of ways to permute three items. So it&#39;s better to think about the count as \(3! \cdot 2\) isomorphisms. If we add a fourth node in the middle group, as below, we&#39;ll have \(4! \cdot 2\) isomorphisms.</p>
+
+<p><img src="graphs-figs/counting-2.png" style="width:200px" /></p>
+
+<h2>More complex example for counting isomorphisms</h2>
+
+<p>Let&#39;s look at a more complex example.</p>
+
+<p><img src="graphs-figs/counting-3.png" style="width:400px" /></p>
+
+<p>To attack this, let&#39;s identify places where we can split up the graph into sections that can be analyzed independently. First, the graph has three connected components. Each of these must map onto another connected component. Clearly the only possible swaps are between the two small ones.</p>
+
+<p><img src="graphs-figs/counting-5.png" style="width:400px" /></p>
+
+<p>Now, let&#39;s divide up the big component at vertices that are heavily constrained.</p>
+
+<ul>
+	<li>C is the only node with degree 6, so it maps to itself.</li>
+	<li>H is the only node with degree 7, so it maps to itself.</li>
+</ul>
+
+<p><img src="graphs-figs/counting-4.png" style="width:400px" /></p>
+
+<p>These three pieces are obviously very different (e.g. different numbers of nodes) so no hope of mapping one on top of another.</p>
+
+<p>With this decomposition, let&#39;s analyze the ways that we could build an isomorphism. The two little components could swap, or not (2 choices). The two ends of each little component could swap (2 choices each). A and B could swap (2 choices). D, E, F, and G could be permuted (4! choices). I, J, and K could be permuted (3! choices).</p>
+
+<p><img src="graphs-figs/counting-6.png" style="width:400px" /></p>
+
+<p>So, in total, the number of possible isomorphisms is \((2\cdot 2 \cdot 2) \cdot 2 \cdot 4! \cdot 3!\).</p>
+</body>
+</html>

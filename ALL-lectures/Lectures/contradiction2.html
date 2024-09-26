@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Contradiction 2 </h2>
+</div>
+
+
+<hr>
+
+<h2>Graph example</h2>
+
+<p>
+Here's another claim that we can prove by contradiction.  It's an example where
+the form of the claim doesn't obviously suggest contradiction as a method.  
+
+<blockquote>
+Claim: Suppose that G is a graph with n nodes.    If all the nodes have
+degree \(\ge \frac{n-1}{2}\), then G is connected.
+</blockquote>
+
+<p>
+The
+main idea is that if you put enough edges into a graph, appropriately spread
+out, eventually there has to be a way to get from any node to any other node.
+It's not immediately obvious why the magic number is
+\(\frac{n-1}{2}\) edges touching each node, but that is a fairly large number of
+edges for a graph that has only n nodes.
+
+<p>
+Before we start the proof, a bit of notation.  Suppose that x is a node in a graph.   Then
+N(x) is the set of all "neighbors" of x, i.e. all 
+nodes directly connected to x by an edge.  Notice that
+N(x) does not include x.   
+
+<p>
+In this case, we need a bit of set-up before we have something appropriate to
+contradict.    
+
+<blockquote>
+Proof:  Suppose that G is a graph with n nodes and all nodes have
+degree \(\ge \frac{n-1}{2}\).   Let v and w be nodes in G.   We
+need to show that there is a walk from v to w.
+</blockquote>
+
+<p>
+We're going to use proof by contradiction to show that the walk must exist.
+
+<blockquote>
+Suppose not.    That is, suppose that there is no walk from v to w.
+</blockquote>
+
+<p>
+Normally it's unhelpful to have negative information like this.   But we have
+a secret goal:   to prove that several sets are disjoint (non-overlapping) so
+that we can easily add up the number of elements in their union.   So let's
+look at some of the consequences of the lack of a walk from v to w.
+
+<p>
+Notice that there is 
+a zero-length walk connecting any node to itself.   So if v and w were the same,
+there would be a walk between them.
+
+<blockquote>
+Since there is no walk from v to w, v and w can't be equal.  
+
+<p>
+v and we also can't be
+neighbors.   So N(v) can't contain w, and it was defined not to contain v.
+Similarly,  N(w) can't contain either v or w.
+</blockquote>
+
+<p>
+More interestingly, N(v) and N(w) can't intersect.   Let's draw a picture
+of what would happen if there was a point (call it p) in both sets.
+The dotted lines are to remind us that
+v is not in N(v) and w is not in N(w).
+
+<p>
+<img width=300 src="contradiction-figs/graph-proof1.png">
+
+<p>
+Remember that N(v) contains all the nodes connected to v with an edge, and
+similarly for N(w).   So the situation must actually look like this.  
+
+<p>
+<img width=300 src="contradiction-figs/graph-proof2.png">
+
+<p>
+But we assumed that there is no walk from v to w.  So there can't be
+a point in both N(v) and N(w).   Let's write this into the proof:
+
+<blockquote>
+Since there is no walk from v to w, v and w can't be equal.  (There is 
+a zero-length walk connecting any node to itself.)   They also can't be
+neighbors.   So N(v) can't contain w, and it was defined not to contain v.
+Similarly,  N(w) can't contain either v or w.
+
+<p>
+Also, since there's no walk from v to w, v and w can't have a common neighbor.
+So N(v) and N(w) can't intersect.
+
+<p>
+So the sets N(v), N(w), and {v,w} are all disjoint.
+</blockquote>
+
+<p>
+OK, now what?   Time for Rule #1 of writing proofs:  use all the given information.
+We've never used the fact that all nodes have degree
+\(\ge \frac{n-1}{2}\).   Let's use this to calculate the size of
+\( N(v) \cup N(w) \cup \{v,w\}\).   
+
+
+<blockquote>
+Since N(v), N(w), and {v,w} are all disjoint, we have
+\(
+|N(v) \cup N(w) \cup \{v,w\}| = |N(v)| + |N(w)| + |\{v,w\}|
+\).
+<p>
+Since every node has degree \(\ge \frac{n-1}{2}\),
+N(v) contains at least \(\frac{n-1}{2}\) nodes, and 
+N(w) contains at least \(\frac{n-1}{2}\) nodes.  
+
+<p>
+So we have
+\(
+|N(v) \cup N(w) \cup \{v,w\}| = |N(v)| + |N(w)| + |\{v,w\}|
+\ge \frac{n-1}{2} + \frac{n-1}{2} + 2 = (n-1) + 2 = n+1
+\)
+
+<p>
+So \(
+|N(v) \cup N(w) \cup \{v,w\}| \ge n+1
+\)
+
+</blockquote>
+
+<p>
+Have you lost track of what we're trying to do?   That would be understandable.
+We're trying to find some sort of contradiction, because that will show that
+we were wrong about there being no walk from v to w.
+
+<blockquote>
+So \(|N(v) \cup N(w) \cup \{v,w\}| \ge n+1\).   
+\(N(v) \cup N(w) \cup \{v,w\}\) is a subset of the nodes of G.
+But G contains only n nodes.
+So we have a contradiction.
+
+<p>
+We assumed that there was no walk from v to w, and that led to a contradiction.
+So there must be a walk from v to w.
+
+<p>
+Since v and w were arbitrarily chosen, this means there is a walk between any two nodes
+in G.   So G is connected.
+</blockquote>
+
+<p>
+This proof is long enough that it's important to include the summary sentences at the end.
+If the reader has been carefully following all the details in the middle of the proof, they
+may have lost track of the main outline.
+
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Trees 2 </h2>
+</div>
+
+
+<hr>
+
+<h2>Llama trees</h2>
+
+  <p>
+    Now, let's see how induction proofs work on trees.    Here's the definition for
+    a simple (but slightly silly) type of tree, called a llama tree.
+
+<blockquote>
+    A llama tree is a full binary tree with natural number labels on nodes, such that
+
+<ul>
+  <li> a leaf node has label 5, 10, or 15
+  <li> an interior node has label xy, where x and y are the labels of its children.
+</ul>
+</blockquote>
+
+<p>
+  Remember some bits of terminology:
+
+  <ul>
+    <li> in a binary tree, a node has either 0, 1, or 2 children
+      <li> in a full n-ary tree, a node has either 0 or n children
+  </ul>
+
+<p>
+  So the nodes in a llama tree have either 0 or 2 children.
+
+<p>
+  Here's a partly-built llama tree with values on the leaves.   Notice that the tree isn't at
+  all symmetric and many of the branches don't go down to the bottom level.   We have a free
+  choice of whether each node should have children and what label to put on each leaf.
+
+<p>
+  <img width=300 src="trees-figs/llama1.png">
+
+<p>
+  The labels on the interior nodes are constrained by the definition of a llama tree.   So we
+  can figure out all of their labels based on the leaf labels.
+
+<p>
+  <img width=300 src="trees-figs/llama2.png">
+
+<p>
+  Levels in a tree start with 0 at the root.   The height of a tree is the level of the leaves,
+  or (said another way) the number of edges between the root and the lowest leaf.  That's
+  4 in this case.   
+
+<p>
+  <img width=300 src="trees-figs/llama3.png">
+
+
+  
+<h2>Tree induction proof</h2>
+
+
+<p>
+Here's a claim about llama trees:        
+
+<blockquote>
+    Claim:   the root node of a llama tree has a label divisible by 5
+</blockquote>
+
+<p>
+  This is true because it's true at the leaves and because the local constraint in
+  the llama tree definition (a parent's label is the product of its children's labels)
+  causes this property to propagate upwards.
+
+<p>
+  To prove this claim using induction, we first need to identify our induction variable.
+  For complex objects like trees, the induction variable measures the size of the object.   
+  For trees, I usually use the height.  The number of nodes also works.
+
+<p>
+  So our proof would start out like this:
+
+<blockquote>
+Proof:   by induction on h, which is the height of the llama tree.
+</blockquote>
+
+<p>
+  The base case needs to cover the shortest trees of this type.   The shortest
+  possible llama tree has just a single node and therefore has height 0.
+  Notice that we need to describe all trees of this height and explain why the
+  claim is true for all of them.
+
+<blockquote>
+Proof:   by induction on h, which is the height of the llama tree.
+
+<p>
+  Base case:  at h=0, the llama tree has only a single node.   By the definition of
+  a llama tree, this node has label 5, 10, or 15.   All of these are divisible by 5.
+  So our claim holds at h=0.
+</blockquote>
+
+<p>
+  The inductive hypothesis is made just as for a numerical induction.   That is, we copy
+  the claim and assert that it works from the first base case up through a bound k-1.
+
+<blockquote>
+  Inductive hypothesis: the root node of a llama tree has a label divisible by 5, for trees of
+  height h=0,...,k-1.
+</blockquote>
+
+  <p>
+    The rest of our inductive step needs to show that the claim works for a tree of height k.
+    We typically start by introducing our tree:
+
+<blockquote>
+  Inductive hypothesis: the root node of a llama tree has a label divisible by 5, for trees of
+  height h=0,...,k-1.
+
+  <p>
+    Rest of inductive step:   Suppose that T is a llama tree of height k.
+
+   <p>
+     .....
+     
+    <p>
+    So the root of T is is divisible by 5.
+</blockquote>
+
+  <p>
+    The first thing we do in an inductive step is to divide the large object (our tree T) into
+    smaller objects of the same type (a llama tree).  We do this by dividing the tree at the
+    root.   Here's what this looks like for our example llama tree:
+
+<p>
+  <img width=300 src="trees-figs/llama4.png">
+
+<p>
+  Here's a general schematic:
+
+<p>
+  <img width=300 src="trees-figs/dividing-tree.png">
+
+<p>
+  Dividing at the root ensures that we have a simple situation to analyze, in which
+  both subtrees (\(T_1\) and \(T_2\)) are llama trees.
+  This is frequently not the case if you improvise other ways to divide up T.   So
+  do not try removing a leaf, or the bottom level of the tree, or the like.
+
+<p>
+  Notice also that (\(T_1\) and \(T_2\)) are shorter than T.   They don't have to have the
+  same height, so one of them might be shorter than height k-1.   But their heights are
+  both \(\le k-1\).   So the inductive hypothesis applies to both of them.
+
+
+<p>
+  Since we need to talk about the labels in nodes, let's set up variables for the labels in
+  the root node and its children.   
+
+<p>
+  <img width=300 src="trees-figs/llama5.png">
+
+<p>
+  To write out the proof, we're going to describe the key features from this diagram, for the reader.
+   It's  often helpful to include the actual diagram as well, though that's not always convenient
+  when typing online.   Also notice that the definition of a llama tree tells us how
+  p, q, and r are related to one another.
+
+
+<blockquote>
+  Inductive hypothesis: the root node of a llama tree has a label divisible by 5, for trees of
+  height h=0,...,k-1.
+
+  <p>
+    Rest of inductive step:   Suppose that T is a llama tree of height k.
+
+  <p>
+    We can divide T into its root and two subtrees  (\(T_1\) and \(T_2\)).  
+    Suppose that the label on the root is p and the labels on the roots of 
+    (\(T_1\) and \(T_2\)) are q and r.   By the definition of a llama tree,
+    p = rq.
+
+
+   <p>
+     .....
+     
+    <p>
+    So the root of T is is divisible by 5.
+</blockquote>
+
+<p>
+Now, we need to apply our inductive hypothesis to both subtrees.   
+
+
+<blockquote>
+  Inductive hypothesis: the root node of a llama tree has a label divisible by 5, for trees of
+  height h=0,...,k-1.
+
+  <p>
+    Rest of inductive step:   Suppose that T is a llama tree of height k.
+
+  <p>
+    We can divide T into its root and two subtrees  (\(T_1\) and \(T_2\)).  
+    Suppose that the label on the root is p and the labels on the roots of 
+    (\(T_1\) and \(T_2\)) are q and r.   By the definition of a llama tree,
+    p = qr.
+
+  <p>
+    By the inductive hypothesis,  q and r are divisible by 5.
+
+   <p>
+     .....
+     
+    <p>
+    So the root of T is is divisible by 5.
+</blockquote>
+
+<p>
+In this case, there's almost nothing left to finish the proof.   
+
+<blockquote>
+  Inductive hypothesis: the root node of a llama tree has a label divisible by 5, for trees of
+  height h=0,...,k-1.
+
+  <p>
+    Rest of inductive step:   Suppose that T is a llama tree of height k.
+
+  <p>
+    We can divide T into its root and two subtrees  (\(T_1\) and \(T_2\)).  
+    Suppose that the label on the root is p and the labels on the roots of 
+    (\(T_1\) and \(T_2\)) are q and r.   By the definition of a llama tree,
+    p = qr.
+
+  <p>
+    By the inductive hypothesis,  q and r are divisible by 5.
+    Since p=qr, this means that p is also divisible by 5.
+     
+    <p>
+    So the root of T is is divisible by 5, which is what we needed to show.
+</blockquote>
+
+
+
+
+</body>
+</html>

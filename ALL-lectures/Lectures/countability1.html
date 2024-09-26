@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Countability 1 </h2>
+</div>
+
+
+<hr>
+
+<h2>Measuring the size of infinite sets</h2>
+
+<p> 
+We can measure the size of finite sets by counting the number of elements.
+However, this doesn't work for infinite sets.   Allowing \(\infty\) as
+a cardinality isn't sensitive enough, because it doesn't let us talk about
+whether all infinite sets are the same size.
+
+<p>
+  We've seen another approach to comparing finite sets:  two sets are the
+  same size if and only if you can construct a bijection from one to the
+  other.    We'll use this as our definition of "same size," because it
+  extends well to infinite sets.
+
+<p>
+  For example, let's build a bijection f from \(\mathbb{N}\) to
+  \(\mathbb{Z}\).
+
+<blockquote>
+  f(n) = n/2, if n is even<br>
+  f(n) = -(n+1)/2, if n is odd
+</blockquote>
+
+<p>
+  This maps the even natural numbers to the non-negative integers {0,1,2,....}.   It maps the odd natural numbers to
+  the negative integers.  Quick check:  f(1) = -1, so we're producing zero only once as an output value.
+  So it's actually one-to-one and onto.
+
+<p>
+Some terminology:
+<ul>
+<li>  A countably infinite set is a set that has the same size as \(\mathbb{N}\) or \(\mathbb{Z}\).
+<li>  A countable set is a set that's either finite or countably infinite.
+</ul>
+
+<p>
+Subsets of countable sets are countable.    
+For example, consider the set of prime numbers, which is an infinite subset of the integers.
+We can put the prime numbers in the order that they inherit from the integers.   
+
+<table rules = all frame=box cellpadding =5>
+  <tr>
+<td>_</td>
+<td>_</td>
+<td>2</td>
+<td>3</td>
+<td>_</td>
+<td>5</td>
+<td>_</td>
+<td>7</td>
+<td>_</td>
+<td>_</td>
+<td>_</td>
+<td>11</td>
+<td>_</td>
+<td>13</td>
+<td>_</td>
+<td>_</td>
+<td>17</td>
+<td>...</td>
+  </tr>
+</table>
+
+<p>
+  Then squeeze out the spaces where numbers are missing:
+
+  <table rules = all frame=box cellpadding =5>
+  <tr>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+<td>7</td>
+<td>11</td>
+<td>13</td>
+<td>17</td>
+<td>...</td>
+  </tr>
+</table>
+
+<p>
+And now line them up against the natural numbers, so that 
+the nth prime is mapped onto n.
+
+<table rules = all frame=box cellpadding =5>
+  <tr>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+<td>7</td>
+<td>11</td>
+<td>13</td>
+<td>17</td>
+<td>...</td>
+  </tr>
+
+  <tr>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>...</td>
+  </tr>
+
+</table>
+
+
+<h2>\(\mathbb{N}^2\) is countable (method one)</h2>
+
+<p>
+  Now, let's show that  \(\mathbb{N}^2\) is countable by constructing a bijection
+  from pairs of natural numbers to single natural numbers.  I'm just going to draw
+  a picture.   You folks will work out the details of the map in tutorials.
+
+<p>
+ We can imagine pairs of natural numbers as a grid of 2D points, like this:
+
+<p>
+  <img width=300 src="countability-figs/integer-pairs1.png">
+
+
+<p>
+  Now let's number them in diagonal groups.   (0,0) gets the number 0.   Then (1,0) and (0,1) are
+  numbered 1 and 2.   Then (2,0), (1,1), and (0,2) are numbered 3, 4, and 5.   And so forth.
+  
+
+<p>
+  <img width=300 src="countability-figs/integer-pairs2.png">
+
+<p>
+  We now have a way to assign a single natural number to each pair of natural numbers, and vice
+  versa.   So \(\mathbb{N}^2\) is countable.
+
+
+<h2>Cantor-Schroeder Bernstein Theorem</h2>
+
+<p>
+The method of building a bijection works for simple examples but doesn't extend well to complicated ones.
+Let's introduce a second definition:
+
+<blockquote>
+\(|A| \le |B|\) if and only if there is a one-to-one function from A to B.
+</blockquote>
+
+<p>
+This is somewhat like our definition of when two sets have the same size:
+  
+<blockquote>
+\(|A| = |B|\) if and only if there is a bijection from A to B.
+</blockquote>
+
+<p>
+There is a theorem that shows that these two definitions play nicely together.
+  
+<blockquote>
+  Cantor-Schroeder-Bernstein Theorem:  If \(|A| \le |B|\) and \(|B| \le |A|\), then
+  \(|A| = |B|\).
+</blockquote>
+
+
+<p>
+  This should seem obvious if the two sets are finite.  It's a theorem because we're claiming that
+  it's also true when the sets are infinite.
+
+<p>
+We don't have time to do the proof in this class, but you would have
+the background to understand the proof at this point.
+Well, ok, maybe not right now when it's the end of the term and you're tired.
+But perhaps over the summer, if you are curious.
+
+
+<h2>\(\mathbb{N}^2\) is countable (method two)</h2>
+
+
+<p>
+  Let's use the Cantor-Schroeder-Bernstein theorem to show that 
+\(\mathbb{N}^2\) is countably infinite.  
+
+<p>
+  Part 1:  find a one-to-one function \( f:\mathbb{N} \rightarrow \mathbb{N}^2\).
+
+<p>
+  This is easy.  For example, we could let f(n)=(n,0).  This shows that
+\(|\mathbb{N}| \le |\mathbb{N}^2|\).
+
+
+<p>
+  Part 2:  find a one-to-one function \( g:\mathbb{N}^2 \rightarrow \mathbb{N}\).
+
+<p>
+ Here's we're going use a trick:  for each pair (p,q), set \(g(p,q) = 2^p3^q\).   
+Since prime factorizations are
+ unique, you can decode a pair \(2^p3^q\) and reconstruct the input pair (p,q).  So g
+ is one-to-one.  This shows that \(|\mathbb{N}^2| \le |\mathbb{N}|\).
+
+<p>
+  We now have
+\(|\mathbb{N}| \le |\mathbb{N}^2|\) and 
+  \(|\mathbb{N}^2| \le |\mathbb{N}|\).   By the Cantor-Schroeder-Bernstein Theorem, this
+  means that \(|\mathbb{N}^2| = |\mathbb{N}|\).
+  So \(\mathbb{N}^2\) is countably infinite.
+
+<p>
+  We did need a trick to build the one-to-one function in the second direction.   But the
+  proof is a lot less messy than constructing the bijection.
+
+</body>
+</html>

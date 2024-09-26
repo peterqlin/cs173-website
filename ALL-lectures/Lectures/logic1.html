@@ -1,0 +1,546 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Logic 1 </h2>
+</div>
+
+
+<hr>
+
+  <p>
+    Normally you would be expected to read sections of the textbook before watching
+    lectures.    However, that's a big ask for the first week of classes.   So the
+    logic lectures will use a more traditional style where everything is included
+    in the lecture.  By somewhere during the second week, we'll stop including basic
+    definitions that you could reasonably be expected to understand from the readings.
+    The lectures will then focus on doing examples and discussing aspects of the topic
+    that are harder or more subtle, which you probably didn't absorb on your first
+    pass through the readings.
+
+<h2>Types of logic</h2>
+
+  <p>
+    There are two main types of logic used in computer science:
+
+    <ul>
+<li> Propositional logic
+<li> Predicate logic
+    </ul>
+
+  <p>
+    In this video, we'll see propositional logic.    It's very primitive, and not 
+    really up to the job of representing English sentences.   So the translations
+    will look very stilted.   Its main use is in representing computer circuits.
+    You may also see it some specialized applications within computer science, notably
+    theorem proving and complexity theory.
+
+    <p>
+      Predicate logic is an upgrade to propositional logic, to add quantifiers (e.g. "all").
+      This is the primary language used for representing the foundations of proofs and
+      formal mathematics.  Translations between predicate logic and English will still
+      seem somewhat artificial, but this is primarily due to features of natural language
+      that aren't used in mathematics.   For example, changes over time are
+      very important in ordinary life, but pure mathematics lives in a static timeless world.
+      With somem effort, beyond the scope of this class, you can add these features to
+      predicate logic.
+
+    <p>
+      The lectures this week won't cover all of logic in full detail.
+      You can take entire classes on logic from math or philosophy.
+      We're just covering the basics.  Later lectures will return to
+      some of the subtle points, as we need them.
+
+
+<h2>What is a proposition?</h2>
+
+    <p>
+      The basic building block for propositional logic is a
+      proposition.  By "proposition," we mean a statement that is true
+      or false.  So a proposition can be a false statement (e.g.
+      "Chicago is the capital of the US") or one whose truth you don't
+      know (e.g. "Margaret is physically in Illinois right now.").
+      A proposition cannot be
+
+      <ul>
+	<li> A question or command, e.g. "Is the door locked?" or "Please turn off the stove".
+	<li> A statement containing variables, e.g. "x is larger than 7".
+      </ul>
+
+    <p>
+      The problem with variables is that we can't determine what value they have, so there
+      is no way to decide  whether a statement like "x is larger than 7" is true or false.
+      The upgrade to predicate logic (next video) will also allow us to include variables.
+      
+    <p>
+      When we are discussing the rules of propositional logic, we will use some variables that
+      refer to whole propositions.   E.g. p could stand in for "Obama is president."   This
+      is different from a variable that is used <b> inside</b> a proposition.
+
+
+  <h2>Basic four logical connectives </h2>
+
+    <p>
+      Predicate logic includes four basic connectives that let you
+      form complex propositions out of simple ones.   These are:
+
+      <ul>
+<li> "and", shorthand \(\wedge\)
+<li> "or", shorthand \(\vee\)
+<li> "not", shorthand \(\neg\)
+<li> "implies", shorthand \(\rightarrow\)
+      </ul>
+
+    <p>
+      "Implies" is often written out as "if/then" in English.   So these two propositions
+      mean the same thing, but the second is more fluent and therefore easier to understand.
+
+      <ul>
+	<li> "John is 22 implies that John can legally drink"
+	<li> "If John is 22, then John can legally drink"
+      </ul>
+
+    <p>
+      In an implication (aka if/then statement) "if p, then q", p is called the "hypothesis"
+      and q is the "conclusion."
+
+    <p>
+      Shorthand notation is just what the name implies: it's shorter
+      to read and write.  It means the same thing as the equivalent
+      words and is not more formal.  Much of mathematics is written
+      out in words, because it is intended to be read by other people.
+      But the words have specialized meanings that don't always match
+      how they are used in ordinary English.  This is just like how
+      "work" means something much more specific in physics class.
+
+    <p>
+      Shorthand is typically used to talk about the overall
+      structure of a complicated expression.  This should be familiar
+      from algebra, where arithmetic would be very hard to do if you
+      had to write out each equation in words.   The main flow of a
+      proof is typically written out in words, including the logical
+      connectives.
+
+    <p>
+      Other connectives can be built out of these basic ones.
+      So mathematicians often use \(\leftrightarrow\) for
+      an implication in both directions, read out as "if and only if".
+      Circuit designers combine "and" and "not" into "nand."  These
+      extra connectives are easy to understand if you understand the
+      four basic connectives.
+
+
+<h2>Truth tables for the basic connectives</h2>
+
+    <p>
+      To make the meaning of each connective precise, let's see how the truth value
+      of its output is derived from the truth values of inputs.   Since we have
+      only a small number of inputs (1 or 2), we can do this easily with a table.
+      Here are the truth tables for "not" and "and", which are probably what you
+      would have guessed.
+
+<table border=0 cellpadding =20>
+<tr>
+<td>
+<p>
+  <table      rules = all frame=box cellpadding =5>
+  <tr>
+<th>p</th>
+<th>\(\neg p\)</th>
+  </tr>
+
+  <tr>
+<th>T</th>
+<th>F</th>
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>T</th>
+  </tr>
+</table>
+
+
+</td>
+<td>
+
+
+  <table    rules = all frame=box cellpadding =5>
+  <tr>
+<th>p</th>
+<th>q</th>
+<th>\(p \wedge q\)</th>
+  </tr>
+
+  <tr>
+<th>T</th>
+<th>T</th>
+<th>T</th>
+  </tr>
+
+  <tr>
+<th>T</th>
+<th>F</th>
+<th>F</th>
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>T</th>
+<th>F</th>
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>F</th>
+<th>F</th>
+  </tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+
+<p>
+  The truth table for "or" (below left) is mostly what you'd guess.   However, notice the value
+  of the first row:  "or" is true if both of its inputs are true.   Unless there is
+  explicit indication to the contrary, "or" in mathematics always means this "inclusive"
+  or.
+  The truth table for an "exclusive or" (XOR) is shown below right.   This connective has some interesting
+  applications in areas like graphics and cryptography.   However, this version of "or" is
+  rarely used in math and will always be explicitly labelled in this class.
+ 
+<table border=0 cellpadding =20>
+<tr>
+<td>
+
+<table>
+<table rules = all frame=box cellpadding =5>
+  <tr>
+<th>p</th>
+<th>q</th>
+<th>\(p \vee q\)</th>
+  </tr>
+
+  <tr>
+<th>T</th>
+<th>T</th>
+<th>T</th>
+  </tr>
+
+  <tr>
+<th>T</th>
+<th>F</th>
+<th>T</th>
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>T</th>
+<th>T</th>
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>F</th>
+<th>F</th>
+  </tr>
+
+</table>
+
+</td>
+<td>
+
+<table rules = all frame=box cellpadding =5>
+  <tr>
+<th>p</th>
+<th>q</th>
+<th>\(p \text{ XOR }  q\)</th>
+  </tr>
+
+  <tr>
+<th>T</th>
+<th>T</th>
+<th>F</th>
+  </tr>
+
+  <tr>
+<th>T</th>
+<th>F</th>
+<th>T</th>
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>T</th>
+<th>T</th>
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>F</th>
+<th>F</th>
+  </tr>
+
+</table>
+
+</td>
+</tr>
+</table>    
+
+
+<p>
+  The counter-intuitive part of the basic connectives is the truth table for implies (if/then).
+  
+
+<p>
+<table rules = all frame=box cellpadding =5>
+  <tr>
+<th>p</th>
+<th>q</th>
+<th>\(p \rightarrow q\)</th>
+  </tr>
+
+  <tr>
+<th>T</th>
+<th>T</th>
+<th>T</th>
+  </tr>
+
+  <tr>
+<th>T</th>
+<th>F</th>
+<th>F</th>
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>T</th>
+<th>T</th>
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>F</th>
+<th>T</th>
+  </tr>
+
+</table>
+
+
+<p>
+  The first two row are probably what you expected.   For example, if we know that
+  the pot has boiled dry and the pot is hot, then it makes sense to say that the
+  first sentence below is true and the second is false.
+
+<ul>
+<li> If the pot has boiled dry, then the pot is hot.
+<li> If the pot has boiled dry, then the pot is cold.
+</ul>
+
+<p>
+However, in normal English, we don't
+  normally think about the truth of an if/then statement in which the 
+  hypothesis is known to be false.   Consider a sentence like
+"If Chicago is in China, then zombies are attacking the ECE building."
+  This seems too absurd to have a truth value.    Or perhaps it's meant to get you thinking
+  about an alternative universe in which Chicago was in China.  Either way, most people do
+  not have intuitions about its truth value.
+  In fact, there are non-standard types of logic in which such statements would be neither
+  true nor false.
+
+<p>
+  In standard mathematics, an "if/then" statement is true when its hypothesis is false.
+  So "If Chicago is in China, then zombies are attacking the ECE building" is considered to be
+  true.  This is a just a convention, but one that will have real consequences when we start
+  applying definitions to special cases involving objects that have zero size (e.g. a list with
+  no elements).   And (unlike some details of notation), it is standard across mathematics.
+  So it's important to get used to it.
+  
+<p>
+  Another problem with this sentence is that there isn't any kind of causal connection between
+  Chicago being in China and zombies attacking the ECE building.   In normal English, if/then
+  statements are primarily used when there is some reason why the hypothesis being true  should
+  cause the conclusion to be true.   Although this is frequently also true in mathematics,
+  it is not required.  An if/then statement in propositional logic has a truth value that is
+  determined only by the truth values of the input propositions, even if the statements refer
+  to completely unrelated aspects of mathematics or the real world.
+
+<p>
+  A useful way to remember this is to think about when an if/then statement is false.
+  An if/then statement is false only when its hypothesis is true but its conclusion is false.
+
+
+  <h2>Useful identities</h2>
+
+
+<p>
+  From these basic truth tables, we can prove a number of useful facts about
+  what complex propositions are equivalent to one another.   Here is a 
+  <a href="https://en.wikipedia.org/wiki/Logical_equivalence"> big table of
+    equivalences</a>.  Most of them aren't worth memorizing.   
+Here is one of the exceptions:
+
+<blockquote>
+\(p \rightarrow q \equiv q \vee (\neg p) \)
+</blockquote>
+
+<p>
+\(\equiv\) is shorthand for "logically equivalent to," i.e. has the same truth value.
+Notice that we use 3-bar equals to compare two propositions, rather than the
+2-bar equals sign used to compare two numbers.  
+
+<p>
+We can use a truth table to prove that the two sides are equivalent:
+
+<p>
+<table rules = all frame=box cellpadding =5>
+  <tr>
+<th>p</th>
+<th>\(\neg p\)</th>
+<th>q</th>
+<th>\(p \rightarrow q\)</th>
+<th>\(q \vee \neg p\)</th>
+  </tr>
+
+
+  <tr>
+<th>T</th>
+<th>F</th>
+<th>T</th>
+<th>T</th>
+<th>T</th>
+  </tr>
+
+  <tr>
+<th>T</th>
+<th>F</th>
+<th>F</th>
+<th>F</th>
+<th>F</th>
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>T</th>
+<th>T</th>
+<th>T</th>
+<th>T</th>
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>T</th>
+<th>F</th>
+<th>T</th>
+<th>T</th>
+  </tr>
+
+</table>
+
+
+<p>
+The identity \(p \rightarrow q \equiv q \vee (\neg p) \)
+is somewhat counter-intuitive because the meaning of the implies operator
+is somewhat counter-intuitive.   However, this identity is used a lot
+and well worth memorizing.
+
+<p>
+Similarly, we can use a truth table to show one of the DeMorgan's laws:
+\(\neg(p \wedge q) \equiv (\neg p) \vee (\neg q)\)
+
+
+<p>
+<table rules = all frame=box cellpadding =5>
+  <tr>
+<th>p</th>
+<th>\(\neg p\)</th>
+<th>q</th>
+<th>\(\neg q\)</th>
+<th>\(p \wedge q\)</th>
+<th>\(\neg(p \wedge q\))</th>
+<th>\((\neg p) \vee (\neg q)\)</th>
+  </tr>
+
+
+  <tr>
+<th>T</th>
+<th>F</th>
+<th>T</th>
+<th>F</th>
+<th>T</th>
+<th>F</th>
+<th>F</th>
+  </tr>
+
+  <tr>
+<th>T</th>
+<th>F</th>
+<th>F</th>
+<th>T</th>
+<th>F</th>
+<th>T</th>
+<th>T</th>
+
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>T</th>
+<th>T</th>
+<th>F</th>
+<th>F</th>
+<th>T</th>
+<th>T</th>
+  </tr>
+
+  <tr>
+<th>F</th>
+<th>T</th>
+<th>F</th>
+<th>T</th>
+<th>F</th>
+<th>T</th>
+<th>T</th>
+  </tr>
+
+</table>
+
+
+<p>
+  Truth tables are tedious to build, but a very effective way to show that simple
+  equivalences hold.
+
+</body>
+</html>

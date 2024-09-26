@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Functions 4 </h2>
+</div>
+
+
+<hr>
+
+<h2>The pigeonhole principle</h2>
+
+  <p>
+    Suppose that we're keeping pigeons in a set of boxes ("pigeonholes").
+If we have fewer pigeons than holes, or the same number, each pigeon can have a single.
+
+  <p>
+    <img width=300 src="functions-figs/pigeons1.png">
+
+  <p>
+    However, if we have more pigeons than holes, some of them have to double up.
+
+  <p>
+    <img width=300 src="functions-figs/pigeons2.png">
+
+
+  <p>
+    The "pigeonhole principle" says that if you have more variables than values, two variables have
+    to have the same value.   If you have more objects than labels, two objects must have the
+    same label.   It's really as simple as it sounds.   The tricky bit (as we'll see) is
+    seeing the trick required to apply it to a more complex problem.
+
+<p>
+  Notice that we're guaranteed that at least two are sharing, but we can't conclude anything more
+  about how the values are arranged.   To return to our pigeons, it could be that two pairs are sharing.
+
+  <p>
+    <img width=300 src="functions-figs/pigeons3.png">
+
+  <p>
+    It could even be that there's a party in one pigeonhole and the rest are all empty.
+
+  <p>
+    <img width=300 src="functions-figs/pigeons4.png">
+
+  <p>
+    I guess this was pre-covid?
+
+<h2>Pigeonhole principle proof</h2>
+
+  <p>
+    Let's do a sample proof with the pigeonhole principle.
+    <font color=red>  Warning:  these are very frequently "trick" proofs where it can be
+      hard to figure out the trick.
+    </font>
+    We have to be very careful about which ones to put on exams.
+
+  <p>
+    Consider this claim:
+
+<blockquote>
+  Claim:  Let S be a set of n+1 natural numbers, all between 1 and
+         2n (inclusive).  There is a number \(x \in S\) that divides some
+          number \(y \in S\).
+</blockquote>
+
+<p>
+  Oops, there's bug with this.   As written, the claim is true for the stupid reason that
+  we could just set x equal to y.   A number always divides itself.   So what I actually
+  meant to claim is this.
+
+
+<blockquote>
+  Claim:  Let S be a set of n+1 natural numbers, all between 1 and
+         2n (inclusive).  There is a number \(x \in S\) that divides a different
+          number \(y \in S\).
+</blockquote>
+
+
+<p>
+  Our task is to massage this problem until we can identify the pigeons and the pigeonholes.
+In this case, the trick is to represent each number  S as an odd part and an even part.
+  Specifically, suppose that \(S = \{k_1,\ldots,k_{n+1}\}\).   For each number \(k_m\), suppose
+  that \(q_m\) is the product of all its odd factors and \(2^{p_m}\) contains all the 2 factors.
+
+
+<p>
+  Consider the odd factors \(q_1, \ldots, q_{n+1}\).   They cannot all be different
+  because there are n+1 elements of S and only n odd numbers between 1 and 2n.  
+  So there are two indices (call them s and t) such that \(q_s = q_t\).  
+
+<p>
+  Now, look at the numbers corresponding to these indices.   They are \(k_s = q_s 2^{p_s}\)
+  and \(k_t = q_t 2^{p_t} = q_s 2^{p_t}\).   These two numbers are the same, except that
+ (since they are not equal) one of them must contain more copies of 2.   The smaller number
+  divides the larger one.
+
+
+</body>
+</html>

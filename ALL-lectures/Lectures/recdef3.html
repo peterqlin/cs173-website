@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Recursive Definition 3 </h2>
+</div>
+
+
+<hr>
+
+<h2>Another unrolling example</h2>
+
+<p>
+  Here is a recursive definition that you might see when analyzing the running time of a "divide and conquer"
+  algorithm.   (We'll see algorithm analysis in a few weeks.
+
+<ul>
+<li> t(4) = c
+<li> t(n) = 2t(n/2) + dn
+</ul>
+
+  <p>
+    Let's try to work out the closed form using unrolling.   For simplicity, we'll assume that n is a power
+    of 2, so that all the divisions produce integers.
+    In an actual algorithms context, the running times for other inputs would lie somewhere between
+    the values for the the nearest powers of two.   So this is a good practical simplification.
+
+  <p>
+    First, we substitute the recursive equation into itself, twice.   So we have three applications of the
+    recursive definition.
+
+<blockquote>
+  \(t(n) = 2t(n/2) + dn \)<br>
+  &nbsp;&nbsp;&nbsp; \( = 2(2t(n/4) + dn/2) + dn\)<br>
+  &nbsp;&nbsp;&nbsp; \( = 2(2(2t(n/8) + dn/4) + dn/2) + dn\)
+</blockquote>
+
+  <p>
+    Now clean up the equation so we can see what's going on:
+
+<blockquote>
+  \(t(n) =  2(2(2t(n/8) + dn/4) + dn/2) + dn\) <br>
+  &nbsp;&nbsp;&nbsp; \( = 2^3 t(n/2^3) + dn + dn + dn\) <br>
+  &nbsp;&nbsp;&nbsp; \( = 2^3 t(n/2^3) + 3dn\) <br>
+</blockquote>
+
+
+  <p>
+    Now let's generalize the pattern from 3 applications to k applications:
+
+
+<blockquote>
+  \(t(n) =  2^3 t(n/2^3) + 3dn\) <br>
+  &nbsp;&nbsp;&nbsp; \( =  2^k t(n/2^k) + kdn\) <br>
+  &nbsp;&nbsp;&nbsp; 
+</blockquote>
+
+<p>
+Now we need to figure out when we'll hit the base case.   The base case of our definition is t(4) = c.
+The expression in our unrolling is \(t(n/2^k)\).   Setting the two inputs equal gives us
+\(n/2^k = 4\).
+
+<p>
+To solve this for k, first put the powers of 2 all on the same side: \(n = 2^{k+2}\).
+Then take the log (base 2) of both sides:  \(k+2 = \log n\).   So \(k = \log n -2\).   
+Substituting this into our equation gives us   
+
+
+<blockquote>
+  \(t(n) =  2^k t(n/2^k) + kdn\) <br>
+  &nbsp;&nbsp;&nbsp; \( =  2^{\log n - 2} t(4) + (\log n - 2) d n\) <br>
+</blockquote>
+
+<p>
+  Substitute the value of t(4) and simplify the term with the log in the exponent.
+Remember that \(2^{\log n}\) is just n.
+
+<blockquote>
+  \(t(n) =  2^{\log n - 2} t(4) + (\log n - 2) d n\) <br>
+  &nbsp;&nbsp;&nbsp; \( = 1/4 (2^{\log n}) c + dn \log n - 2 d n\) <br>
+  &nbsp;&nbsp;&nbsp; \( = 1/4 n c + dn \log n - 2 d n\) <br>
+  &nbsp;&nbsp;&nbsp; \( = (c/4  -2d)n+ dn \log n \) <br>
+</blockquote>
+
+
+</body>
+</html>

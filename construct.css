@@ -1,0 +1,142 @@
+body {
+  background: #00091B;
+  color: #fff;
+}
+
+
+@keyframes fadeIn {
+  from {top: 20%; opacity: 0;}
+  to {top: 100; opacity: 1;}
+  
+}
+
+@-webkit-keyframes fadeIn {
+  from {top: 20%; opacity: 0;}
+  to {top: 100; opacity: 1;}
+  
+}
+
+.wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  animation: fadeIn 1000ms ease;
+  -webkit-animation: fadeIn 1000ms ease;
+  
+}
+
+h1 {
+  font-size: 50px;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 0;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.dot {
+  color: #4FEBFE;
+}
+
+p {
+  text-align: center;
+  margin: 18px;
+  font-family: 'Muli', sans-serif;
+  font-weight: normal;
+  
+}
+
+.icons {
+  text-align: center;
+  
+}
+
+.icons i {
+  color: #00091B;
+  background: #fff;
+  height: 15px;
+  width: 15px;
+  padding: 13px;
+  margin: 0 10px;
+  border-radius: 50px;
+  border: 2px solid #fff;
+  transition: all 200ms ease;
+  text-decoration: none;
+  position: relative;
+}
+
+.icons i:hover, .icons i:active {
+  color: #fff;
+  background: none;
+  cursor: pointer !important;
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  text-decoration: none;
+  
+}
+
+/* Stars 
+------------------------------------- */
+
+#space, .stars {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .stars {
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: zoom 5s infinite;
+    opacity: 0;
+  }
+  
+  .stars:nth-child(1) {
+    background-position: 50% 50%;
+    animation-delay: 0s;
+  }
+  .stars:nth-child(2) {
+    background-position: 20% 60%;
+    animation-delay: 1s;
+  }
+  .stars:nth-child(3) {
+    background-position: -20% -30%;
+    animation-delay: 2s;
+  }
+  .stars:nth-child(4) {
+    background-position: 40% -80%;
+    animation-delay: 3s;
+  }
+  .stars:nth-child(5) {
+    background-position: -20% 30%;
+    animation-delay: 4s;
+  }
+  
+  @keyframes zoom {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+      animation-timing-function: ease-in;
+    } 
+    85% {
+      opacity: 1;
+      transform: scale(2.8);
+      animation-timing-function: linear;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(3.5);
+    }
+  }
+  

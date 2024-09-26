@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Recursive Definition 2 </h2>
+</div>
+
+
+<h2>Another induction proof with recursive definition</h2>
+
+
+<p>
+Here's another example of a recursive definition:
+
+<ul>
+<li>  f(1) = 1
+<li>  f(2) = 5
+<li>  f(n) = 5f(n-1) - 6f(n-2)
+</ul>
+
+  <p>
+    This is slightly different from the example in the previous video, in that
+    f(n) depends on two previous values of n:  f(n-1) and f(n-2).    This means
+    that we need two base cases to get the definition started before we can
+    apply the recursive part of the definition.   
+
+  <p>
+    In one of the dark alleys around Siebel, a mysterious stranger came up to me and
+    whispered this closed form:   
+\(f(n) = 3^n - 2^n\).   Let's prove that it's correct.
+Specifically, our claim will be that
+
+
+<blockquote>
+Claim:  for all positive integers n, \(f(n) = 3^n - 2^n\).   
+</blockquote>
+
+<p>
+Our inductive proof will
+echo the structure of the recursive definition:  two base cases, two applications of
+the inductive hypothesis inside the inductive step.
+There are examples where the inductive proof needs to have a slightly different structure (e.g.
+more base cases).   However, an extremely good initial assumption is that the two will be
+similar.
+
+<p>
+So, in particular, we need two base cases.   These should be for the first two values 
+of n covered by the claim, i.e. 1 and 2.
+
+<blockquote>
+  Proof:   by induction on n.
+
+  <p>
+    Base cases:  at n=1, f(n) = f(1) = 1. <br>
+    Also, \(3^n - 2^n = 3^1 - 2^1 = 1\).
+
+    <p>
+    At n=2, f(n) = f(2) = 5.
+    Also, \(3^n - 2^n = 3^2 - 2^2 = 9 - 4 = 5\).
+
+    <p>
+    In both cases, \(f(n) = 3^n - 2^n\).   
+
+</blockquote>
+
+<p>
+  Here's our inductive hypothesis.   Notice that the range of values for the inductive hypothesis
+  starts at the first base case.   I'm going to run the range of values up to k-1 (not k) for
+  variety.
+
+
+<blockquote>
+Inductive hypothesis:  \(f(n) = 3^n - 2^n\) for \(n=1,2,\ldots, k-1\).   
+</blockquote>
+
+
+<p>
+  Now, set up the goal at the end of the inductive step.   Since I ran the inductive hypothesis
+  up to n=k-1, our goal will be the claim at n=k.
+
+<blockquote>
+  Rest of inductive step:
+
+  <br> .... <br>
+
+  <p>
+  So \(f(k) = 3^{k} - 2^{k}\).
+</blockquote>
+
+<p>
+  As in our previous recursive definition proof, we'll start by using the
+  recursive definition to divide our big object f(k) into smaller objects (f applied to smaller
+  input values).
+
+<blockquote>
+  Rest of inductive step:
+
+  <p>
+    \(f(k) = 5f(k-1) - 6f(k-2) \) (by the definition of f)
+
+  <br> .... <br>
+
+  <p>
+  So \(f(k) = 3^{k} - 2^{k}\).
+</blockquote>
+
+<p>
+  Then apply the inductive hypothesis to BOTH of the smaller values of f:
+
+<blockquote>
+  Rest of inductive step:
+
+  <p>
+    \(f(k) = 5f(k-1) - 6f(k-2) \) (by the definition of f) <br>
+    &nbsp; &nbsp; &nbsp; \(       = 5(3^{k-1} - 2^{k-1}) - 6(3^{k-2} - 2^{k-2})\) (by the inductive hypothesis) <br>
+
+  <br> .... <br>
+
+  <p>
+  So \(f(k) = 3^{k} - 2^{k}\).
+</blockquote>
+
+<p>
+  Now collect the terms with similar exponential terms:
+
+<blockquote>
+  Rest of inductive step:
+
+  <p>
+    \(f(k) = 5f(k-1) - 6f(k-2) \) (by the definition of f) <br>
+    &nbsp; &nbsp; &nbsp; \(       = 5(3^{k-1} - 2^{k-1}) - 6(3^{k-2} - 2^{k-2})\) (by the inductive hypothesis) <br>
+    &nbsp; &nbsp; &nbsp; \(       = (5\cdot 3^{k-1} - 6\cdot 3^{k-2})   
+    - (5\cdot 2^{k-1} - 6\cdot 2^{k-2})\) <br>
+    <br>
+
+  <br> .... <br>
+
+  <p>
+  So \(f(k) = 3^{k} - 2^{k}\).
+</blockquote>
+
+
+<p>
+Now we're going to steal a factor of 2 or 3 from the 6's:
+
+<blockquote>
+  Rest of inductive step:
+
+  <p>
+    \(f(k) = 5f(k-1) - 6f(k-2) \) (by the definition of f) <br>
+    &nbsp; &nbsp; &nbsp; \(       = 5(3^{k-1} - 2^{k-1}) - 6(3^{k-2} - 2^{k-2})\) (by the inductive hypothesis) <br>
+    &nbsp; &nbsp; &nbsp; \(       = (5\cdot 3^{k-1} - 6\cdot 3^{k-2})   
+    - (5\cdot 2^{k-1} - 6\cdot 2^{k-2})\) <br>
+    &nbsp; &nbsp; &nbsp; \(       = (5\cdot 3^{k-1} - 2\cdot 3^{k-1})   
+    - (5\cdot 2^{k-1} - 3\cdot 2^{k-1})\) <br>
+
+
+  <br> .... <br>
+
+  <p>
+  So \(f(k) = 3^{k} - 2^{k}\).
+</blockquote>
+
+<p>
+  And now simplify the algebra to finish the middle of the proof:
+
+
+<blockquote>
+  Rest of inductive step:
+
+  <p>
+    \(f(k) = 5f(k-1) - 6f(k-2) \) (by the definition of f) <br>
+    &nbsp; &nbsp; &nbsp; \(       = 5(3^{k-1} - 2^{k-1}) - 6(3^{k-2} - 2^{k-2})\) (by the inductive hypothesis) <br>
+    &nbsp; &nbsp; &nbsp; \(       = (5\cdot 3^{k-1} - 6\cdot 3^{k-2})   
+    - (5\cdot 2^{k-1} - 6\cdot 2^{k-2})\) <br>
+    &nbsp; &nbsp; &nbsp; \(       = (5\cdot 3^{k-1} - 2\cdot 3^{k-1})   
+    - (5\cdot 2^{k-1} - 3\cdot 2^{k-1})\) <br>
+    &nbsp; &nbsp; &nbsp; \(       = 3\cdot 3^{k-1} - 2\cdot 2^{k-1} = 3^k - 2^k\) 
+
+  <p>
+  So \(f(k) = 3^{k} - 2^{k}\), which is what we needed to prove.
+</blockquote>
+
+
+
+
+</body>
+</html>

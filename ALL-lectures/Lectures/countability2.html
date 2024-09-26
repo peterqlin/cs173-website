@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1"><meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+	<title>CS173 Lectures</title>
+	<link href="../menu.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!--- load Mathjax ---><script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!--- Cute course logo --->
+<div style="float:left"><img alt="UI logo" src="graphics/plain-logo.png" style="height:40px; width:28px" /></div>
+
+<div style="float:left">CS 173<br />
+Spring 2021</div>
+
+<div class="center">
+<h2>Countability 2</h2>
+</div>
+
+<hr />
+<h2>Recap</h2>
+
+<hr />
+<p>Recall from the last video how we showed that \(\mathbb{N}^2\) is countable, i.e. the same size as \(\mathbb{N}\).</p>
+
+<ul>
+	<li>Build a one-to-one function from \(\mathbb{N}\) to \(\mathbb{N}^2\).</li>
+	<li>Build a one-to-one function from \(\mathbb{N}^2\) to \(\mathbb{N}\).</li>
+	<li>By Cantor-Schroeder-Bernstein Theorem, \(|\mathbb{N}^2| = |\mathbb{N}|\).</li>
+</ul>
+
+<p>And the one-to-one function in the hard direction was \(g(p,q) = 2^p3^q\).</p>
+
+<hr />
+<h2>More countable sets</h2>
+
+<hr />
+<p>The same method can be used to show that \(\mathbb{N}^k\) is countable, for any (finite) k. We just need to use k prime numbers when building the formula for g.</p>
+
+<p>Similarly, any finite product of countable sets is countable. Suppose we have sets \(A_1,\ldots,A_k\), where each \(A_i\) is countable. Because \(A_i\) is countable, we can assign a natural number to each of its elements. So then we can represent an element of \(A_1\times\ldots \times A_k\) as a k-tuple of natural numbers. A k-tuple of natural numbers is just an element of \(\mathbb{N}^k\), and we know that set is countable.</p>
+
+<p>In particular, \(\mathbb{Z}^k\) is countable, for any natural number k.</p>
+
+<p>Also notice that these products have to be finite. An infinite product of countable sets is typically not countable.</p>
+
+<p>A countable union of countable sets is also countable. Let&#39;s call our sets \(U_0,U_1, U_2, \ldots\) We&#39;re going to represent each element x in the union using a pair of natural numbers (p,q).</p>
+
+<ul>
+	<li>p is the index of the first set \(U_p\) that contains x.</li>
+	<li>q is the index of x within \(U_p\).</li>
+</ul>
+
+<p>So we have a one-to-one function from the countable union to \(\mathbb{N}^2\), which we know to be countable.</p>
+
+<p>Finally, the set of rational numbers \(\mathbb{Q}\) is countable. Each rational number can be represented by a (unique) integer fraction in lowest terms. We can think of a fraction \(\frac{p}{q}\) as a pair of integers (p,q). And we know that \(\mathbb{Z}^2\) is countable.</p>
+
+<hr />
+<h2>Recognizing countable sets</h2>
+
+<hr />
+<p>In some future class, you may be required to prove that a particular sets is countable or not countable. We&#39;re not asking for that in this class. But it&#39;s important to be able to recognize whether a set is countable.</p>
+
+<ul>
+	<li>countable: each individual object in the set has a finite representation</li>
+	<li>uncountable: some individual objects in the set have only infinite representations</li>
+</ul>
+
+<p>Let&#39;s think about the rationals vs. the real numbers. A rational number can be written down as a finite decimal or a decimal that ends in a repeating pattern.</p>
+
+<blockquote>finite decimal: 3.225<br />
+repeating decimal: \(7.5\overline{358}\)</blockquote>
+
+<p>Both of these can be written down using a finite number of characters. We could make this more obvious by replacing the overline with a programming-style notation like this:</p>
+
+<blockquote>finite decimal: 3.225<br />
+repeating decimal: 7.5{358}</blockquote>
+
+<p>Irrational numbers have decimal representations that go on forever, without a repeating pattern. A few of them (e.g. \(\pi\) ) happen to have a shorthand representation that is finite. But most irrational numbers have no finite representation. We&#39;ll see that the set of irrational numbers (and therefore the set of real numbers) isn&#39;t countable.</p>
+
+<hr />
+<h2>\(M^*\) is countable (method one)</h2>
+
+<hr />
+<p>Let&#39;s look at a final example of a countable set. Suppose that M is a finite alphabet. To keep this concrete, let&#39;s suppose that M contains the set of uppercase letters. Recall that \(M^*\) is the set of all finite-length strings made from characters in M, including the empty string (\(\epsilon\)).</p>
+
+<blockquote>Claim: \(M^*\) is countably infinite (and thus countable).</blockquote>
+
+<p>One way to do this is to explicitly put all strings from \(M^*\) into an order, indexed by the integers. We can do this as follows:</p>
+
+<ul>
+	<li>First order the strings by length.</li>
+	<li>Within each length, put the strings in dictionary order.</li>
+</ul>
+
+<p>With a bit of work, you could figure out where each length group starts and exactly how to compute the position of any input string.</p>
+
+<p><img src="countability-figs/strings-in-order.png" style="width:300px" /></p>
+
+<p>So this gives us a bijection between \(M^*\) and \(\mathbb{N}\).</p>
+
+<hr />
+<h2>M* is countable (method two)</h2>
+
+<hr />
+<p>Now, let&#39;s prove the claim by constructing two one-to-one functions.</p>
+
+<p>Part 1: make a one-to-one function f from \(\mathbb{N}\) to \(M^*\).</p>
+
+<p>One choice is to let f map each natural number n into a string of n A&#39;s.</p>
+
+<p><img src="countability-figs/15-As.png" style="width:200px" /></p>
+
+<p>And \(f(0) = \epsilon\).</p>
+
+<p>This function is very far from being a bijection, but it&#39;s definitely one-to-one.</p>
+
+<p>Part 2: make a one-to-one function g from \(M^*\) to \(\mathbb{N}\).</p>
+
+<p>To construct g, we&#39;re going to map each letter into a 2-digit code.</p>
+
+<blockquote>A 65<br />
+B 66<br />
+C 67<br />
+....<br />
+I 73<br />
+....<br />
+U 85<br />
+....<br />
+Z 90</blockquote>
+
+<p>If s is a string of letters, we&#39;ll make g(s) by concatenating the letter codes. E.g. g(&quot;UIUC&quot;)=85738567. Because the codes are all exactly two digits, we can easily decode one of these output numbers to get the input string that generated it. So g is one-to-one.</p>
+
+<p>Well, oops. What about \(g(\epsilon)\)? We can set it equal to any natural number that can&#39;t be confused with the encodings of longer strings. For example, \(g(\epsilon) = 0\).</p>
+
+<p>Since we have a one-to-one function from \(\mathbb{N}\) to \(M^*\), we know that \(|\mathbb{N}| \le |M^*|\). Since we have a one-to-one function from \(M^*\) to \(\mathbb{N}\) we know that \(|M^*| \le |\mathbb{N}|\). By the Cantor-Schroeder-Bernstein Theorem, this means that \(|M^*| = |\mathbb{N}|\). So \(M^*\) is countably infinite.</p>
+</body>
+</html>

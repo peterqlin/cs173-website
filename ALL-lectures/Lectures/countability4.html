@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Countability 4 </h2>
+</div>
+
+
+<hr>
+<h2>More functions than formulas</h2>
+<hr>
+
+<p>
+  Let's recall two facts from previous videos:
+
+  <ul>
+  <li> There are uncountably many functions from \(\mathbb{N}\) to {0,1}
+  <li> There are only countably many finite-length strings of text.
+  </ul>
+
+<p>
+  The mathematical formulas we typically use to define functions are finite-length
+  strings of text.    Computer programs are also finite-length strings of text.
+  So 
+
+  <ul>
+  <li> There are only countably many mathematical formulas.
+  <li> There are only countably many computer programs.
+  </ul>
+
+<p>
+  So there are more functions than there are formulas or computer programs.
+  This implies that there are functions for which we can't write a formula or
+  compute the function using a computer program.
+
+<p>
+  This is definitely a non-constructive proof.   I have no way to describe
+  what these functions are, precisely because they don't have finite-length
+  decriptions.   We do know that they can't have a pattern that repeats as
+  the input value heads out towards infinity.
+
+
+<hr>
+<h2>The Halting Problem</h2>
+<hr>
+
+
+<p>
+  Here is a specific example of a problem for which we cannot build a program:
+
+<blockquote>
+ The Halting Problem: Given the text for a program P, decide whether P eventually halts.
+</blockquote>
+
+<p>
+  It's impossible to write an algorithm to solve this task.   The proof is beyond the scope
+  of this course.  But it's done with a modification of the diagonalization idea that we
+  used to prove that certain sets are uncountable.
+
+<p>
+  Notice that we're talking about whether we can write a <b> fully general</b> algorithm
+  that will work on any input program P, even nasty bits of spaghetti code.
+  Obviously we can write an algorithm that will find the answer in many cases.
+
+
+<p>
+  There are three ways that a program could behave as it runs:
+
+  <ul>
+<li>  Halts.
+<li>  Loops:  repeats the same memory state.   
+<li>  Continues without Looping:  never halts and never repeats the same memory state.
+  </ul>
+
+<p>
+  The problem is difficult because of the third case.
+  If we only had to worry about the first two cases, our algorithm could simply watch
+  the state of the program P.   After some finite amount of time, P would have to halt
+  or repeat a memory state.   
+
+<p>
+  If a program has a limit on how much memory it can use, it must eventually halt or
+  loop.   So, technically, a real-world program can't continue forever without looping.
+  However, in practice, a typical computer has enough memory that a program can spend
+  a vast amount of time running without repeating the same memory state.
+
+
+<p>
+  You can see the same three-way behavior pattern in other examples involving
+  uncountable sets or or uncomputable questions:
+
+  <ul>
+  <li> rational vs. irrational numers (digits of an irrational continue forever without looping)
+  <li> Conway's Game of Life:  glider guns continue forever without repeating a pattern
+  </ul>
+
+
+<hr>
+<h2>Periodic tilings</h2>
+<hr>
+
+<p>
+  Now, let's think about the problem of covering the plane with a finite set of tiles.
+  It's relatively easy to make a pattern that repeats in a regular way, using either a single
+  shape or a finite set of shapes.   
+
+<p>
+  <img width=200 src="countability-figs/regular-tiling.png">
+  <img width=200 src="countability-figs/regular-tiling2.png">
+  <br>
+  from Wikipedia
+
+<p>
+  These repeating patterns are called "periodic tilings".  
+  Since ancient times, they have been used to make pretty patterns on
+floors and walls using ceramic tiles.
+
+<p>
+  <img width=200 src="countability-figs/ancient-regular-tiling.jpeg">
+  <br>
+  a floor in Seville, Spain, from Wikipedia
+
+<p>
+If you cut out a rectangle of appropriate size, you
+  can make the whole pattern by making copies of whatever is on the rectangle.
+This is how modern builders often use cheap materials to simulate the look 
+of fancy ceramic tiles.
+
+<p>
+  <img width=200 src="countability-figs/repeat-rectangle.png">
+
+  
+<p>
+  <img width=200 src="countability-figs/repeat-rectangle.png">
+  <img width=200 src="countability-figs/repeat-rectangle.png">
+<br>
+  <img width=200 src="countability-figs/repeat-rectangle.png">
+  <img width=200 src="countability-figs/repeat-rectangle.png">
+
+<p>
+  Certain shapes and sets of shapes can't cover the whole plan.   For example, if you
+  try to cover the plan with copies of a single regular pentagon, you quickly get stuck with a situation
+  where you have a gap that you can't fill.   
+
+
+<p>
+  <img width=200 src="countability-figs/pentagons-cant-tile.png">
+
+<p>
+  These repeating and self-stopping
+  patterns are like two of our program behaviors:   looping and halting.
+  Can we also make sets of tiles that can cover the entire plane, but without having a 
+  rectangular section that repeats?   Those are called "aperiodic tilings" and
+  are like our third program behavior.
+
+<hr>
+<h2>Aperiodic tilings </h2>
+<hr>
+
+<p>
+  Research on aperiodic tilings started with Hao Wang.   In 1961, he defined
+  a class of square tiles with labels on their edges.   These are usually
+  displayed in pretty form with colors:
+
+
+<p>
+<img width=200 src="countability-figs/wang-tiles1.png">
+
+  <p>
+  When these tiles are placed on the plane, adjacent sides must have the same color:
+
+<p>
+<img width=150 src="countability-figs/wang-tiles2.png">
+
+  <p>
+    Hao Wang's question is whether there were sets of tiles that could cover the whole
+    plane but couldn't do it in a periodic way.
+    In 1966, Robert Berger created a set of 20,426 Wang tiles that cover the plane only
+    aperiodically.   Various researchers stripped this down and eventually found a
+    set of 11 tiles with this property
+
+<p>
+<img  width=200 src="countability-figs/Wang-tile-set.png">
+<br>
+from Wikipedia
+
+<p>
+Around 1973-74, Roger Penrose figured out how to make 
+pretty aperiodic tilings using small sets of geometric shapes.
+
+<p>
+<img width=200 src="countability-figs/rhomb-tiling.gif">
+<br>
+(Ianiv Schweber, UBC)
+
+
+<p>
+  Around the same time (1971), 
+Raphael Robinson showed that it was possible to similate a 
+Turing Machine (very simple computer) using sets of Wang tiles.
+  As we saw with the Game of Life, the potential for aperiodic
+  behavior goes hand-in-hand with the ability to simulate a computer.
+
+
+<p>
+At SIGGRAPH in 2003, a group of graphics researchers 
+(Michael F. Cohen, Jonathan Shade, Stefan Hiller, Oliver Deussen)
+showed how to use Wang tiles to cheaply produce natural-looking 
+textures using Wang tiles:
+
+<p>
+  <img src="countability-figs/wang-tile-texture.png" width=300>
+
+<hr>
+<h2>Quasicrystals</h2>
+<hr>
+
+<p>
+An interesting feature of Penrose tilings is that they can be used to make patterns
+with many types of rotational symmetry.   
+
+<table rules = all frame=box cellpadding =5>
+<te>
+  <th>
+<img width=300 src="countability-figs/5-fold-penrose-tiling.png">
+<br>
+5-fold symmetry
+<br>
+from Wikipedia
+    </th>
+  <th>
+<img width=300 src="countability-figs/9-fold-symmetry.png">
+<br>
+9-fold symmetry
+<br>
+from Kevin Brown, The Math Pages
+    </th>
+</table>
+
+<p>
+  Standard crystal structures in chemistry can produce only four types of
+  rotational symmetr:   2-fold, 3-fold, 4-fold, and 6-fold.
+  In 1982, a chemist named Dan Shechtman observed a crystal structure with
+  a 5-fold rotational symmetry, in an alloy of manganese and aluminum.
+  A similar diffraction pattern with a 10-fold symmetry is shown below.
+  These were eventually named "quasicrystals".
+
+<p>
+  <img width= 250 src="countability-figs/diffraction-pattern.jpeg">
+  <br>
+  from Wikipedia
+
+<p>
+As detailed in this
+<a href="https://www.theguardian.com/science/2013/jan/06/dan-shechtman-nobel-prize-chemistry-interview">
+interview with The Guardian newspaper</a>,
+the head of Shechtman's lab at NIST said he was a disgrace and
+kicked him out of the group.
+
+<blockquote>
+ "Danny, you are a disgrace to my group. I cannot be with you in the same group."
+ <br>
+ Head of Shechtman's lab at NIST
+</blockquote>
+
+<blockquote>
+ "Danny Shechtman is talking nonsense, there are no quasi-crystals, just quasi-scientists."
+<br>
+    Linus Pauling
+</blockquote>
+
+
+<p>
+However, other folks replicated his observations.
+In 2008-2011 Luca Bindi and Paul Steinhardt tracked down natural examples of
+quasicrystals.
+In 2011, 
+Shechtman was given the Nobel prize in Chemistry. 
+Given the close connections between the Halting Problem and quasicrystals,
+this is arguably the closest Nobel prize to computer science.
+  
+
+<hr>
+<h2>More information on tilings</h2>
+<hr>
+
+<p>
+  Some good Wikipedia articles:
+
+<ul>
+  <li> <a href="http://en.wikipedia.org/wiki/Tessellation"> Tessellations</a>
+  <li> <a href="http://en.wikipedia.org/wiki/Wang_tile"> Wang tiles</a>
+  <li> <a href="https://en.wikipedia.org/wiki/Penrose_tiling"> Penrose tilings</a>
+  <li> <a href="http://en.wikipedia.org/wiki/Quasicrystal"> Quasicrystals</a>
+</ul>
+
+<p>
+From others:
+
+  <ul>
+    <li> <a href="http://www.ams.org/publicoutreach/feature-column/fcarc-penrose">
+      AMS outreach article on Penrose tilings</a>
+  <li> <a href="http://www.math.ubc.ca/~cass/courses/m308-02b/projects/schweber/penrose.html">
+Penrose tilings (Ianiv Schweber, UBC)</a>
+  <li> <a href="https://www.mathpages.com/home/kmath539/kmath539.htm"> tilings with
+      various rotational symmetries</a> from Kevin Brown's
+    <a href="https://www.mathpages.com/home/index.htm"> the Math Pages</a>
+  </ul>
+
+
+
+</body>
+</html>

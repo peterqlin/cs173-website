@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1"><meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+	<title>CS173 Lectures</title>
+	<link href="../menu.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!--- load Mathjax ---><script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!--- Cute course logo --->
+<div style="float:left"><img alt="UI logo" src="graphics/plain-logo.png" style="height:40px; width:28px" /></div>
+
+<div style="float:left">CS 173<br />
+Spring 2021</div>
+
+<div class="center">
+<h2>Two-way bounding</h2>
+</div>
+
+<hr />
+<h2>What are upper and lower bounds?</h2>
+
+<p>Suppose we&#39;d like to estimate \(\pi\). Here&#39;s an approximation to more digits than you&#39;d normally need: 3.14159265359.</p>
+
+<p>If we have to compute \(\pi\) ourselves, rather than asking the internet, we might need to use numerical approximations. These might give us an upper bound of 3.1416 and a lower bound of 3.1415. If we&#39;re doing a calculation involving \(\pi\), we could use these to figure out how much our approximation might change the final result.</p>
+
+<p>But upper and lower bounds don&#39;t have to be so close to the actual number. For example, 3 is a lower bound on \(\pi\). OK, not so bad. But -10 is also a lower bound on \(\pi\). An lower bound on \(\pi\) is any number \(\le \pi\). -10 is just not a very helpful lower bound.</p>
+
+<h2>Marker making</h2>
+
+<p>Here&#39;s practical example of upper and lower bounds. Suppose that we have rolled out a big sheet of cookie dough and would like to cut cookies out of it. Here a 13&quot; by 15&quot; sheet of dough and a sample cookie.</p>
+
+<p><img src="graphs-figs/cookie.png" style="width:300px" /></p>
+
+<p>Collecting scraps and rolling out the same dough again damages the texture, so we&#39;d like to get as many cookies as possible out of each sheet. So here I&#39;ve tried to pack in as many cookies as possible:</p>
+
+<p><img src="graphs-figs/cookie-packing.png" style="width:300px" /></p>
+
+<p>Looks like I managed to fit in 10 cookies. So 10 is a lower bound on how many cookies can be made out of this sheet of dough.</p>
+
+<p>To get an upper bound, let&#39;s look at the areas. This cookie is a bit more than 14 square inches. The sheet of dough is 195 square inches. Dividing the two gives us 13.93 cookies. So an upper bound on the number of whole cookies is 13.</p>
+
+<p>Notice that there is a gap between the lower bound of 10 and the upper bound of 13. Since this is an irregular shape, it&#39;s not clear how many more cookies I can fit into the sheet.</p>
+
+<p>This problem shows up in a more serious form in the clothing industry. Manufacturers need to cut large pieces of cloth into the pieces that will be sew to make clothing. Scraps of cloth are hard to re-use. So they put significant effort into making the cutting pattern (called a &quot;marker&quot;) so as to maximize usage of the cloth. Notice that they need to make a lot of markers, because a given garment (e.g. a shirt) would be made in a large range of sizes. Although it&#39;s hard to get a provably optimal solution, marker making programs can produce good approximate ones.</p>
+
+<h2>What is graph coloring?</h2>
+
+<p>Now, let&#39;s look at graph coloring. In graph coloring, we need to put a color on each node, with the rule that adjacent nodes may not have the same color. So consider this graph:</p>
+
+<p><img src="graphs-figs/coloringA.png" style="width:200px" /></p>
+
+<p>We can color it with four colors like this:</p>
+
+<p><img src="graphs-figs/coloringA-colored.png" style="width:200px" /></p>
+
+<p>And it&#39;s actually impossible to color it with three colors, because this graph contains a \(K_4\), i.e. a graph with four nodes and all possible edges. Since all pairs of nodes in \(K_4\) are connected by an edge, none of them can have the same color.</p>
+
+<p><img src="graphs-figs/coloringA-k4.png" style="width:200px" /> <img src="graphs-figs/k4.png" style="width:200px" /></p>
+
+<p>The &quot;chromatic number&quot; of a graph is the minimum number of colors required to color it. To show that 4 is the chromatic number of the graph above, we had to show two things:</p>
+
+<ul>
+	<li>Upper bound: 4 colors is enough. (The graph is 4-colorable.)</li>
+	<li>Lower bound: It takes at least 4 colors.</li>
+</ul>
+
+<p>We used different methods to show the two bounds. We proved that 4 was an upper bound on the chromatic number by showing a coloring of the graph with four colors. We proved the lower bound of 4 by finding a \(K_4\) inside our graph.</p>
+
+<h2>Chromatic numbers of special graphs</h2>
+
+<p>It&#39;s helpful to be familiar with the chromatic numbers of various special graphs. If you find one of them in your large complex graph, that gives you a lower bound on its chromatic number. Also, a special subgraph is often a good place to start when trying to color your full graph.</p>
+
+<p>As we just saw above, a complete graph \(K_n\) requires n colors.</p>
+
+<p>If the graph has any edges at all, it requires at least two colors. (A 1-colorable graph has no edges.)</p>
+
+<p>It&#39;s easy to test if a graph is 2-colorable. You can start coloring anywhere, using only two colors, and see if you run into any problems. Notice that 2-colorable means bipartite.</p>
+
+<p>The chromatic number of a cycle \(C_n\) depends on whether the number of nodes is odd or even. Even cycles need two colors; odd cycles need three.</p>
+
+<p><img src="graphs-figs/cycle-coloring.png" style="width:400px" /></p>
+
+<p>Wheel graphs are similar, except that an extra color is needed for the node in the middle. Notice that \(W_n\) has n+1 nodes.</p>
+
+<p><img src="graphs-figs/wheel-coloring.png" style="width:400px" /></p>
+
+<p>You can often make a good guess at a graph&#39;s chromatic number by looking for the special graphs above. However, to be sure, you need to color the whole graph. For example, here&#39;s a graph that is made entirely out of triangles but has chromatic number 4.</p>
+
+<p><img src="graphs-figs/widget-coloring.png" style="width:400px" /></p>
+
+<h2>Harder example</h2>
+
+<p>Have a look at this big complex graph.</p>
+
+<p><img src="graphs-figs/colorme.png" style="width:400px" /></p>
+
+<p>With a bit of fiddling, you can figure out that it can be colored with four colors. But do we actually need all four?</p>
+
+<p><img src="graphs-figs/colorme-colored.png" style="width:400px" /></p>
+
+<p>We do need four colors, because this graph contains an odd wheel. Its rim contains nodes A, B, C, D, E. Its hub is node F.</p>
+
+<p><img src="graphs-figs/colorme-lower.png" style="width:400px" /></p>
+</body>
+</html>

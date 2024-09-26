@@ -1,0 +1,397 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Recursive Definition 1 </h2>
+</div>
+
+
+<hr>
+
+<h2>Hypercubes</h2>
+
+
+<p>
+  Remember what the hypercubes look like:
+
+<p>
+  <img width=400 src="induction-figs/hypercubes.png">
+
+<p>
+\(Q_n\) is created by taking two copies of \(Q{n-1}\) and joining corresponding nodes.
+ 
+<p>
+The  number of nodes V(n) in the n-dimensional hypercube is \(2^n\).
+But how many edges E(n) does it have?
+
+
+<p>
+We can set up a recursive definition of the number of edges like this:
+
+<ul>
+<li>        \(E(0) = 0\)
+<li>        \(E(n) = 2E(n-1) + V(n-1) = 2E(n-1) + 2^{n-1}\)
+
+</ul>
+
+  <p>
+    This does have a corresponding closed form, i.e. a non-recursive formula.
+    But it's not so obvious what it is.    Take a moment to make yourself a
+    table (e.g. out to n=7) of E(n) and V(n), and see if you can see any pattern to the numbers.
+
+
+<h2>The closed form for E(n)</h2>
+
+<p>
+Here's my table.
+
+<table rules = all frame=box cellpadding =5>
+
+  <tr>
+<th>n</th>
+<th>V(n)</th>
+<th>E(n)</th>
+  </tr>
+
+  <tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+  </tr>
+
+
+  <tr>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+  </tr>
+
+
+  <tr>
+<td>2</td>
+<td>4</td>
+<td>4</td>
+  </tr>
+
+
+  <tr>
+<td>3</td>
+<td>8</td>
+<td>12</td>
+  </tr>
+
+
+  <tr>
+<td>4</td>
+<td>16</td>
+<td>32</td>
+  </tr>
+
+
+  <tr>
+<td>5</td>
+<td>32</td>
+<td>80</td>
+  </tr>
+
+
+  <tr>
+<td>6</td>
+<td>64</td>
+<td>192</td>
+  </tr>
+
+  <tr>
+<td>7</td>
+<td>128</td>
+<td>448</td>
+  </tr>
+
+
+</table>
+
+
+<p>
+ Let's try factoring the rows for 5, 6, and 7 to see if that helps with making the pattern visible.
+
+<table rules = all frame=box cellpadding =5>
+
+  <tr>
+<th>n</th>
+<th>V(n)</th>
+<th>E(n)</th>
+  </tr>
+
+  <tr>
+<td>5</td>
+<td>32</td>
+<td>80 (5 x \(2^4\))</td>
+  </tr>
+
+
+  <tr>
+<td>6</td>
+<td>64</td>
+<td>192 (6 x \(2^5\))</td>
+  </tr>
+
+  <tr>
+<td>7</td>
+<td>128</td>
+<td>448 (7 x \(2^6\))</td>
+  </tr>
+
+
+</table>
+
+<p>
+So it looks like the closed form might be \(E(n) = n2^{n-1} \).
+
+<p>
+  This method of informal inspection is one way to find a closed form.   It tends to work when the
+  pattern is reasonably easy to find.   And it's ok to use informal methods to find closed forms
+  because we will (see below) eventually use induction to prove them correct.
+  In this lecture we'll see a more systematic method called "unrolling" that works well on simple
+  definitions like this.   In a later week, we'll   see another method called "recursion trees" that
+  works well on the types of definitions found in analyzing algorithm running times.
+
+
+<h2>Unrolling</h2>
+
+
+<ul>
+<li>        \(E(0) = 0\)
+<li>        \(E(n) = 2E(n-1) + 2^{n-1}\)
+</ul>
+
+
+<p>
+The first step in unrolling is to substitute the recursive part of the definition into itself.  Notice that
+\(E(n-1) = 2E(n-2) + 2^{n-2}\).   So ...
+
+
+<p>
+\(
+\begin{eqnarray*}
+E(n) &=& 2E(n-1) + 2^{n-1} \\ 
+ &=& 2(2E(n-2) + 2^{n-2}) + 2^{n-1} \\ 
+\end{eqnarray*}
+\)
+
+<p>
+  Now do this one more time.   
+
+<p>
+\(
+\begin{eqnarray*}
+E(n) &=& 2E(n-1) + 2^{n-1} \\ 
+ &=& 2(2E(n-2) + 2^{n-2}) + 2^{n-1} \\ 
+ &=& 2(2(2E(n-3) + 2^{n-3})+ 2^{n-2}) + 2^{n-1} \\ 
+\end{eqnarray*}
+\)
+
+<p>
+  This shows us the result after applying the recursive formula three times.
+
+<p>
+  The second step is to clean up the equation, e.g. collect terms.   
+
+<p>
+\(
+\begin{eqnarray*}
+E(n)  &=& 2(2(2E(n-3) + 2^{n-3})+ 2^{n-2}) + 2^{n-1} \\ 
+   &=& 2^3 E(n-3) + 2\cdot 2 \cdot 2^{n-3}+  2\cdot 2^{n-2} + 2^{n-1} \\ 
+   &=& 2^3 E(n-3) + 2^{n-1}+ 2^{n-1} + 2^{n-1} \\ 
+   &=& 2^3 E(n-3) + 3 \cdot 2^{n-1}
+\end{eqnarray*}
+\)
+
+<p>
+So this is after three applications of the recursive formula.
+ The next step is to  guess the general pattern for what would happen
+  after k applications.    This is the step that makes unrolling an
+  information scratchwork method rather than a proof.
+If the pattern isn't obvious, go back and substitute the formula
+into itself another time.
+
+
+<p>
+\(
+E(n) = 2^3 E(n-3) + 3 \cdot 2^{n-1}
+   = \ldots         = 2^k E(n-k) + k \cdot 2^{n-1}
+\)
+
+
+<p>
+  Notice the term E(n-k).    
+The fourth step in unrolling
+  is to figure out what  value of k will hit the base case of our definition,
+  which is E(0) = 0.
+  To do this, we set the input n-k equal to the input value in the base
+  case.   That gives us n-k = 0.   So we will hit the base case when
+  k=n.
+
+<p>
+ Finally, substitute k=n into our formula and simplify the result.
+
+<p>
+\(
+E(n) = 2^k E(n-k) + k \cdot 2^{n-1}
+= 2^n E(0) + n \cdot 2^{n-1}
+= 2^n \cdot 0 + n \cdot 2^{n-1}
+= n \cdot 2^{n-1}
+\)
+
+<p>
+  It's easy to make small errors doing unrolling.  So it's very wise to
+  check the alleged formula against a table of 
+  small values like the one we made above.  
+
+<h2>Comments</h2>
+
+<p>
+  Unrolling is NOT A PROOF.   It's just a scratch paper technique.
+
+<h2>Proof by induction</h2>
+
+<blockquote>
+<ul>
+<li>        \(E(0) = 0\)
+<li>        \(E(n) = 2E(n-1) + 2^{n-1}\)
+</ul>
+</blockquote>
+
+
+<p>
+  Let's write a formal proof by induction that our closed form is
+  correct.   First, let's state our claim.   
+
+<blockquote>
+For every natural number n, \(E(n) = n2^{n-1} \).
+</blockquote>
+
+<p>
+  Our base case needs to show that P(n) is true at the first value
+  for which the claim is supposed to hold, i.e. n=0.
+
+  <blockquote>
+    Proof:  by induction on n.
+
+    <p>
+    Base case:  at n=0, E(0) = 0.   <br> Also,
+\(n2^{n-1}  = 0 \cdot 2^1 = 0\).  <br>So \(E(n) = n2^{n-1} \) at n=0.
+ </blockquote>
+
+<p>
+  To state our inductive hypothesis, remember that P(n) needs to be a
+  statement, i.e. something that is true or false.  So
+ P(n) is the entire equation  \(E(n) = n2^{n-1} \).
+
+<blockquote>
+  Inductive hypothesis:  Suppose that \(E(n) = n2^{n-1} \), for
+  \(n=0,1,\ldots, k\).
+</blockquote>
+
+<p>
+  Notice that the inductive hypothesis covers values starting from the
+  first base case (n=0) up to a bound k.   Our goal will be to prove
+  that the formula holds for n=k+1.    Here's an outline of our
+  inductive step
+
+
+<blockquote>
+  Rest of inductive step:<br>
+  .....<br>
+
+  <p>
+  So \(E(k+1) = (k+1)2^{k} \), which is what we needed to prove.
+
+</blockquote>
+
+<p>
+  Our goal is to prove something about E(k+1).   So, first use our
+  recursive definition to represent our big object E(k+1) in terms of
+  a smaller object E(k):
+
+<blockquote>
+  Rest of inductive step:<br>
+
+  <p>
+\(E(k+1) = 2E(k) + 2^{k}\) (by the definition of E)<br>
+    
+  .....<br>
+
+  <p>
+  So \(E(k+1) = (k+1)2^{k} \), which is what we needed to prove.
+
+</blockquote>
+
+<p>
+Now apply the inductive hypothesis.   That is,
+  since E(k) is within the range covered by the inductive hypothesis,
+we know that  \(E(k) = k2^{k-1} \).  So substitute this into
+our equation:
+
+<blockquote>
+  Rest of inductive step:<br>
+
+  <p>
+\(E(k+1) = 2E(k) + 2^{k}\)   (by the definition of E)<br>
+\(= 2( k2^{k-1}) + 2^k \)  (by the inductive hypothesis)  
+
+  <br>.....<br>
+
+  <p>
+  So \(E(k+1) = (k+1)2^{k} \), which is what we needed to prove.
+
+</blockquote>
+
+<p>
+  And now finish the algebra in the middle...
+
+<blockquote>
+  Rest of inductive step:<br>
+
+  <p>
+\(E(k+1) = 2E(k) + 2^{k}\)   (by the definition of E)<br>
+\(= 2( k2^{k-1}) + 2^k \)  (by the inductive hypothesis)  <br>
+\(= k2^{k} + 2^k = (k+1)2^k \)
+
+  <p>
+  So \(E(k+1) = (k+1)2^{k} \), which is what we needed to prove.
+
+</blockquote>
+
+
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href="../ALL-lectures/menu.css" rel="stylesheet" type="text/css" /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">p { font-family: "Roboto",sans-serif; }
+h1 { font-family: Arial; }
+h2 { font-family: Arial; }
+
+
+html {
+  box-sizing: border-box;
+}
+
+.content {
+    max-width: 1100px;
+    margin: auto;
+}
+
+
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 25%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}
+	</style>
+</head>
+<script>
+    function includeHTML() {
+      var z, i, elmnt, file, xhttp;
+      /* Loop through a collection of all HTML elements: */
+      z = document.getElementsByTagName("*");
+      for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("w3-include-html");
+        if (file) {
+          /* Make an HTTP request using the attribute value as the file name: */
+          xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4) {
+              if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+              if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+              /* Remove the attribute, and call this function once more: */
+              elmnt.removeAttribute("w3-include-html");
+              includeHTML();
+            }
+          }
+          xhttp.open("GET", file, true);
+          xhttp.send();
+          /* Exit the function: */
+          return;
+        }
+      }
+    }
+</script>
+<body>
+<div class="Menu" id="TopMenu">&nbsp;</div>
+<script type="text/javascript" src="../ALL-lectures/menu.js"></script>
+
+<div class="content">
+<h1>Staff for CS 173</h1>
+&nbsp;
+
+<h2>Instructors</h2>
+
+<div w3-include-html="instructor.html">&nbsp;</div>
+&nbsp;
+
+<h2>Teaching Assistants</h2>
+
+<div w3-include-html="ta.html">&nbsp;</div>
+&nbsp;
+
+<h2>Undergraduate Course Assistants</h2>
+
+<div w3-include-html="ca.html">&nbsp;</div>
+&nbsp;
+
+<h2>Office Hours</h2>
+
+<p>Please see the calendar on the <a href=".">homepage</a>.</p>
+<script>
+    includeHTML();
+</script></div>
+</body>
+</html>

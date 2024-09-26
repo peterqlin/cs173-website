@@ -1,0 +1,299 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Induction 1</h2>
+</div>
+
+
+<hr>
+
+
+<h2>Outline</h2>
+
+<p>
+  Induction is a new proof outline, closely related to recursive definition in
+  programming languages.   It's used to prove that a property holds for all integers
+  starting at some lowest value.   (It can be adapted to prove a property for all
+  integers, but we won't do that in this class.)
+
+<p>
+Suppose that our claim looks like:
+
+  <blockquote>
+  Claim:  For all integers n >= b, P(n).
+  </blockquote>
+
+<p>
+  In our proof by induction, we show two things:
+
+<ul>
+<li> Base case:  &nbsp;P(b) is true
+<li> Inductive step:  &nbsp;if P(n) is true for n=b, ..., k, &nbsp; then  P(k+1) is also true.
+</ul>
+
+<p>
+  The base case gives us a starting point where the property P is known to hold.   The
+  inductive step gradually extends this guarantee to larger and larger integers.
+
+<p>
+  When you're first starting out, it's helpful to divide the inductive step into
+  two pieces:   its hypothesis and the work required to prove its conclusion.
+  So your proof by induction will look like this:
+
+  <blockquote>
+    <p>
+    Proof:  By induction on n. 
+    
+    <p>
+    Base case:  [prove that P(b) is true]
+
+    <p>
+    Inductive hypothesis (IH):   Suppose that P(n) is true for n=b, ..., k.
+
+    <p>
+      Rest of the inductive step:  <br><br>
+      ... [work using the fact the IH is true] ... <br><br>
+      So P(k+1).
+  </blockquote>
+
+<p>
+  It's also possible to make the inductive hypothesis cover values through k-1,
+and then the goal of the inductive step is to prove P(k).  So that looks like:
+
+
+  <blockquote>
+    <p>
+    Inductive hypothesis (IH):   Suppose that P(n) is true for n=b, ..., k-1.
+
+    <p>
+      Rest of the inductive step:  <br><br>
+      ... [work using the fact the IH is true] ... <br><br>
+      So P(k).
+  </blockquote>
+
+<p>
+These variations are equivalent and
+both are in common use.   For some problems, one or the other
+may be slightly simpler to write.
+
+
+<h2>A Simple Example</h2>
+
+<p>
+Let's do a simple example to see how the method works.
+
+<blockquote>
+Claim:  for all integers \(n \ge 2\), &nbsp; &nbsp;
+\(\sum_{i=2}^n i 2^i = (n-1)2^{n+1}\).
+</blockquote>
+
+<p>
+  This claim gives a "closed form" for this summation, i.e. a formula that
+  doesn't rely on a summation. 
+I found this formula on the internet, so it's probably a bit mysterious.
+You might want to take a minute to put some small values of n into this formula, 
+so that you have some basis for believing that it's correct.
+
+<p>
+  Our induction variable is going to be n.   For this simple example, n is the
+  only possible choice, since i is the dummy variable for the summation.   
+So our proof will start   like this:
+
+<blockquote>
+Proof:   By induction on n.
+</blockquote>
+
+<p>
+This introductory line warns the reader that we're using an outline that isn't
+direct proof and tells him what the induction variable is.
+In more complex examples, it's not always obvious which variable we are going
+to use.
+
+<p>
+Our claim P(n) is  \(\sum_{i=2}^n i 2^i = (n-1)2^{n+1}\).
+Notice that P(n) needs to be a statement that's true or false.   Or, said
+another way, it needs to contain a verb ("equals" in this example).
+
+<p>
+Now, notice that b = 2, because that's the
+   smallest value for which we're claiming the formula works.
+To make the base case, we substitute b=2 for n in the claim.   That is,
+the base case needs to show that
+\(\sum_{i=2}^n i 2^i = (n-1)2^{n+1}\) at n=2, 
+that is \(\sum_{i=2}^2 i 2^i = (2-1)2^{2+1}\).
+
+
+<blockquote>
+Proof:   By induction on n.
+
+<p>
+Base case:  At n = 2, 
+\(\sum_{i=2}^n i 2^i = \sum_{i=2}^2 i 2^i = 2 \cdot 2^2 = 8\)  and
+\((n-1)2^{n+1} = (2-1)2^{2+1} = 2^3 = 8 \).
+So \(\sum_{i=2}^n i 2^i = (n-1)2^{n+1}\).
+
+</blockquote>
+
+<p>
+Now, substitute b=2 and P(n) into our outline to produce the inductive
+hypothesis and the goal of the inductive step.
+Notice that we substitute n=k+1 when making the goal.
+It's important to write out the goal of the inductive step.   Once
+you start working on the middle of the inductive step, it's easy to 
+forget exactly where you are headed.   As you can see from this
+example, it's easy to imagine off-by-one errors.
+
+<blockquote>
+    <p>
+    Inductive hypothesis (IH):   Suppose that 
+\(\sum_{i=2}^n i 2^i = (n-1)2^{n+1}\) is true for n= 2 , ..., k.
+
+    <p>
+      Rest of the inductive step:  <br><br>
+      ... [work using the fact the IH is true] ... <br><br>
+So \(\sum_{i=2}^{k+1} i 2^i = k 2^{k+2}\) which is what we needed to prove.
+  </blockquote>
+
+<p>
+In this example, we only need to use part of the inductive hypothesis,
+i.e. that the claim is true at n=k.   So let's make that explicit:
+
+
+<blockquote>
+    <p>
+    Inductive hypothesis (IH):   Suppose that 
+\(\sum_{i=2}^n i 2^i = (n-1)2^{n+1}\) is true for n= 2 , ..., k.
+
+    <p>
+      Rest of the inductive step:  <br>
+      By the inductive hypothesis, \(\sum_{i=2}^k i 2^i = (k-1)2^{k+1}\).
+      
+<br><br>
+      ... [work using the fact the IH is true] ... <br><br>
+So \(\sum_{i=2}^{k+1} i 2^i = k 2^{k+2}\) which is what we needed to prove.
+  </blockquote>
+
+<p>
+In the inductive step, we know something about a short summation
+\(\sum_{i=2}^k i 2^i\)
+and we'd like to work out the value of a longer summation
+\(\sum_{i=2}^{k+1} i 2^i\).   Our first task in writing the
+inductive step is to represent
+the big object in terms of one or more small objects.
+With a summation, we do this by removing the term for the largest index value.
+
+<blockquote>
+    <p>
+    Inductive hypothesis (IH):   Suppose that 
+\(\sum_{i=2}^n i 2^i = (n-1)2^{n+1}\) is true for n= 2 , ..., k.
+
+    <p>
+      Rest of the inductive step:  <br>
+      By the inductive hypothesis, \(\sum_{i=2}^k i 2^i = (k-1)2^{k+1}\). 
+      
+      <p>
+\(\sum_{i=2}^{k+1} i 2^i = (k+1) 2^{k+1} + \sum_{i=2}^k i 2^i\)
+
+<br><br>
+      ... [work using the fact the IH is true] ... <br><br>
+So \(\sum_{i=2}^{k+1} i 2^i = k 2^{k+2}\) which is what we needed to prove.
+  </blockquote>
+
+<p>
+  The inductive hypothesis tells us the value for the short summation,
+  so let's substitute that into our equation:
+
+
+  <blockquote>
+    <p>
+      Rest of the inductive step:  <br>
+      By the inductive hypothesis, \(\sum_{i=2}^k i 2^i = (k-1)2^{k+1}\). 
+      
+      <p>
+\(\sum_{i=2}^{k+1} i 2^i = (k+1) 2^{k+1} + \sum_{i=2}^k i 2^i
+ = (k+1) 2^{k+1} +   (k-1)2^{k+1}\). 
+
+
+<br><br>
+      ... [work using the fact the IH is true] ... <br><br>
+So \(\sum_{i=2}^{k+1} i 2^i = k 2^{k+2}\)  which is what we needed to prove.
+  </blockquote>
+
+
+<p>
+Now, assess where you are by doing "compare and contrast" on the
+material before and after the gap.   Looks like we have only one
+step of algebra to fill in to get our final proof.
+
+<blockquote>
+Proof:   By induction on n.
+
+<p>
+Base case:  At n = 2, 
+\(\sum_{i=2}^n i 2^i = \sum_{i=2}^2 i 2^i = 2 \cdot 2^2 = 8\)  and
+\((n-1)2^{n+1} = (2-1)2^{2+1} = 2^3 = 8 \).
+So \(\sum_{i=2}^n i 2^i = (n-1)2^{n+1}\).
+
+    <p>
+    Inductive hypothesis (IH):   Suppose that 
+\(\sum_{i=2}^n i 2^i = (n-1)2^{n+1}\) is true for n= 2 , ..., k.
+
+
+    <p>
+      Rest of the inductive step:  <br>
+      By the inductive hypothesis, \(\sum_{i=2}^k i 2^i = (k-1)2^{k+1}\). 
+      
+      <p>
+\(\sum_{i=2}^{k+1} i 2^i = (k+1) 2^{k+1} + \sum_{i=2}^k i 2^i
+ = (k+1) 2^{k+1} +   (k-1)2^{k+1} = k 2^{k+2}\). 
+
+<p>
+So \(\sum_{i=2}^{k+1} i 2^i = k 2^{k+2}\) which is what we needed to prove.
+  </blockquote>
+
+
+<h2>Using it</h2>
+
+  <p>
+Notice that we did the proof without having any good intuitions about why
+that closed form works.   A great feature of induction is that it doesn't
+matter how we got our closed 
+     form.  Perhaps this closed form just fell off the back of a truck and
+I found it beside the highway.  Or perhaps I built a table of input and
+output values and made a guess.
+No matter where this formula came from,
+we can still use induction to prove that it's correct.
+
+
+</body>
+</html>

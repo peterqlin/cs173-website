@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1"><meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+	<title>CS173 Lectures</title>
+	<link href="../menu.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!--- load Mathjax ---><script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!--- Cute course logo --->
+<div style="float:left"><img alt="UI logo" src="graphics/plain-logo.png" style="height:40px; width:28px" /></div>
+
+<div style="float:left">CS 173<br />
+Spring 2021</div>
+
+<div class="center">
+<h2>Proofs 1</h2>
+</div>
+
+<hr />
+<p>This video will start looking at basic methods for proving or disproving claims.</p>
+
+<h2>Disproving a universal claim</h2>
+
+<p>At the end of the last video, we saw how to disprove a claim by showing a concrete counter-example. We can use a similar method to prove an existential claim. For example:</p>
+
+<blockquote>Claim: There is an integer p such that \(p^2 &gt; 30\) and \(p &lt; 0\).</blockquote>
+
+<p>To prove this, we give a specific example of an integer and briefly explain why it has the required properties. For example:</p>
+
+<blockquote>Proof: Consider \( p = -10\). \(p &lt; 0\). Also \(p^2 = (10)^2 = 100 &gt; 30\).</blockquote>
+
+<p>It is best to use an example that is as specific as possible. Pick an example for which the reader can easily verify the required properties. But the example does not have to be the smallest or the simplest one possible. For example, \(p=-100\) would have worked just as well.</p>
+
+<p>You can also pick silly examples, as long as they are easy for the reader to verify. For example, we could choose \(p = -1347\). Then clearly \(p^2 \ge 10^2 = 100 &gt; 30\).</p>
+
+<p>You do not need to provide a general description of all possible examples. This is often much harder to do correctly. It&#39;s harder for the reader to verify. And it&#39;s completely unnecesary, because the claim only says that there is at least one example.</p>
+
+<h2>Methods of proof</h2>
+
+<p>When writing a proof, there are four different situations, shown in the table below. We can prove an existential claim by showing a concrete example. We can disprove a universal claim by showing a concrete counter-example. The other two situations require a general argument that works for any input value.</p>
+
+<table cellpadding="5" frame="box" rules="all">
+	<tbody>
+		<tr>
+			<td>&nbsp;</td>
+			<th>Prove</th>
+			<th>Disprove</th>
+		</tr>
+		<tr>
+			<th>Universal claim</th>
+			<td>general argument</td>
+			<td>counter-example</td>
+		</tr>
+		<tr>
+			<th>Existential claim</th>
+			<td>example</td>
+			<td>general argument</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2>Direct proof of universal claim</h2>
+
+<p>Consider this claim:</p>
+
+<blockquote>Claim: For any real numbers p,q, if p,q are rational, then p+q is rational.</blockquote>
+
+<p>Notice that we have a universal claim consisting of an if/then statement. The standard &quot;direct proof&quot; outline is to introduce the variables, then assume the information in the hypothesis, and reason from there to the conclusion. For our claim, this would look like:</p>
+
+<blockquote>Proof: Let p,q be real numbers.<br />
+Suppose p,q are rational.<br />
+....<br />
+So p+q is rational.</blockquote>
+
+<p>Notice that we&#39;ve written out our goal for the end of the proof. It&#39;s important to write this down, so that you remember where you are headed when you&#39;re writing the middle of the proof. Write your goal where you can&#39;t mistake it for a fact that is known at the start of the proof. For example, write it at the bottom of your answer area. Some people write it to the side or on scratch paper.</p>
+
+<p>You&#39;ve probably watched instructors write proofs entirely in forwards order. This is because they already know how to do the proof and they are keeping the end goal in their head. So it&#39;s not a good model for doing a proof as a beginner, or a harder proof even when you are experienced.</p>
+
+<p>Now we need to fill in the middle part of the proof. Very soon, we will be proving claims about unfamiliar concepts. But we haven&#39;t introduced any yet. So let&#39;s pretend that we know a lot about integers but don&#39;t yet know much about rational numbers. That&#39;s why we&#39;re trying to prove this very basic &quot;closure&quot; fact about the rationals.</p>
+
+<p>To fill in the middle of this proof, we need a definition of &quot;rational.&quot; Here&#39;s our textbook definition of &quot;rational&quot;:</p>
+
+<blockquote>Definition: A real number x is <strong>rational</strong> if and only if it can be written as \(x=\frac{n}{m}\) where m and n are integers and m is not zero.</blockquote>
+
+<p>Let&#39;s use this definition to rewrite the two statements involving &quot;rational&quot; in terms of basic arithmetic.</p>
+
+<blockquote>Proof: Let p,q be real numbers.<br />
+Suppose p,q are rational.<br />
+Then \(p = \frac{n}{m}\), where n,m are integers, m non-zero.<br />
+Similarly \(q = \frac{j}{k}\), where j,k are integers, k non-zero.<br />
+...<br />
+So \(p+q = \frac{s}{t}\) where s,t integers, t non-zero<br />
+So p+q is rational.</blockquote>
+
+<p>We used the definition of rational in three places. The first time, it happened that we could use the original variable names from the definition (n and m). However, we can&#39;t re-use these variable names when we do the other two substitutions. For example, if we wrote the following, we would be forcing p and q to be equal. That can&#39;t be right, because our claim was about any pair of rational numbers p and q.</p>
+
+<blockquote>\(p = \frac{n}{m}\), where n,m are integers, m non-zero.<br />
+\(q = \frac{n}{m}\), where n,m are integers, m non-zero.</blockquote>
+
+<p>Let&#39;s try to finish filling in the proof. Notice that our goal at the end of the gap involves finding a value for p+q. So let&#39;s try adding p and q, and see what we get.</p>
+
+<blockquote>...<br />
+Then \(p = \frac{n}{m}\), where n,m are integers, m non-zero.<br />
+Similarly \(q = \frac{j}{k}\), where j,k are integers, k non-zero.<br />
+Then \( p+q = \frac{n}{m} + \frac{j}{k} = \frac{nk+jm}{mk} \)<br />
+...<br />
+So if we set \(s=nk+jm\) and \(t = mk\), then \(p+q = \frac{s}{t}\) where s,t integers, t non-zero<br />
+...</blockquote>
+
+<p>Now we clean up the details. There&#39;s a bit of missing reasoning in the middle, because we need to justify why s and t are integers, and t is non-zero. To do this, we&#39;ll use closure properties of the integers: adding two integers produces an integer, multiplying two non-zero integers produces a non-zero integer. Here&#39;s our final proof:</p>
+
+<blockquote>Proof: Let p,q be real numbers.<br />
+Suppose p,q are rational.<br />
+Then \(p = \frac{n}{m}\), where n,m are integers, m non-zero.<br />
+Similarly \(q = \frac{j}{k}\), where j,k are integers, k non-zero.<br />
+Then \( p+q = \frac{n}{m} + \frac{j}{k} = \frac{nk+jm}{mk} \)<br />
+\(nk + jm\) is an integer because n,k,j,m are integers<br />
+mk is an integer because m,k are integers.<br />
+mk is not zero because m,k are non-zero<br />
+So if we set \(s=nk+jm\) and \(t = mk\), then \(p+q = \frac{s}{t}\) where s,t integers, t non-zero<br />
+So p+q is rational.</blockquote>
+
+<h2>Disproof of existential example</h2>
+
+<p>The final situation to consider is disproving an existential example. In this case, we need to provide a general argument. Usually this is presented as rephrasing &quot;disproving the claim&quot; as &quot;proving the negation of the claim.&quot;</p>
+
+<p>Consider this example:</p>
+
+<blockquote>Claim: There is an integer k such that \(k^2 + 2k + 1 &lt; 0\).</blockquote>
+
+<p>Let&#39;s negate the claim:</p>
+
+<blockquote>Negation of claim: for all integers, \(k^2 + 2k + 1 \ge 0\).</blockquote>
+
+<p>To set up our proof, we first tell the reader that we&#39;re switching to proving the negation of the claim, and then set up the standard outline for a direct proof:</p>
+
+<blockquote>Disproof of (original) claim: We will disprove the claim by proving its negation, which is
+<blockquote>For all integers, \(k^2 + 2k + 1 \ge 0\).</blockquote>
+
+<p>So let k be an integer.<br />
+...<br />
+So \(k^2 + 2k + 1 \ge 0\).</p>
+</blockquote>
+
+<p>When you use an outline other than a simple direct proof, it&#39;s important to tell the reader what you are planning. In a later math/theory class, we might just say that we&#39;re proving the negation. In this class, you will need to write out the negation, because it&#39;s still easy for you to make mistakes constructing it.</p>
+
+<p>We now have our outline. But how will we get to the conclusion? All we know is that k is an integer. We&#39;ll use an important trick: working backwards on scratch paper. Your final proof needs to be written in logical order. But your scratch work can be more free-form.</p>
+
+<blockquote>On our scratch paper:<br />
+What is this \(k^2 + 2k + 1 \)?<br />
+Oh, yeah, it&#39;s the square of \(k+1\). Squares can&#39;t be negative.</blockquote>
+
+<p>Now that we understand our argument, let&#39;s rewrite it in logical order:</p>
+
+<blockquote>Consider \(k+1\).<br />
+\((k+1)^2 \ge 0\) because squares of real numbers are never negative.<br />
+But \((k+1)^2 = k^2 + 2k + 1\).<br />
+So \(k^2 + 2k + 1 \ge 0\).</blockquote>
+
+<p>Notice the word &quot;consider.&quot; It often appears in mathematical writing when the next step may seem unmotivated because a section of the proof was constructed backwards.</p>
+
+<p>Our full draft proof:</p>
+
+<blockquote>Disproof of (original) claim: We will disprove the claim by proving its negation, which is
+<blockquote>For all integers, \(k^2 + 2k + 1 &gt;= 0\).</blockquote>
+
+<p>So let k be an integer.<br />
+Consider k+1.<br />
+\((k+1)^2 \ge 0\) because squares of real numbers are never negative.<br />
+But \((k+1)^2 = k^2 + 2k + 1\).<br />
+So \(k^2 + 2k + 1 \ge 0\).</p>
+</blockquote>
+
+<p>Let&#39;s polish this up a bit more. Professional looking proofs are written as paragraphs. And we often end them with a statement indicating that we&#39;re done. So our final proof looks like:</p>
+
+<blockquote>Disproof of (original) claim: We will disprove the claim by proving its negation, which is
+<blockquote>For all integers, \(k^2 + 2k + 1 \ge 0\).</blockquote>
+
+<p>So let k be an integer. Consider k+1. \((k+1)^2 \ge 0\) because squares of real numbers are never negative. But \((k+1)^2 = k^2 + 2k + 1\). So \(k^2 + 2k + 1 \ge 0\). This is what we needed to show.</p>
+</blockquote>
+
+<p>We could have replaced &quot;This is what we needed to show&quot; with &quot;QED.&quot; QED is simply an abbreviation of the Latin translation of &quot;What we needed to show.&quot; Some people use a small box at the end of their proof. And sometimes the end of a proof is indicated in other ways, e.g. by indenting in typed text or because the proof is the only thing in an exam answer box.</p>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Induction 4 </h2>
+</div>
+
+
+<hr>
+
+<h2>Nim</h2>
+
+  <p>
+    Back in the day, the drinking age was not only lower but
+    students <b>smoked</b>.   So restaurant tables often had books
+    of matches that groups of diners would play with.
+    Here's a game that might have been played in that world,
+    called " Nim".   Nim comes in many variations and we'll pick
+    only one to look at.
+    
+  <p>
+    This is a two-person game.   It starts with two piles of matches,
+    the same size.
+
+  <p>
+    <img width=250 src="induction-figs/nim-game-1.png">
+
+<p>
+When each person moves, they get to
+take some number of matches.   The matches must all come from
+the same pile, but they can choose either pile.  Play alternates
+between the players
+    until all the matches are gone.   The winner is the person who
+    takes the last match.
+
+<p>
+  So here is a sequence of moves, with the red player eventually winning
+  the game.
+
+  <p>
+    <img width=250 src="induction-figs/nim-game-2.png">
+
+<p>
+    <img width=250 src="induction-figs/nim-game-3.png">
+
+<p>
+    <img width=250 src="induction-figs/nim-game-4.png">
+
+<p>
+    <img width=250 src="induction-figs/nim-game-5.png">
+
+<p>
+    <img width=250 src="induction-figs/nim-game-6.png">
+
+<h2>The claim</h2>
+
+<p>
+  I claim that the player who moves second can always force
+  a win in this version of Nim.   The first player won in the
+  game above, but that's because the second player wasn't
+  playing as well as they could.
+
+<p>
+  We'll show that this is true by explaining how the second player
+  must move in order to guarantee that they will win.   I'm not
+  going to write up all the formal details.   I mostly want you to
+  see what the main pieces are.
+
+<h2>The induction variable</h2>
+
+<p>
+  A good strategy for the second player is to shadow the first player.
+  If the first player takes p matches from one pile, the second player
+  should take p matches from the other pile.   This means that the
+  piles are always the same size after the second player moves.
+
+<p>
+  Because the two piles are always the same size at these key points in
+  the game, a good choice for the induction variable n is the
+  number of matches in one pile.    If we wanted to represent a wider
+  range of games, we might need a more sophisticated representation of
+  game size.
+
+
+<h2>The base case</h2>
+
+<p>
+  The smallest game contains only one match in each pile.    The first player
+  has only one legal move:   remove the last match from one pile.   And then
+  the second player wins by removing the other match.
+
+
+<h2>The inductive step</h2>
+
+
+<p>
+  Our inductive hypothesis is that the second player can force a win for
+  n = 1 up through k.   We need to show that the second player can force
+  a win for a game of size k+1.
+
+<p>
+  The first thing that happens in our game of size k+1 is that the first player
+  takes p matches from one of the piles.   So we now have a pile with k+1-p matches
+  and a pile with k+1 matches.
+
+  <p>
+    There's two cases.   Perhaps the first player took all the matches from the one pile.
+    That is p=k+1.   Then the second player can clear the other pile and win the game.
+
+  <p>
+    The second case is that here are still matches left in both piles.   In this
+    case, the second player removes p matches from the other  pile.   We now have
+    a Nim game of size k+1-p.   Since \(1 \le k+1-p \le k\), this game is covered by
+    our inductive hypothesis.   That is, our inductive hypothesis tells us that the
+    second player can force a win.
+
+<h2>Notes</h2>
+
+  <p>
+    Notice that our inductive step takes a large object (the game of size k+1) and
+    reduces it to a smaller object (a smaller game) plus some extra stuff (the pair of
+    moves at the start).   This is the most important part of building an inductive step.
+
+  <p>
+    Also notice that we don't have much control over the size of the smaller game.
+    The first player might have taken only one match, in which case our new game is
+    size k.   But they might have taken 5 matches, in which case our new game is size k-4.
+    So it's important that our inductive hypothesis covered a range of sizes.
+
+  <p>
+    An inductive hypothesis covering all sizes up to k is called a "strong" hypothesis.
+    In computer science, you'll see many problems (especially in data structures) where the
+    proofs require a strong hypothesis.  So we'll make you use the strong variant
+    in this class, so that you get lots of practice writing that kind of inductive hypothesis.
+
+  <p>
+    If you're also taking math classes, those may have you use a simpler "weak" variant where
+    the inductive hypothesis covers only size k.  They teach it this way because many 
+    numerical problems don't need a strong hypothesis.
+
+</body>
+</html>

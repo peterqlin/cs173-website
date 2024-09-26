@@ -1,0 +1,66 @@
+.Menu {display: table; margin: 0 auto;  position: relative; }
+
+.Menu ul {list-style: none; white-space: nowrap;
+ -moz-border-radius:	5px;
+-webkit-border-radius:	5px;
+border-radius:		5px;
+}
+
+.Menu li {margin:0; padding:0; list-style:none; }
+.Menu li a { cursor:pointer; }
+.Menu li span.menu-link { cursor:default; }
+
+.Menu ul ul {position:absolute;  display: none;  padding:1px 3px; margin: 0;
+-moz-border-radius: 	0 0 5px 5px;
+-webkit-border-radius: 	0 0 5px 5px;
+border-radius: 		0 0 5px 5px;
+-moz-box-shadow:	0px 0px 8px 6px rgba(0,0,0,0.4);
+-webkit-box-shadow:	0px 0px 8px 6px rgba(0,0,0,0.4);
+box-shadow:		0px 0px 8px 6px rgba(0,0,0,0.4);
+}
+.Menu ul ul ul {
+-moz-border-radius: 	5px;
+-webkit-border-radius:	5px;
+border-radius: 		5px;
+}
+
+.Menu > ul {display:inline-block;  padding:0; margin:0 auto;}
+.Menu > ul > li {float:left; display:block; position:relative;}
+.Menu > ul > li:hover { z-index:100;}
+.Menu > ul > li > a, .Menu > ul > li > span.menu-link {padding:0 10px; }
+.Menu > ul > li > a {
+-moz-border-radius: 	5px 5px 0 0;
+-webkit-border-radius:	5px 5px 0 0;
+border-radius: 		5px 5px 0 0;
+}
+
+.Menu ul li a, .Menu ul li span.menu-link {display:block; text-decoration:none; font:15px/30px "Federo", arial,sans-serif; }
+.Menu ul li:hover > a { text-decoration:underline;  }
+
+.Menu ul ul a {padding: 0 10px 0 2px; margin: 1px 0; line-height:25px; }
+
+.Menu ul li:hover > ul {display:inline-block; left:0; top:30px; z-index:-1;}
+.Menu ul ul li:hover > ul {left:100%; top:auto; margin-top:-30px; margin-left:-4px; z-index:2000;}
+
+.Menu > ul > li.dleft:hover > ul {left:auto; right:0; text-align:right;}
+.Menu > ul > li.dleft ul li:hover > ul {left:auto; right:100%; margin-right:-4px; text-align:right;}
+.Menu > ul > li.dleft ul a {padding: 0 2px 0 10px;  }
+
+
+
+
+.Menu ul 		{background-color:#222; border: 1px solid #000;}
+.Menu ul a { color:#7F94FE;  }
+.Menu ul a:visited { color:#FFFFFF;  }
+.Menu ul a:link { color:#FFFFFF;  }
+.Menu ul ul 		{background-color:#444; border: 2px outset #222;}
+.Menu ul ul li a	{background-color:#3c3c3c;
+   text-shadow:0 -1px 2px rgba(0, 0, 0, 0.6);}
+.Menu ul li a.curnt	{background-color:#037900; color:#FBF950; }
+.Menu li:hover > a, .Menu ul ul li:hover > a, .Menu ul li:hover > span.menu-link
+{background-color:#6E008E;   color:#FBF950;
+   text-shadow:0 -1px 2px rgba(0, 0, 0, 0.99);}
+
+
+.center {margin: 0 auto; display: table;}
+th{background-color:#74d3f2; }

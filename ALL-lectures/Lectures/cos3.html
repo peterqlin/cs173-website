@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1"><meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+	<title>CS173 Lectures</title>
+	<link href="../menu.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!--- load Mathjax ---><script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!--- Cute course logo --->
+<div style="float:left"><img alt="UI logo" src="graphics/plain-logo.png" style="height:40px; width:28px" /></div>
+
+<div style="float:left">CS 173<br />
+Spring 2021</div>
+
+<div class="center">
+<h2>Collections of Sets 3</h2>
+</div>
+
+<hr />
+<h2>The idea of a partition</h2>
+
+<p>Let&#39;s look at the idea of a &quot;partition&quot; of a set. Remember our set A containing add-ons for muffins:</p>
+
+<blockquote>A = {add-ons} = {chocolate-chip, blueberry, orange, almond, lemon, cherry, walnut}</blockquote>
+
+<p>We can divide A into subsets based on the type of add-on. E.g. fruits, nuts, and candy. This is a called a partition.</p>
+
+<p><img src="cos-figs/partition1.png" style="width:300px" /> <img src="cos-figs/partition2.png" style="width:300px" /></p>
+
+<p>Mathematically, we can implement a partition S as a set of subsets of A. Each subset represents one region in the partition.</p>
+
+<blockquote>S = {{chocolate-chip},{ blueberry, orange, lemon, cherry}, {walnut, almond}}</blockquote>
+
+<p>The three members of S are subsets of A. So the whole partition S is a subset of the powerset of A. In shorthand, \(S \subseteq \mathbb{P}(A)\). Recall that the whole powerset \(\mathbb{P}(A)\) is much larger and contains \(2^7\) subsets. A partition is a selection of certain subsets.</p>
+
+<h2>Properties of a partition</h2>
+
+<p>A partition isn&#39;t just some random set of subsets. It needs to have the look and feel of the picture above. Specifically:</p>
+
+<ul>
+	<li>S covers all of A.</li>
+	<li>S doesn&#39;t contain the empty set.</li>
+	<li>Subsets in A never have partial overlap.</li>
+</ul>
+
+<p>So the three sets of subsets below are not partitions of A. The first has two subsets that aren&#39;t the same but both contain lemon and cherry. The second contains the empty set. In the third, none of the subsets contains lemon.</p>
+
+<p><img src="cos-figs/partition3.png" style="width:300px" /> <img src="cos-figs/partition4.png" style="width:300px" /> <img src="cos-figs/partition5.png" style="width:300px" /></p>
+
+<p>These properties mean that each partition has a corresponding equivalence relation and vice versa. So, in this case, the relation would be &quot;same food group&quot;. Each subset in the partition is an equivalence class for the relation.</p>
+
+<h2>Formal definition of partition</h2>
+
+<p>Let&#39;s do this a bit more formally. First, suppose that S is finite, so we can write S as \(S = \{A_1, A_2, ..., A_n\}\). Then the partition properties translate into:</p>
+
+<ul>
+	<li>\(A = A_1 \cup A_2 \cup \ldots \cup A_n \)</li>
+	<li>\( \emptyset \not \in S\)</li>
+	<li>For all i, j, if \(i \not = j\), then \(A_i \cap A_j = \emptyset\).</li>
+</ul>
+
+<p>But S might be infinite. For example, we could partition the integers by grouping each even number with the following odd number. Then we need a slightly more sophisticated notation.</p>
+
+<ul>
+	<li>\(A = \bigcup_{X \in S} X\)</li>
+	<li>\( \emptyset \not \in S\)</li>
+	<li>For all \(X, Y \in S\), if \(X \not = Y\), then \(X \cap Y = \emptyset\).</li>
+</ul>
+
+<p>The notation \(\bigcup_{X \in S} X\) takes the union over all the subsets in S. As you take later courses, you&#39;ll see similar constructions such as \(\max_{x \in S} f(x)\) for the maximum value that a function f produces when you feed in elements from S.</p>
+
+<p>The final condition says that two subsets in S must either overlap completely (i.e. be the same) or not overlap at all.</p>
+
+<h2>An abstract example</h2>
+
+<p>Here&#39;s a partition example &quot;ripped from the midterms&quot;.</p>
+
+<blockquote>A = {2,3,4,5,10,12}<br />
+Define \(F:A \rightarrow P(A)\) such that \(F(x) = \{y \in A \mid y \text{ is a factor of x }\} \)
+<p>Work out the values of F(12) and F(5)</p>
+
+<p>Now define \(S = \{F(x) \mid x \in A\}\)<br />
+List the members of S.<br />
+Is S a partition of A?</p>
+</blockquote>
+
+<p>What is this question asking? Let&#39;s work through this piece by piece.</p>
+
+<p>F(12) is a set that contains all the elements of A that are factors of 12. So \(F(12) = \{2, 3, 4, 12 \}\).</p>
+
+<p>F(5) is a set that contains all the elements of A that are factors of 5. So \(F(5) = \{5 \}\).</p>
+
+<p>The definition of S asks us to put all the elements of A through the function F and collect up all the outputs.</p>
+
+<blockquote>\(F(2) = \{2 \}\)<br />
+\(F(3) = \{3 \}\)<br />
+\(F(4) = \{2,4 \}\)<br />
+\(F(5) = \{5 \}\)<br />
+\(F(10) = \{2,5,10 \}\)<br />
+\(F(12) = \{2, 3, 4, 12 \}\)
+<p>\(S \ = \ \{ \{2 \},\ \{3 \},\ \{2,4 \},\ \{5 \},\ \{2,5,10 \},\ \{2, 3, 4, 12 \} \} \)</p>
+</blockquote>
+
+<p>Now we need to check whether S satisfies the three partition properties.</p>
+
+<ul>
+	<li>Every element of A is in one of the subsets. (good)</li>
+	<li>S doesn&#39;t contain the empty set. (good)</li>
+	<li>But some of the subsets have partial overlap, e.g. {5} and {2,5,10}. (bad)</li>
+</ul>
+
+<p>So it&#39;s not a partition.</p>
+</body>
+</html>

@@ -1,0 +1,23 @@
+p { font-family: "Roboto",sans-serif;line-height: 1.5;}
+tr { font-family: "Roboto",sans-serif;line-height: 1.5;}
+ul { font-family: "Roboto",sans-serif; line-height: 1.5;}
+h1 { font-family: Arial; color: #343bc2;}
+h2 { font-family: Arial; color: #343bc2;}
+h3 { font-family: Arial; color: #343bc2;}
+
+html {
+  box-sizing: border-box;
+}
+
+.content {
+    max-width: 1100px;
+    margin: auto;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid black;
+}
+

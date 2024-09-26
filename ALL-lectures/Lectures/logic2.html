@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1"><meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+	<title>CS173 Lectures</title>
+	<link href="../menu.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!--- load Mathjax ---><script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!--- Cute course logo --->
+<div style="float:left"><img alt="UI logo" src="graphics/plain-logo.png" style="height:40px; width:28px" /></div>
+
+<div style="float:left">CS 173<br />
+Spring 2021</div>
+
+<div class="center">
+<h2>Logic 2</h2>
+</div>
+
+<hr />
+<h2>Useful equivalences</h2>
+
+<p>In the last video, we proved a couple logical equivalences:</p>
+
+<blockquote>\(p \rightarrow q \equiv q \vee (\neg p) \) &nbsp; &nbsp; or &nbsp; &nbsp; \(p \rightarrow q \equiv (\neg p) \vee q \)<br />
+\(\neg(p \wedge q) \equiv (\neg p) \vee (\neg q)\) &nbsp; (De Morgan&#39;s Law)</blockquote>
+
+<p>Let&#39;s work out a few more equivalences that are especially helpful and worth memorizing. Let&#39;s start with the obvious one:</p>
+
+<blockquote>\(\neg \neg p \equiv p\)</blockquote>
+
+<p>To keep everything simple, I&#39;m assuming we&#39;re all comfortable with the idea that two negations cancel and both &quot;and&quot; and &quot;or&quot; are commutative. So we&#39;ll frequently make these transformations without an explicit step. In a formal logic course, we might be more careful.</p>
+
+<p>There&#39;s a second De Morgan&#39;s law where we swap the roles of AND and OR, which can be proved with a truth table just like the first one.</p>
+
+<blockquote>\(\neg(p \vee q) \equiv (\neg p) \wedge (\neg q)\)</blockquote>
+
+<p>Finally we can use the above equivalences to derive another useful one.</p>
+
+<blockquote>\( \neg (p \rightarrow q) \equiv \neg (q \vee (\neg p) ) \equiv (\neg q) \wedge p \)</blockquote>
+
+<p>You can relate \( \neg (p \rightarrow q) \equiv (\neg q) \wedge p\) back to the truth table for if/then (implies). An if/then statement is false exactly when the hypothesis (p) is true and the conclusion (q) is false.</p>
+
+<p>&nbsp;</p>
+
+<table cellpadding="5" frame="box" rules="all">
+	<tbody>
+		<tr>
+			<th>p</th>
+			<th>q</th>
+			<th>\(p \rightarrow q\)</th>
+		</tr>
+		<tr>
+			<th>T</th>
+			<th>T</th>
+			<th>T</th>
+		</tr>
+		<tr>
+			<th>T</th>
+			<th>F</th>
+			<th>F</th>
+		</tr>
+		<tr>
+			<th>F</th>
+			<th>T</th>
+			<th>T</th>
+		</tr>
+		<tr>
+			<th>F</th>
+			<th>F</th>
+			<th>T</th>
+		</tr>
+	</tbody>
+</table>
+
+<h2>Three ways to figure out logical equivalences</h2>
+
+<p>There&#39;s three ways to figure out logical equivalences:</p>
+
+<ul>
+	<li>Truth tables</li>
+	<li>Applying a sequence of logical equivalences, like algebra.</li>
+	<li>Deep thought</li>
+</ul>
+
+<p>As we&#39;ve seen, truth tables work best with only 1-3 input variables and expressions that aren&#39;t too complex. However, the number of rows is \(2^k\) where k is the number of input variables. And it&#39;s very easy to make mistakes. So truth tables don&#39;t scale well.</p>
+
+<p>Applying a sequence of logical equivalences can be very slick. However, if you don&#39;t have a clear plan, it&#39;s easy to go around in circles.</p>
+
+<p>Thinking deeply doesn&#39;t always work and it may only produce an informal argument that must be verified by one of the other methods. But it sometimes works extremely well.</p>
+
+<p>Consider this problem:</p>
+
+<blockquote>When is \(a \rightarrow (b \rightarrow c)\) true/false?</blockquote>
+
+<p>Let&#39;s apply the &quot;deep thought&quot; method. When is this expression false? Well, (using the truth table for implies) it&#39;s false when a is true and \((b \rightarrow c)\) is false. When is \((b \rightarrow c)\) false? Well, when b is true and c is false. So the whole expression is false exactly when a and b are true and c is false.</p>
+
+<p>Now, let&#39;s apply equivalences. A heuristic that is often useful is to eliminate all instances of \(\rightarrow\) using the identity. \(p \rightarrow q \equiv (\neg p) \vee q&nbsp;\). So we have</p>
+
+<blockquote>\(a \rightarrow (b \rightarrow c) \equiv (\neg a) \vee (b \rightarrow c) \equiv (\neg a) \vee (\neg b) \vee c \)</blockquote>
+
+<p>So \(a \rightarrow (b \rightarrow c)\) is true exactly when a is false, or b is false, or c is true. The answer checks out against our deep thought answer for when the expression is false: they are related by De Morgan&#39;s law.</p>
+
+<h2>Quantifier notation and terminology</h2>
+
+<p>Now, let&#39;s do the upgrade to propositional logic. That is, we&#39;re going to add variables and &quot;quantifiers&quot;. The two common quantifiers in mathematics are &quot;for all&quot; (shorthand \(\forall\)) and &quot;there exists&quot; (shorthand \(\exists\)).</p>
+
+<p>Consider this example</p>
+
+<blockquote>For every integer x, \(x^2 \ge x\)</blockquote>
+
+<ul>
+	<li>&quot;For every&quot; is the quantifier</li>
+	<li>The integers are the replacement set or domain for x. That is, the set whose values we are considering as values for x.</li>
+	<li>The scope of the definition of x is \(x^2 &gt;= x\).</li>
+	<li>x is the bound variable.</li>
+</ul>
+
+<p>Variables bound by quantifiers are very similar to the &quot;dummy&quot; variables used in summations and integrals. They are defined only locally, just inside our quantified expression.</p>
+
+<p>The replacement set is important to the meaning of quantified statements. If we change the domain to the reals, the statement above is no longer true. We can show this with a concrete counter-example: set x to be 0.5.</p>
+
+<h2>Scope of quantifier</h2>
+
+<p>Scope of definitions isn&#39;t as clearly defined in mathematical writing as it is in programming languages, because math is written for a human audience. However, here&#39;s an example where we&#39;ve clearly tried to use a variable after its scope has ended:</p>
+
+<blockquote>Theorem: There is an integer x, such that \(x^2 = 0\).<br />
+...<br />
+So \(3x^2 + 7 = 3\cdot 0 + 7 = 7\).</blockquote>
+
+<p>This is wrong because the statement of a theorem is usually seen as self-contained. So x is only defined while we are stating the theorem. A bit later, when the author tries to use x, it&#39;s not defined anymore. Good mathematical style requires re-introducing the variable x, e.g.</p>
+
+<blockquote>Theorem: There is an integer x, such that \( x^2 = 0\).<br />
+...<br />
+Let x be such an integer.<br />
+Then \(3x^2 + 7 = 3\cdot 0 + 7 = 7\).</blockquote>
+
+<p>Here&#39;s an example that&#39;s technically correct but bad style. Is this statement true or false?</p>
+
+<blockquote>There is an integer x such that \(x^2 = 1\) and there is an integer x such that \(x^2 = 0\).</blockquote>
+
+<p>This is, in fact, true. The scope of the first x ends before &quot;and.&quot; We can be sure it ends there, because a (new) variable x is introduced right after &quot;and&quot;. So the two x&#39;s are different variables. We can set the first equal to 1 and the second equal to 0, to show that the whole statement is true. This is confusing. It would have been much better style to use different names for the two variables.</p>
+
+<p>Now look at this statement. It has only one quantifier, introducing a single variable x whose scope is the whole sentence. So this statement is false, because \(x^2\) can&#39;t have two unequal values.</p>
+
+<blockquote>There is an integer x such that \(x^2 = 1\) and \(x^2 = 0\).</blockquote>
+</body>
+</html>

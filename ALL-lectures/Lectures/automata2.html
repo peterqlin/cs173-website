@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>State Diagrams 2 </h2>
+</div>
+
+
+<hr>
+
+<h2>Phone lattices</h2>
+
+
+<p> Let's look at a different sort of application for state diagrams.
+Suppose that we're helping build IBM's new kitchen assistant.  It uses
+voice recognition to recognize commands such as:
+
+<blockquote>
+cook, cup, cut, dice, slice
+</blockquote>
+
+
+<p>
+  To keep this simple, we'll use the written forms of these words for our class
+  example.  However, a real speech recognizer would use the phonetic versions.
+  For example, "get" would be replaced by [g eh t].   A real speech recognizer
+  would also need to represent different ways that a word might be pronounced.
+  So our pronuncing dictionary might supply three pronunciations for "get":
+
+<ul>
+<li> [g eh t]  East Coast
+<li> [g ih t]  Midwest
+<li> [g iy ah t] Deep South
+</ul>
+
+<p>
+Going back to our written forms, let's build a state diagram
+that represents
+exactly our set of five words.   So all five words, and no other words.
+This sort of state diagram is called
+a "phone lattice".
+We'll first build this by simply taking
+the five words and joining them at a start state:
+
+
+<p>
+<img width=400 src="automata-figs/phones1.png">
+
+
+<p>
+Each edge in the diagram represents the action of reading one character.
+Notice that we have only one start state but five end states.
+
+
+<h2>Optimizing</h2>
+
+<p>
+The state diagram above is easy to construct
+but  somewhat inefficient.    It has more
+states than required.   This isn't a huge problem with an example this small.   It's
+a more serious issue with a full dictionary that might contain hundreds of
+thousands of words.
+
+<p>
+A second issue is that this lattice is "non-determinstic."    From the start state,
+there are three places we could go when we read the letter "c".   A computer program
+can still use this kind of phone lattice to process input text, but it requires
+keeping track of a set of states (not just a single state) at each input position.
+
+
+<p>
+So let's try to improve our phone lattice to get ride of the non-determinism and
+reduce the number of states.   We can merge the start of words with the same
+initial characters.
+
+<p>
+<img width=400 src="automata-figs/phones2.png">
+
+
+<p>
+We can also merge the final parts of words with a common ending.
+
+<p>
+<img width=400 src="automata-figs/phones3.png">
+
+<p>
+Finally, we can merge all the final states.
+
+<p>
+<img width=400 src="automata-figs/phones4.png">
+
+<p>
+This sort of optimization is frequently done by a computer program,
+especially for larger lattices.  For example, the utility "grep" found
+on linux and Mac computers allows users to specify a search pattern
+using a format that's easy for humans.  This is automatically
+optimized before the search is actually run.
+
+
+<h2>Plurals</h2>
+
+<p>
+  Suppose that we'd like to extend our set of words to reflect
+  the fact that we can add -s to any of them.   Here's an extended
+  phone lattice.   Notice that we have a transition from one end
+  state into another end state, because we can either stop at
+  the shorter word or continue with the -s.
+  
+<blockquote>
+cook, cup, cut, dice, slice <br>
+cooks, cups, cuts, dices, slices <br>
+</blockquote>
+
+<p>
+<img width=400 src="automata-figs/phones5.png">
+
+<p>
+  Suppose we add the word "six" and its plural "sixes".   We might
+  be tempted to do something like this:
+
+<p>
+<img width=400 src="automata-figs/phones6.png">
+
+<p>
+  But notice that this also allows the word "sixe".   So we need
+  to create a pathway that stays separate for longer, like this:
+
+<p>
+<img width=400 src="automata-figs/phones7.png">
+
+
+<h2>Loops</h2>
+
+<p>
+  We can also create phone lattices with loops, to represent
+  certain infinite classes of strings.   For example, the
+  word "ooh" can be extended to "oooh" or "ooooooh" or
+  potentially even a longer sequence of o's.   
+  We could represent this set of strings like this:
+
+<p>
+<img width=400 src="automata-figs/phones11.png">
+
+<p>
+  This variant produces a similar set of strings, but also including
+  "oh".
+
+<p>
+<img width=400 src="automata-figs/phones9.png">
+
+<p>
+  This phone lattice allows any string consisting of an h followed
+  by an even number of m's.
+
+<p>
+<img width=400 src="automata-figs/phones10.png">
+
+<p>
+  And this represents a sequence of one or more words from our original set of
+  five cooking terms, separated by a space &#9141;.
+
+<p>
+<img width=400 src="automata-figs/phones8.png">
+
+
+
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Number Theory 2 </h2>
+</div>
+
+
+<hr>
+
+
+<h2>Proof of the claim from previous video</h2>
+
+<p>
+At the end of the last video, we had one task remaining.  We needed to prove this claim:
+
+<blockquote>
+Claim: For all integers a, b, r, q, k, where b is positive,
+if a = bq + r and \(k \mid a\) and \(k \mid b\), then
+\(k \mid r\).
+</blockquote>
+
+<p>
+Also remember our definition of "divides":
+
+<blockquote>
+   An integer p divides an integer q (written \(p \mid q\)) if and only if q = pn, for some integer n. 
+</blockquote>
+
+
+<p>
+  Let's first set up our standard outline for a direct proof:   introduce the variables,
+  assume the information in the hypothesis, set out the conclusion as a goal to end the
+  proof.
+  
+
+<blockquote>
+Proof:  Let a, b, r, q, k be integers, with b  positive.
+Suppose that \(a = bq + r\), \(k \mid a\), and \(k \mid b\). <br>
+....<br>
+Then \(k \mid r\), which is what we needed to show.
+</blockquote>
+  
+
+<p>
+  Now let's substitute our definition of divides into the statements immediately
+  before and after the gap in the middle.
+
+<blockquote>
+Proof:  Let a, b, r, q, k be integers, with b  positive.
+Suppose that \(a = bq + r\), \(k \mid a\), and \(k \mid b\). <br>
+Since \(k \mid a\), &nbsp;&nbsp;\(a = kn\) for some integer n. <br>
+Since \(k \mid b\), &nbsp;&nbsp;\(b = km\) for some integer m.<br>
+
+....<br>
+So \(r = kt\) where t is an integer. <br>
+Then \(k \mid r\), which is what we needed to show.
+</blockquote>
+  
+<p>
+To fill in the gap, we can take
+\(a = bq + r\) and solve for r:  \( r = a - bq \).
+Now substitute the values we have for a and b.
+
+<blockquote>
+\( r = a - bq = kn - (km)q\)
+</blockquote>
+
+<p>
+  Now peek ahead at the goal at the end of the gap:
+  \(r = kt\).  If we want to get the above equation into this form, we need
+  to factor out k.   That is:
+
+<blockquote>
+\( r = a - bq = kn - (km)q = k(n - mq)\)
+</blockquote>
+
+<p>
+  So t must be \(n - mq\).  And t must be an integer because n, m, and q are integers.
+
+<p>
+  Let's get these steps into logical order and use them to fill in the middle of our proof.
+
+
+<blockquote>
+Proof:  Let a, b, r, q, k be integers, with b  positive.
+Suppose that \(a = bq + r\), \(k \mid a\), and \(k \mid b\). <br>
+Since \(k \mid a\), &nbsp;&nbsp;\(a = kn\) for some integer n. <br>
+Since \(k \mid b\), &nbsp;&nbsp;\(b = km\) for some integer m.<br>
+Since \(a = bq + r\), &nbsp;&nbsp;
+\( r = a - bq = kn - (km)q = k(n - mq)\). <br>
+Let \(t = n - mq\).   t must be an integer because n,m,q are integers<br>
+So \(r = kt\) where t is an integer. <br>
+Then \(k \mid r\), which is what we needed to show.
+</blockquote>
+  
+
+
+<h2>Congruence mod k</h2>
+
+<p>
+  Now, let's look at our other new definition:  congruence mod k.
+  The big idea behind this definition is to treat two
+two numbers as equivalent if they differ by a multiple of k.
+  So if we set k=5, then
+
+  <ul>
+  <li> 0 is congruent to 5, 10, 15, etc, also -5, -10, etc
+  <li> 2 is congruent to 7, 12, 17, etc, also -3, -8, etc
+  </ul>
+
+<p>
+  Here is our formal definition:
+
+<blockquote>
+\(s \equiv t \pmod{k}\) if and only if  \( k \mid (s-t) \)
+</blockquote>
+
+<p>
+Notice that (mod k) is a modifier on the =.  So don't group this
+in your mind as  s = (s mod k).
+
+<p>
+  Sometimes (especially on examlets), we'll ask you to use this
+  equivalent definition, which substitutes in the definition
+  of divides:
+
+<blockquote>
+\(s \equiv t \pmod{k}\) if and only if  s = t + kj, where j is an integer
+</blockquote>
+
+<p>
+  For understanding what congruence mod k means, it's helpful to know that
+  two equivalent integers have the same remainder mod k:
+
+<blockquote>
+\(s \equiv t \pmod{k}\) if and only if remainder(s,k) = remainder(t,k) <br>
+</blockquote>
+
+<p>
+  This isn't a good definition to use in writing proofs, because the definition
+  of remainder is complex (two equations).
+
+
+<h2> Proof with congruence mod k</h2>
+
+<p>
+  Let's do a sample proof using our definition of congruence, and also our
+  defintion of divides.   In real life, I'd probably let you avoid some
+  of this complexity by using the alternate definition of congruence.
+  However, I'd like to show you an example of two definitions in succession.
+
+<p>
+  This claim (along with a similar fact for addition) helps establish that
+  congruence interacts nicely with arithmetic.
+
+<blockquote>
+Claim:  For any integers a,b,c,d,k, where k is positive, if 
+ \(a \equiv b \pmod{k}\) and \(c \equiv d \pmod{k}\), then \(ac \equiv bd \pmod{k}\).
+</blockquote>
+
+<p>
+  First, sketch out our standard outline for direct proof:
+
+<blockquote>
+Proof:  let a,b,c,d,k be integers, k positive.   Suppose
+ \(a \equiv b \pmod{k}\) and \(c \equiv d \pmod{k}\). <br>
+... <br>
+So \(ac \equiv bd \pmod{k}\), which is what we needed to prove. 
+</blockquote>
+
+<p>
+  Now, let's apply the definition of congruence to convert the statements
+  about congruence into statements about divides:
+
+<blockquote>
+Proof:  let a,b,c,d,k be integers, k positive.   Suppose
+ \(a \equiv b \pmod{k}\) and \(c \equiv d \pmod{k}\). <br>
+By the definition of congruence, this means that
+\(k \mid (a-b)\) and \(k \mid (c-d)\) <br>
+... <br>
+So \(k \mid (ac-bd) \). <br>
+So \(ac \equiv bd \pmod{k}\), which is what we needed to prove. 
+</blockquote>
+
+<p>
+  Now let's apply the definition of divides, to convert the statements before
+  and after the gap into plain algebra:
+
+<blockquote>
+Proof:  let a,b,c,d,k be integers, k positive.   Suppose
+ \(a \equiv b \pmod{k}\) and \(c \equiv d \pmod{k}\). <br>
+By the definition of congruence, this means that
+\(k \mid (a-b)\) and \(k \mid (c-d)\) <br>
+So \(a-b = km\) and \(c-d = kn\), where m and n are integers.<br>
+... <br>
+So \(ac-bd = kt \), where t is an integer. <br>
+So \(ac \equiv bd \pmod{k}\), which is what we needed to prove. 
+</blockquote>
+
+<p>
+  At this point, it helps to stop and fiddle around with the
+  algebra on scratch paper.   I've found that it helps to isolate
+  a, c, and ac on the lefthand sides of these equations.
+  But there are other ways to fill in the algebra steps. 
+
+<blockquote>
+Proof:  let a,b,c,d,k be integers, k positive.   Suppose
+ \(a \equiv b \pmod{k}\) and \(c \equiv d \pmod{k}\). <br>
+By the definition of congruence, this means that
+\(k \mid (a-b)\) and \(k \mid (c-d)\) <br>
+So \(a-b = km\) and \(c-d = kn\), where m and n are integers.<br>
+Then \(a = km + b\) and \(c = kn + d \). <br>
+... <br>
+So \(ac = kt + bd\), where t is an integer. <br>
+So \(ac-bd = kt \), where t is an integer. <br>
+So \(ac \equiv bd \pmod{k}\), which is what we needed to prove. 
+</blockquote>
+
+<p>
+  Notice that the goal at the end of the gap is a statement with ac on its
+  lefthand side.  So let's work out what ac is, using the information above
+  the gap.
+
+<blockquote>
+Proof:  let a,b,c,d,k be integers, k positive.   Suppose
+ \(a \equiv b \pmod{k}\) and \(c \equiv d \pmod{k}\). <br>
+By the definition of congruence, this means that
+\(k \mid (a-b)\) and \(k \mid (c-d)\) <br>
+So \(a-b = km\) and \(c-d = kn\), where m and n are integers.<br>
+Then \(a = km + b\) and \(c = kn + d \). <br>
+Multiplying the two equations gives us
+\(ac = (km + b)(kn + d) \). <br>
+... <br>
+So \(ac = kt + bd\), where t is an integer. <br>
+So \(ac-bd = kt \), where t is an integer. <br>
+So \(ac \equiv bd \pmod{k}\), which is what we needed to prove. 
+</blockquote>
+
+<p>
+  Now let's play "compare and contrast" with the top and bottom of the gap.
+  The statement at the end of the gap has only one term involving k.   So let's
+  factor k out of the expression at the top of the gap.   This is something
+  you probably wouldn't consider doing if you didn't peek ahead at the end
+  of the proof.
+
+<blockquote>
+Proof:  let a,b,c,d,k be integers, k positive.   Suppose
+ \(a \equiv b \pmod{k}\) and \(c \equiv d \pmod{k}\). <br>
+By the definition of congruence, this means that
+\(k \mid (a-b)\) and \(k \mid (c-d)\) <br>
+So \(a-b = km\) and \(c-d = kn\), where m and n are integers.<br>
+Then \(a = km + b\) and \(c = kn + d \). <br>
+Multiplying the two equations gives us
+\(ac = (km + b)(kn + d) = k^2mn + kmd + knb + bd = k(kmn + md + nb) + bd\). <br>
+... <br>
+So \(ac = kt + bd\), where t is an integer. <br>
+So \(ac-bd = kt \), where t is an integer. <br>
+So \(ac \equiv bd \pmod{k}\), which is what we needed to prove. 
+</blockquote>
+
+<p>
+  The gap is now mostly cosmetic, so let's fill in the missing bits:
+
+<blockquote>
+Proof:  let a,b,c,d,k be integers, k positive.   Suppose
+ \(a \equiv b \pmod{k}\) and \(c \equiv d \pmod{k}\). <br>
+By the definition of congruence, this means that
+\(k \mid (a-b)\) and \(k \mid (c-d)\) <br>
+So \(a-b = km\) and \(c-d = kn\), where m and n are integers.<br>
+Then \(a = km + b\) and \(c = kn + d \). <br>
+Multiplying the two equations gives us
+\(ac = (km + b)(kn + d) = k^2mn + kmd + knb + bd = k(kmn + md + nb) + bd\). <br>
+Let \(t = kmn + md + nb\).  t is an integer because k, m, n, b, and d are integers. <br>
+So \(ac = kt + bd\), where t is an integer. <br>
+So \(ac-bd = kt \), where t is an integer. <br>
+So \(ac \equiv bd \pmod{k}\), which is what we needed to prove. 
+</blockquote>
+
+<p>
+  If we had time to rewrite the proof,
+  we could simplify the end by removing the temporary variable t.   It could just
+  use \(kmn + md + nb\) directly, mentioning that it must be an integer.
+  That sort of smoothing is optional.   On an exam, it wouldn't be worth the time and the risk
+  of introducing mistakes during the rewrite.
+
+</body>
+</html>

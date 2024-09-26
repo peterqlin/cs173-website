@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1"><meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+	<title>CS173 Lectures</title>
+	<link href="../menu.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!--- load Mathjax ---><script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!--- Cute course logo --->
+<div style="float:left"><img alt="UI logo" src="graphics/plain-logo.png" style="height:40px; width:28px" /></div>
+
+<div style="float:left">CS 173<br />
+Spring 2021</div>
+
+<div class="center">
+<h2>Sets 1</h2>
+</div>
+
+<hr />
+<p>You have already seen simple examples of sets (in the readings but also very likely in previous classes). Let&#39;s look at some of the details and special cases.</p>
+
+<h2>Gotchas with set notation</h2>
+
+<p>Consider intersecting two small sets: \(\{1,2,3\} \cap \{2,3,4\}\). This is obviously equal to \(\{2,3\}\).</p>
+
+<p>But what happens if we intersect two sets with less overlap? What is \(\{1,2,3\} \cap \{3,4,5\}\) equal to? It&#39;s very temping to say &quot;3&quot;. However, set operations like intersection always produce sets as output. So the answer must be \(\{3\}\).</p>
+
+<p>A convention shared by math and programming languages is that a function usually produces objects of a single specific type. So if one output is a set, typically all outputs are sets. If one output is an integer, probably all outputs are integers. This isn&#39;t always the case, but it&#39;s a helpful heuristic.</p>
+
+<p>When is the empty set (\(\emptyset\)) a member of another set?</p>
+
+<blockquote>\(A = \{1, \emptyset, \text{frog} \}\)<br />
+\(B = \{1, 2, \text{frog} \}\)</blockquote>
+
+<p>The empty set is a member of A, because you can see it in the list of elements for A. It&#39;s not a member of B, because it&#39;s not listed in B&#39;s elements.</p>
+
+<p>It&#39;s helpful to think of a set as a box, i.e. a real layer of structure. So 3 and {3} are different objects. The first is a number, the second is a box containing a number. If you have sets inside sets, that&#39;s also important structure. For example, the following two sets aren&#39;t equal. The first set has only three elements, one of which is a box.</p>
+
+<blockquote>{3, {4,5}, 6}<br />
+{3, 4, 5, 6}</blockquote>
+
+<p><img src="sets-figs/set-as-box.png" style="width:200px" /> <img src="sets-figs/set-as-box2.png" style="width:200px" /></p>
+
+<p>Sometimes shipping companies use boxes around boxes and empty boxes to fill space. So you might get something like this from Amazon: \(\{3,\{4,5\}, \emptyset\}\). That looks like this:</p>
+
+<p><img src="sets-figs/set-as-box3.png" style="width:200px" /></p>
+
+<p>The box idea is particularly helpful when trying to understand formulas involving the empty set. The empty set is written with a shorthand notation (\(\emptyset\)) that makes it seem like an atomic object. In fact, it is a box with nothing in it. It may help to think about the empty set as {}. (Don&#39;t write that in a final answer, because it&#39;s not correct mathematical notation.)</p>
+
+<p>Why isn&#39;t the empty set written as {}? Well, probably for the same reason that empty lists and null pointers often have a distinctive symbol in computer languages. It makes notation with complex structure (e.g. nested curly brackets) easier to read.</p>
+
+<p>Now, how about \(\{1,2,3\} \cap \{4,5,6\}\)? That&#39;s a set that doesn&#39;t contain anything, which is the empty set. \(\{1,2,3\} \cap \{4,5,6\} = \emptyset\)?</p>
+
+<p>So what is \(\{\emptyset \}\)? This is a box containing the empty set, i.e. a box containing an empty box. The empty set is just a single empty box.</p>
+
+<p><img src="sets-figs/set-of-empty-set.png" style="width:300px" /></p>
+
+<p>Here is a physical version of \(\{\{\ \emptyset \}\}\).</p>
+
+<p><img src="sets-figs/physical-boxes.jpg" style="width:300px" /></p>
+
+<h2>Vacuous truth</h2>
+
+<p>Now, suppose that A is some set. (It doesn&#39;t matter which set you pick for A.) Is the empty set a subset of A?</p>
+
+<p>Let&#39;s recall our definition of what it means for one set to be a subset of another:</p>
+
+<blockquote>Definition: \(B \subseteq A\) if and only if<br />
+\(\forall x\), if \(x \in B\), then \(x \in A\)</blockquote>
+
+<p>Notice the difference in symbols: \(\subseteq\) is subset inclusion, \(\in\) is membership.</p>
+
+<p>Now, suppose that B is the emptyset. Let&#39;s substitute that into our definition of subset inclusion:</p>
+
+<blockquote>\(\emptyset \subseteq A\) if and only if<br />
+\(\forall x\), if \(x \in \emptyset\), then \(x \in A\)</blockquote>
+
+<p>But if we pick any value x, \(x \in \emptyset\) is always false, because there isn&#39;t anything in the empty set. So the hypothesis is never true. Remember the funny truth table for if/then statements in mathematics: if the hypothesis is false, then the whole statement is true. This means that &quot;if \(x \in \emptyset\), then \(x \in A\)&quot; is true for every x. So &quot; \(\forall x\), if \(x \in \emptyset\), then \(x \in A\)&quot; is true. So \(\emptyset \subseteq A\).</p>
+
+<p>Statements that are true for this reason make even mathematicians slightly nervous. So they are often described in a special way: a statement like \(\emptyset \subseteq A\) is &quot;vacuously true.&quot;</p>
+
+<h2>Set-builder notation</h2>
+
+<p>Another piece of set theory that you may not have seen before is set-builder notation. You&#39;ve probably seen sets defined like this:</p>
+
+<blockquote>A = {3, 4, 5}<br />
+B = {positive integers}<br />
+C = {0, 1, 4, 9, 16, 25, ....}</blockquote>
+
+<p>The first two methods work well for small finite sets and for sets that are easy to describe in words. The third notation is fine if it&#39;s easy to see the pattern, but it can be unclear if the pattern is complex or not obvious. Set-builder notation gives us a precise way to define a wider variety of sets.</p>
+
+<p>Here&#39;s an example</p>
+
+<blockquote>\(A = \{(x,y) \in \mathbb{R}^2 \ \mid \ x = y^2\}\)</blockquote>
+
+<p>The part before the separator (|) describes a general class of objects, pairs of real numbers in this case. The part after the separator contains constraints that objects in the set must satisfy. You can think of the process as enumerating all objects in the general class, and then using the constraints to filter out just the objects that we want to put into the set. So A contains pairs of real numbers for which the first coordinate is the square of the second coordinate (e.g. (4,2)).</p>
+
+<p>The distinction between the two halves of the notation is a bit fuzzy. So we could also define our set A like this:</p>
+
+<blockquote>\(A = \{(x,y) \ \mid \ x \in \mathbb{R}, y \in \mathbb{R}, \text{ and } x = y^2\}\)</blockquote>
+
+<p>Also notice that a colon (:) is sometimes used as the separator. This is particularly likely when the vertical bar is being used for something other purpose. For example, this set B contains pairs of integers where the first integer divides the second one (e.g. (3,6)).</p>
+
+<blockquote>\( B = \{(p,q) \in \mathbb{Z}^2 \ : \ p | q \}\)</blockquote>
+
+<h2>Figure out the sets from section 5.10</h2>
+
+<p>Let&#39;s consider the following two sets. I claim that \(A \subseteq B \).</p>
+
+<p>\(A = \{\lambda(2,3) + (1 - \lambda)(7,4) \ \mid\ \lambda \in [0,1] \}\)</p>
+
+<p>\(B = \{(x,y) \ \mid \ x,y \in \mathbb{R}, x \ge 0, \text{ and } y \ge 0 \}\)</p>
+
+<p>Gulp. What&#39;s in these sets anyhow? Probably useful to figure that out, so that we can feel confident that my claim is correct, before trying to prove it.</p>
+
+<p>The set B is the upper right quadrant.</p>
+
+<p>A contains all the things you get when you put values for lambda into this expression: \(\lambda(2,3) + (1 - \lambda)(7,4) \). Be quiet if you recognize what this is, so the rest of us can figure it out.</p>
+
+<p>Remember that [0,1] is the interval of the real line between 0 and 1, including both endpoints. So \(\lambda\) is a real number. That means that \(\lambda(2,3)\) is a real number multiplied by a vector, i.e. equal to \((2\lambda,3\lambda)\).</p>
+
+<p>Suppose we set \(\lambda = 1/2\). Then \(\lambda(2,3) + (1 - \lambda)(7,4) = 1/2(2,3) + 1/2(7,4) = (1, 1.5) + (3.5, 2) = (4.5,3.5) \)</p>
+
+<p>We can make a table of what this expression produces for various values of \(\lambda\). Notice that the set definition says that \(\lambda\) must live in the range [0,1].</p>
+
+<table cellpadding="5" rules="all">
+	<tbody>
+		<tr>
+			<td>\(\lambda\)</td>
+			<td>\(1-\lambda\)</td>
+			<td>\(\lambda(2,3) + (1 - \lambda)(7,4) \)</td>
+		</tr>
+		<tr>
+			<td>0</td>
+			<td>1</td>
+			<td>(7,4)</td>
+		</tr>
+		<tr>
+			<td>1/3</td>
+			<td>2/3</td>
+			<td>(5.33, 3.67)</td>
+		</tr>
+		<tr>
+			<td>1/2</td>
+			<td>1/2</td>
+			<td>(4.5, 3.5)</td>
+		</tr>
+		<tr>
+			<td>2/3</td>
+			<td>1/3</td>
+			<td>(3.67, 3.33)</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>0</td>
+			<td>(2,3)</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>And then sketch these on a handy scrap of paper.</p>
+
+<p><img src="sets-figs/sketch-for-line-segment.png" style="width:300px" /></p>
+
+<p>Aha, if we filled in a few more dots, this looks like it might be a line segment. And the line segment looks like it lives in the upper right quadrant. Strictly speaking, our proof of the claim (next video) won&#39;t need this geometric description. But it helps make the claim seem sensible rather than just some game with equations.</p>
+</body>
+</html>

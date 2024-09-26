@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Contradiction 1 </h2>
+</div>
+
+
+<hr>
+
+<h2>Try it and see</h2>
+
+<hr>
+
+  <p>
+    Suppose that we have a graph G.   To show that G has chromatic number 4, we needed to do
+    two things.   First, we showed a coloring with four colors.   Second, we needed to show that
+    four colors were actually required.   Often we did this by identifying a
+    subgraph that was known to require four colors e.g. a \(K_4\).   But sometimes we needed
+    to use a "try it and see" argument.
+    
+
+  <p>
+    For example, consider this graph
+
+  <p>
+    <img width=200 src="contradiction-figs/coloring1.png">
+
+  <p>
+    Suppose we try to color it with only three colors.    Then we can make our choice of
+    colors for the first triangle:
+
+  <p>
+    <img width=200 src="contradiction-figs/coloring2.png">
+
+  <p>
+    If we examine nodes that are adjacent to the part that's already colored, we have only
+    one way to color h, then a, then e.
+
+  <p>
+    <img width=200 src="contradiction-figs/coloring3.png">
+    <img width=200 src="contradiction-figs/coloring4.png">
+    <img width=200 src="contradiction-figs/coloring5.png">
+
+  <p>
+    But then we are stuck, because node b is adjacent to nodes with all three colors.
+
+   <p>
+    <img width=200 src="contradiction-figs/coloring6.png">
+
+   <p>
+     So we've tried out the hypothesis that 3 colors is enough, and discovered that it
+     didn't work out.
+
+<hr>
+<h2>Proof by contradiction</h2>
+<hr>
+
+   <p>
+     A proof by contradiction uses this sort of argument.    We suppose that our claim
+     is false and show that this leads to an impossible situation.     The outline is:
+     
+<blockquote>
+   Claim:  P
+
+<p>
+   Proof:  Suppose not.  That is (give the negation of P).  <br>
+         ...  <br>
+         X and not X (contradiction)
+</blockquote>
+
+   <p>
+In a sense, we're creating a fantasy world.    We intend to prove P, so obviously
+we think P is true.    But we're assuming it's not.   So we're deliberately creating
+a world that is problematic and we're messing with it until it fails.     
+
+<p>
+Technically, we should
+end on a literal logical contradiction, "X and not X".   However, in practice,
+it's fine to end with any statement well known to be false (e.g. \(x^2 < 0\))
+or a pair of statements well known to be inconsistent (e.g. \(x < 3\) and
+\(x > 17\)).
+
+
+
+<hr>
+		       <h2>\(\sqrt{2}\) is not rational</h2>
+<hr>
+
+<p>
+Let's use this method to prove that \(\sqrt{2}\) is not rational.
+This is a very famous proof dating back to at least Euclid (around 3rd century BC).
+
+<p>
+Before we start, let's clarify some known facts.    First, our definition of a rational
+number says that a real number n is rational if n can be written as \(n = \frac{a}{b}\) where a and b
+are integers and b is not zero.
+As we know from grade school, we can put this fraction into lowest terms
+by removing any factors that a and b share.   
+
+<p>
+Second, we'll need this lemma:
+
+<blockquote>
+Lemma:  an integer n is even if and only if \(n^2\) is even.
+</blockquote>
+
+<p>
+We proved one direction near the start of the term, i.e. that the square of an odd
+number is odd.   And it's easy to show that the square of an even integer is even.
+
+<p>
+Now, let's construct the main proof.
+
+<blockquote>
+Claim:  \(\sqrt{2}\) is not rational.
+</blockquote>
+
+<blockquote>
+Proof:   Suppose not.  That is, suppose that \(\sqrt{2}\) is rational.
+</blockquote>
+
+<p>
+The first line tells the reader that we're doing a proof by contradiction.   And it's a
+good time to firm up what the negation of the claim is, if your claim is at all complex.
+Now, let's use the definition of rational:
+
+<blockquote>
+Since \(\sqrt{2}\) is rational, we can write it as 
+\(\sqrt{2} = \frac{a}{b}\) where a and b are integers, b is not zero, and
+a and b do not share any factors.
+</blockquote>
+
+<p>
+A simple way to deal with square roots in proofs is to try to get rid of them by squaring.
+
+<blockquote>
+Squaring both sides of \(\sqrt{2} = \frac{a}{b}\) gives us \(2 = \frac{a^2}{b^2}\). 
+<p>
+So \(a^2 = 2b^2\).   
+<p>
+So \(a^2\) is even.   
+</blockquote>
+
+<p>
+Now use the lemma:
+
+<blockquote>
+Since \(a^2\) is even, a must be even.   So \(a = 2p\) where p is an integer.
+
+<p>
+Substituting this back into our equation gives us
+\((2p)^2 = 2b^2\).   
+</blockquote>
+
+<p>
+Do you feel like we're going around in circles?   The problem is that we don't
+have a clear goal that we're heading for, just something contradictory.
+The vague goal makes proofs by contradiction harder to write, which is why it's
+usually better to use a direct or contrapositive proof.
+
+
+<blockquote>
+<p>
+Simplifying \((2p)^2 = 2b^2\) gives us \(2p^2 = b^2\).   
+<p>
+So \(b^2\) is even, which means that
+b is even.
+</blockquote>
+
+<p>
+Ok, so what's the contradiction?
+
+<blockquote>
+<p>
+We've shown that both a and b are even.   But we assumed at the start that
+they did not share any common factors.   So we've found a contradiction.
+
+</blockquote>
+
+
+<hr>
+<h2>High-level points</h2>
+<hr>
+
+<p>
+Proof by contradiction can be very useful for proving certain types of claims
+where other proof methods would be awkward.
+A typical example is a non-existence claim,
+e.g. there is no coloring with 3 colors, there is no fraction equivalent to \(\sqrt{2}\).
+There's a few situations where proof by contradiction is the only option that works.
+
+<p>
+However,
+the method of creating and then destroying a fantasy world is 
+frequently less convincing than a "constructive" proof where you
+incrementally build up a set of facts.  There is even a branch of mathematics
+that has experimented with building most of standard mathematics without
+proof by contradiction.
+
+<p>
+Also, contradiction proofs are easy to start but can be hard to finish, because of the
+vague goal in the outline.   It's easy to end up going around in circles.
+
+
+</body>
+</html>

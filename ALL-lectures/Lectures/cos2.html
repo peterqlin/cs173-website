@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1"><meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+	<title>CS173 Lectures</title>
+	<link href="../menu.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!--- load Mathjax ---><script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!--- Cute course logo --->
+<div style="float:left"><img alt="UI logo" src="graphics/plain-logo.png" style="height:40px; width:28px" /></div>
+
+<div style="float:left">CS 173<br />
+Spring 2021</div>
+
+<div class="center">
+<h2>Collections of Sets 2</h2>
+</div>
+
+<p><img src="cos-figs/bakery.png" style="width:300px" /> <img src="cos-figs/lemon-almond.png" style="width:200px" /></p>
+
+<hr />
+<h2>Counting subsets (no repetition)</h2>
+
+<p>Remember that the Emerald City Bakery makes muffins with various combinations of these add-ons:</p>
+
+<blockquote>A = {add-ons} = {chocolate-chip, blueberry, orange, almond, lemon, cherry, walnut}</blockquote>
+
+<p>As we saw in the previous video, there are \(2^7\) different subsets of A. This count includes the empty set and also the entire set A.</p>
+
+<p>Suppose we ask a different question: how many subsets of A containing exactly 3 elements? You may recall from chapter 1 or previous math classes that this is \({7 \choose 3} = \frac{7!}{3!4!}\). In general, if our set contains n objects and we wish to pick a subset of size k, the number of possible subsets is \({n \choose k} = \frac{n!}{k!(n-k)!}\).</p>
+
+<h2>Counting combinations with repetition</h2>
+
+<p>Now, let&#39;s change the problem a bit. Suppose the bakery made 5 types today: plain (p), blueberry (b), cherry (c), orange (o), lemon-almond (L). How many ways can I choose an assortment of 10 muffins for my group meeting?</p>
+
+<p>Notice that the assortment doesn&#39;t have an order. So it&#39;s like a set, except that we can have more than one copy of some (or all) types. Here are three ways that I might choose the muffins in order. Notice that two of them are the same assortment.</p>
+
+<p><img alt="(1) bcopboLoop, (2) ppbbLLLbpp, (3) = pbpbLooooc" src="cos-figs/muffins1.png" style="width:300px" /></p>
+
+<p>If you haven&#39;t seen this sort of problem before, it&#39;s not at all obvious how to count the possibilities. If you consider your options for picking each muffin, in order, it&#39;s not obvious how to avoid counting the same assortment more than once. There&#39;s a trick. And this specific formula is much easier to remember and apply correctly if you know how to derive it.</p>
+
+<p>The first step is to put our muffin types in a specific order. We&#39;ll pick this order: p, b, c, o, L. So our three assortments look like this:</p>
+
+<p><img alt="(1)=(3) ppbbcooooL, (2) ppppbbbLLL" src="cos-figs/muffins2.png" style="width:300px" /></p>
+
+<p>Then we&#39;re going to put dividers between the types of muffins. We&#39;re going to do this like the compartments in a cash register: each type has its own bin, so the dividers stay even if a bin is empty.</p>
+
+<p><img alt="pp|bb|c|oooo|L, (2) pppp|bbb|||LLL" src="cos-figs/muffins3.png" style="width:300px" /></p>
+
+<p>Now notice that the letters are redundant. We have a fixed convention about which bin contains which type of muffin. So we can simplify our representations to use a single symbol for each muffin.</p>
+
+<p><img alt="**|**|*|****|* and ****|***||***" src="cos-figs/muffins4.png" style="width:300px" /></p>
+
+<p>Notice that the dividers can be on the ends. For example, here&#39;s how to represent four blueberry, two cherry, and four orange.</p>
+
+<p><img alt="|****|**|****|" src="cos-figs/muffins5.png" style="width:300px" /></p>
+
+<p>Now we have representations that we can easily count. Each one contains 14 symbols: 10 muffins and 4 dividers. The symbols can be arranged in any order. So, to count the possibilities, we have 14 positions, from which we need to choose four to contain the dividers. So we have \({14 \choose 4} = \frac{14}{4! 10!}\) possible assortments.</p>
+
+<p><img src="cos-figs/muffins6.png" style="width:300px" /></p>
+
+<p>Notice that we can also count the possibilities by asking how many ways we can choose a set of 10 positions to contain the muffins. So then we have \({14 \choose 10}\) possibilities. But notice that \({14 \choose 10} = \frac{14!}{4! 10!} = {14 \choose 4}\). So both ways to see the problem give us the same answer.</p>
+
+<p>In general, let&#39;s suppose that we have n types of muffins and we&#39;d like to choose an assortment of k muffins. Then the formula is \[{{k+(n-1)} \choose {n-1}} = {{k+(n-1)} \choose {k}} \]</p>
+
+<p>As you can see, this formula is a bit difficult to remember. Also, it&#39;s extremely easy to get n and k confused. So it is much better to quickly talk yourself through the key points of the construction we just saw: how many objects, how many dividers (which is one less than the number of types).</p>
+</body>
+</html>

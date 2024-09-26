@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR"
+ content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+  <title>CS173 Lectures</title>
+<link rel="stylesheet" type="text/css" href="../menu.css" >
+</head>
+<body>
+
+<!- load Mathjax ->
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+<body>
+
+  <!- Cute course logo ->
+<div style="float:left">
+<img src="graphics/plain-logo.png" alt="UI logo" height="40" width="28">
+</div>
+
+<div style="float:left">
+CS 173<br>
+Spring 2021
+</div>
+
+
+<div class="center">
+	<h2>Number Theory 1</h2>
+</div>
+
+
+<hr>
+
+<p>
+  Number theory algorithms are used in n cryptography e.g. secure data exchange
+  protocols (e.g. ssh, sftp, https).   You've used these to communicate with
+  business like your bank, even if you weren't aware of it.    Number theory
+  is used to construct random (actually pseudo-random) number functions for
+  randomized data structures (e.g. hash tables), randomized algorithms (e.g.
+  quicksort), and applications (e.g. games) that require randomization.
+
+<p>
+  We won't go very deeply into number theory.    We'll primarily use it as an
+  excuse to practice direct proofs.
+
+<h2>The Euclidean algorithm</h2>
+
+
+<p>
+  Here's a really nice algorithm for computing the gcd of two integers, called the
+  Euclidean Algorithm.  To keep things simple, I'm assuming that inputs are both
+  positive.    It's not hard to extend this code to handle negative inputs.
+
+<blockquote>
+<pre>
+gcd(a,b)
+   while (b > 0)
+      r = remainder(a,b)
+      a = b
+      b = r
+   return a
+</pre>
+</blockquote>
+  
+<p>
+  Notice that this is pseudocode not real computer code.   Pseudocode is written for
+humans.   So it often leaves out small details and the syntax isn't precisely defined.  That's
+usually not a problem.
+
+<p>
+remainder(a,b) is the remainder left when we divide a by b.
+
+<p>
+If you prefer, we can write this recursively:
+<blockquote>
+<pre>
+gcd(a,b)
+   r = remainder(a,b)
+   if (r = 0)
+      return b
+   else
+      return gcd(b,r)
+</pre>
+</blockquote>
+
+<p>
+This is an extremely nice algorithm.   It's very efficient and it's very easy to simulate by
+hand.  Our job today will be to understand why it works.
+
+
+<h2>Formal definition of remainder</h2>
+
+<p>
+First, let's pin down what the remainder function does.   Here's a possible definition
+of quotient and remainder:
+
+
+<blockquote>
+  Suppose that a and b are integers, with b positive.   Then the quotient (q) and the
+  remainder (r) of a divided by b satisfy the equation: \(a = bq + r\)
+</blockquote>
+
+<p>
+So if a=15 and b=6, then we can satisfy the equation using q=2 and r=3.  
+
+<p>
+However, notice that this equation doesn't completely pin down the values of q and r.
+We could also choose q=1 and r=9. Or q=3 and r= -3.
+So the actual mathematical definition contains two constraints:
+
+<blockquote>
+  Suppose that a and b are integers, with b positive.   Then the quotient (q) and the
+  remainder (r) of a divided by b satisfy the equations:  \(a = bq + r\) and \(0 \le r < b\)
+</blockquote>
+
+
+<p>
+For example, suppose that we want to compute remainder(-15,4).   The only solution
+to \(a = bq + r\) with b in the correct range is \(-15 = 4\cdot(-4) + 1 \)
+So remainder(-15,4) = 1.
+If you're uncertain of the correct value, remember that the remainder is never negative
+and set up the equation explicitly.
+
+<p>
+Beware:  many programming languages do not follow the mathematical definition, and do
+a variety of different things when one or both inputs to remainder are negative.  
+Always check the manual before feeding negative inputs to remainder functions.
+
+<h2>An example</h2>
+
+<p>
+Let's compute gcd(255,483) by tracing the values in the iterative version.   
+
+<table rules = all frame=box cellpadding =5>
+
+  <tr>
+<th>a</th>
+<th>b</th>
+<th>r = remainder(a,b)</th>
+<th></th>
+  </tr>
+
+  <tr>
+<th>255</th>
+<td>483</td>
+<td>255</td>
+<td></td>
+  </tr>
+
+  <tr>
+<th>483</th>
+<td>255</td>
+<td>228</td>
+<td>We now have \(a > b\)</td>
+  </tr>
+
+  <tr>
+<th>255</th>
+<td>228</td>
+<td>27</td>
+<td></td>
+  </tr>
+
+  <tr>
+<th>228</th>
+<td>27</td>
+<td>12</td>
+<td></td>
+  </tr>
+
+  <tr>
+<th>27</th>
+<td>12</td>
+<td>3</td>
+<td></td>
+  </tr>
+
+  <tr>
+<th>12</th>
+<td>3</td>
+<td>0</td>
+<td></td>
+  </tr>
+
+  <tr>
+<th>3</th>
+<td>0</td>
+<td>---</td>
+<td>return 3</td>
+  </tr>
+
+</table>
+
+
+<h2>Correctness</h2>
+
+<p>
+To show that the Euclidean Algorithm is correct, i.e. computes the gcd, we need to show
+three things:
+
+<ol>
+<li> The algorithm halts in a finite amount of time.
+<li>  Resetting the variable values inside the while loop 
+ doesn't change the value of gcd(a,b).
+<li>  The return value at the end is correct, i.e. gcd(a,0) = a.
+</ol>
+
+<p>
+(1) is true because remainder(a,b) is always strictly smaller than b.
+So each iteration reduces the size of b.  Since the values are positive
+integers, this means that it must reach zero in a finite number of steps.
+(This wouldn't necessarily be true if the values were real numbers.)
+
+<p>
+We'll get back to (2).
+
+<p>
+To understand why (3) is true, we need to remember exactly how divides is defined
+in the textbook:
+
+<blockquote>
+   An integer p divides an integer q (written \(p \mid q\)) if and only if q = pn, for some integer n. 
+</blockquote>
+
+<p>
+I claim that every integer divides 0.   To see this, let's set up the equation from
+the definition:   \(0 = pn\).   No matter what value p has, we can make this equation
+balance by setting n to be zero.
+
+<p>
+Now remember that gcd(a,b) is the largest integer that divides both a and b.
+Since everything divides zero, a is the largest integer that divides both 0 and a.
+So \(\gcd(a,0)= a\).
+
+<p>
+In case you were wondering, gcd(0,0) isn't defined.  Since all integers divide zero,
+there is no maximum divisor.
+
+
+<h2>Outline of proof for variable reset</h2>
+
+<p>
+Now we need to show that resetting the variable values in our loop doesn't change the
+value of gcd(a,b).   That is:
+
+<blockquote>
+Claim: for any positive integers a and b, gcd(a,b) = gcd(b,remainder(a,b)).
+</blockquote>
+
+<p>
+It's actually just as easy to prove a more general claim:
+
+<blockquote>
+Claim 2: for any integers a, b,q,r, where b is positive, if a = bq + r, then gcd(a,b) =  gcd(b,r).
+</blockquote>
+
+<p>
+Here's the outline of how to prove this:
+
+<ol>
+<li> Suppose a = bq + r
+<li> Any k that divides a and b also divides r.  
+     i.e. any common factor of a and b is also a factor of r.
+<li> Any k that divides b and r also divides a.  
+<li> So if we make the common factors into sets, we have
+{common factors of a and b}  = {common factors of b and r}
+<li> Since the two sets are equal, the maximum values in the two sets must
+be equal.   That is,
+gcd(a,b) = gcd(b,r).
+</ol>
+
+<p>
+We will prove (2) in the next video.   The proof for (3) is extremely similar, and left as
+an exercise.  Proving these will complete the proof that our gcd algorithm is correct.
+
+
+</body>
+</html>
