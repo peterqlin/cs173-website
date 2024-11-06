@@ -3,7 +3,7 @@ tr { font-family: "Roboto",sans-serif;line-height: 1.5;}
 ul { font-family: "Roboto",sans-serif; line-height: 1.5;}
 h1 { font-family: Arial; color: #343bc2;}
 h2 { font-family: Arial; color: #343bc2;}
-h3 { font-family: Arial; color: #343bc2;}
+.large { font-family: Arial; font-size: large; color: black;}
 
 html {
   box-sizing: border-box;

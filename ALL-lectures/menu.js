@@ -1,45 +1,44 @@
 oldcoursedir='http://courses.engr.illinois.edu/cs173/';
 menuarray=[
     {t:'Home',a:'../index.html'},
-    {t:'Staff',a:'staff.html'},
-    {t:'Grading',a:'../Common/Info/grading-formula-and-assigned-work.html'},
-    {t:'Help &#8609;',
+    {t:'Lectures and Tutorials',a:'lectures.html'},
+    {t:'Textbook',a:'http://mfleck.cs.illinois.edu/building-blocks/index-sp2020.html'},
+    {t:'Syllabus',a:'../Common/Info/grading-formula-and-assigned-work.html'},
+    {t:'Piazza',a:'https://piazza.com/illinois/fall2024/becd'},//
+    {t:'PrairieLearn',a:'https://us.prairielearn.com/pl/course_instance/161917'},//
+    {t:'Discord',a:'https://discord.gg/fXPfErs9dm'},//
+    {t:'Exams',a:'Exams/index.html'},
+    {t:'Prior Terms &nbsp; &#x21a1;',
+        k:[
+        {t:'Spring 2024',a:oldcoursedir+'sp2024/'},
+        {t:'Fall 2023',a:oldcoursedir+'fa2023/'},
+        {t:'Spring 2023',a:oldcoursedir+'sp2023/'},
+        {t:'Fall 2022',a:oldcoursedir+'fa2022/'},
+        {t:'Spring 2022',a:oldcoursedir+'sp2022/'},
+        {t:'Fall 2021',a:oldcoursedir+'fa2021/'},
+        {t:'Spring 2021',a:oldcoursedir+'sp2021/'},
+        {t:'Fall 2020',a:oldcoursedir+'fa2020/'},
+        {t:'Spring 2020',a:oldcoursedir+'sp2020/'},
+        {t:'Fall 2019',a:oldcoursedir+'fa2019/'},
+        {t:'Spring 2019',a:oldcoursedir+'sp2019/'},
+        {t:'Fall 2018',a:oldcoursedir+'fa2018/'},
+        {t:'Spring 2018',a:oldcoursedir+'sp2018/'},
+        {t:'Fall 2017',a:oldcoursedir+'fa2017/'},
+        {t:'Spring 2017',a:oldcoursedir+'sp2017/'},
+        {t:'Fall 2016',a:oldcoursedir+'fa2016/'},
+        {t:'Spring 2016',a:oldcoursedir+'sp2016/'},
+        ]},
+    {t:'Course Info + FAQ &#8609;',
         k:[
         {t:'FAQ',a:'../Common/Info/FAQ.html'},
         {t:'Missed Work',a:'../Common/Info/missed-work.html'},
         {t:'DRES',a:'../Common/Info/DRES.html'},
-        {t:'How to do well',a:'../Common/Info/doingwell.html'},
-        {t:'Big disasters',a:'../Common/Info/disaster.html'},
-        ]},
-    {t:'Lectures and Tutorials',a:'lectures.html'},
-    {t:'Textbook',a:'http://mfleck.cs.illinois.edu/building-blocks/index-sp2020.html'},
-    {t:'Piazza',a:'https://piazza.com/illinois/fall2024/becd'},//
-    {t:'PrairieLearn',a:'https://us.prairielearn.com/pl/course_instance/161917'},//
-    {t:'Exams',a:'Exams/index.html'},
-    {t:'Prior Terms &nbsp; &#x21a1;',
-    k:[
-    {t:'Spring 2017',a:oldcoursedir+'sp2017/'},
-    {t:'Fall 2016',a:oldcoursedir+'fa2016/'},
-    {t:'Spring 2016',a:oldcoursedir+'sp2016/'},
-    {t:'Fall 2015',a:oldcoursedir+'fa2015/'},
-    {t:'Spring 2015',a:oldcoursedir+'sp2015/'},
-    {t:'Fall 2014',a:oldcoursedir+'fa2014/'},
-    {t:'Summer 2014',a:oldcoursedir+'su2014/'},
-    {t:'Spring 2014',a:oldcoursedir+'sp2014/'},
-    {t:'Fall 2013',a:oldcoursedir+'fa2013/'},
-    {t:'Summer 2013',a:oldcoursedir+'su2013/'},
-    {t:'Spring 2013',a:oldcoursedir+'sp2013/'},
-    {t:'Fall 2012',a:oldcoursedir+'fa2012/'},
-    {t:'Summer 2012',a:oldcoursedir+'su2012/'},
-    {t:'Spring 2012',a:oldcoursedir+'sp2012/'},
-    {t:'Fall 2011',a:oldcoursedir+'fa2011/'},
-    {t:'Spring 2011',a:oldcoursedir+'sp2011/'},
-    {t:'Fall 2010',a:oldcoursedir+'fa2010/'},
-    {t:'Spring 2010',a:oldcoursedir+'sp2010/'},
-    {t:'Fall 2009',a:oldcoursedir+'fa2009/'},
-    {t:'Spring 2009',a:oldcoursedir+'sp2009/'},
-    {t:'Fall 2008',a:oldcoursedir+'fa2008/'}
-    ]}
+        {t:'How To Do Well',a:'../Common/Info/doingwell.html'},
+        {t:'Big Disasters',a:'../Common/Info/disaster.html'},
+        {t:'Staff',a:'staff.html'},
+    ]},
+    
+    
     ];
 
     // document.getElementById('TopMenu').innerHTML=json2menu(menuarray);
