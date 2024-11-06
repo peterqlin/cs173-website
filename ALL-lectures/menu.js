@@ -42,14 +42,38 @@ menuarray=[
     ]}
     ];
 
+    // function json2menu(a){
+    //     var s='<ul>', spth='https://courses.grainger.illinois.edu/cs173/fa2024/ALL-lectures/', u=document.URL;
+    //     for(var i=0; i<a.length; i++){
+    //         var l=a[i].a ? ((/^http/.test(a[i].a)?'':spth)+a[i].a) : 'placeholder',
+    //         c=(u==l?'class="curnt" ':'');
+    //         s+='<li>' + (a[i].a ? '<a style="color: white" href="'+l+'" '+c+'>' : '<span ' + c + 'style="color: white;" class="menu-link">') + a[i].t + (a[i].a ? '</a>' : '</span>') + (typeof a[i].k!='undefined'?json2menu(a[i].k):'')+'</li>';
+    //     }
+    //     s+='</ul>'; return s;
+    // }
+
+    // document.getElementById('TopMenu').innerHTML=json2menu(menuarray);
     function json2menu(a){
         var s='<ul>', spth='https://courses.grainger.illinois.edu/cs173/fa2024/ALL-lectures/', u=document.URL;
         for(var i=0; i<a.length; i++){
-            var l=a[i].a ? ((/^http/.test(a[i].a)?'':spth)+a[i].a) : 'placeholder',
-            c=(u==l?'class="curnt" ':'');
-            s+='<li>' + (a[i].a ? '<a style="color: white" href="'+l+'" '+c+'>' : '<span ' + c + 'style="color: white;" class="menu-link">') + a[i].t + (a[i].a ? '</a>' : '</span>') + (typeof a[i].k!='undefined'?json2menu(a[i].k):'')+'</li>';
+            var l=a[i].a ? ((/^http/.test(a[i].a) ? '' : spth) + a[i].a) : 'placeholder',
+                c=(u==l ? 'class="curnt" ' : '');
+            
+            // Check if the link is for Piazza or PrairieLearn
+            var targetAttr = (l.includes('piazza.com') || l.includes('prairielearn.com')) ? ' target="_blank"' : '';
+            
+            s += '<li>' + 
+                 (a[i].a 
+                    ? `<a style="color: white" href="${l}" ${c} ${targetAttr}>` 
+                    : '<span ' + c + 'style="color: white;" class="menu-link">') + 
+                 a[i].t + 
+                 (a[i].a ? '</a>' : '</span>') + 
+                 (typeof a[i].k != 'undefined' ? json2menu(a[i].k) : '') +
+                 '</li>';
         }
-        s+='</ul>'; return s;
+        s += '</ul>'; 
+        return s;
     }
-
-    document.getElementById('TopMenu').innerHTML=json2menu(menuarray);
+    
+    document.getElementById('TopMenu').innerHTML = json2menu(menuarray);
+    
